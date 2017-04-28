@@ -39,16 +39,17 @@ public class ControlledObject extends MoveableObject {
         super(position, world);
 //        world.gameplayScreen.gameCam.position.x = position.x;
 //        world.gameplayScreen.gameCam.position.y = position.y;
-        this.bounds = new Rectangle(position.x + 16, position.y, 10, 10);
+        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
+        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
         this.controls = controls;
         this.playnr = playnr;
         System.out.println(this.bounds);
         this.speed = 10f;
         this.hitpoints = 5;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
 //        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
 //            for (int j = 0; j<4; j++){

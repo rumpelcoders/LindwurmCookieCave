@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import eu.quickgdx.game.ScreenManager;
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 
 /**
@@ -16,7 +17,8 @@ public class GoodCookieObject extends MoveableObject {
 
     public GoodCookieObject(Vector2 position, World world) {
         super(position, world);
-        this.bounds = new Rectangle(position.x + 16, position.y, 10, 10);
+        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
+        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
     }
 
     public void hit(GameObject player) {

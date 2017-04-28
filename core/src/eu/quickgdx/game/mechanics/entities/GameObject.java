@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.states.State;
 import eu.quickgdx.game.mechanics.World;
 
@@ -112,6 +113,14 @@ public abstract class GameObject {
 
     public void setHitpoints(int hitpoints) {
         this.hitpoints = hitpoints;
+    }
+
+    public int getTileX(){
+        return (int)this.position.x/ Constants.TILESIZE;
+    }
+
+    public int getTileY(){
+        return (int)this.position.y/ Constants.TILESIZE;
     }
 
 }

@@ -59,6 +59,8 @@ public class QuickGdx extends ApplicationAdapter {
         //Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);
         assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
+        assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
+        assMan.load(Constants.PLAYER_ASSET, Texture.class);
 
     }
 

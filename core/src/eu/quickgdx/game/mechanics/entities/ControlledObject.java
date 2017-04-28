@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 
 /**
@@ -27,21 +28,25 @@ public class ControlledObject extends MoveableObject {
     private Animation movingDownAnimation;
     private Animation movingSideAnimation;
     private TextureRegion frame;
+    private Controls controls;
+    private int playnr;
 
-    private boolean cameraFollow = true; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
+    private boolean cameraFollow = false; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
 
-    public ControlledObject(Vector2 position, World world) {
+    public ControlledObject(Vector2 position, World world, Controls controls, int playnr) {
         super(position, world);
-        world.gameplayScreen.gameCam.position.x = position.x;
-        world.gameplayScreen.gameCam.position.y = position.y;
-        this.bounds = new Rectangle(position.x + 10, position.y, 25, 20);
+//        world.gameplayScreen.gameCam.position.x = position.x;
+//        world.gameplayScreen.gameCam.position.y = position.y;
+        this.bounds = new Rectangle(position.x + 16, position.y, 10, 10);
+        this.controls = controls;
+        this.playnr = playnr;
         System.out.println(this.bounds);
         this.speed = 10f;
         this.hitpoints = 5;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/movingAnimation_Down.png", 0.3f, 45, 64);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, 16, 16);
 //        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
 //            for (int j = 0; j<4; j++){
@@ -64,7 +69,7 @@ public class ControlledObject extends MoveableObject {
         calcDirection();
         Vector2 newPosition = new Vector2(Math.round(position.x), Math.round(position.y));
         newPosition.add(direction.nor().scl(speed));
-        Rectangle newBounds = new Rectangle(newPosition.x + 10, newPosition.y, 25, 20);
+        Rectangle newBounds = new Rectangle(newPosition.x, newPosition.y, 10, 10);
         for (int j = 0; j < world.gameObjects.size; j++) {
             GameObject gameObject = world.gameObjects.get(j);
             if (gameObject.bounds != null) {
@@ -118,22 +123,22 @@ public class ControlledObject extends MoveableObject {
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) || Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(controls.DOWN)) {
             moveDown = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP) || Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(controls.UP)) {
             moveUp = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(controls.LEFT)) {
             moveLeft = true;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(controls.RIGHT)) {
             moveRight = true;
         }
-
-        if (Gdx.input.justTouched()) {
-            touch(world.gameplayScreen.gameCam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1)));
-        }
+//      ignore touch atm
+//        if (Gdx.input.justTouched()) {
+//            touch(world.gameplayScreen.gameCam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1)));
+//        }
     }
 
     /**

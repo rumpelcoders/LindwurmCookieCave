@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.states.State;
 
@@ -19,7 +20,8 @@ public class BadCookieObject extends MoveableObject {
         super(position, world);
         state = new State(0, this, 1000, true) {
         };
-        this.bounds = new Rectangle(position.x + 16, position.y, 10, 10);
+        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
+        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
     }
 
     @Override

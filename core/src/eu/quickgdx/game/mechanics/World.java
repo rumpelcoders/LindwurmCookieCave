@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 
 import org.omg.CORBA.MARSHAL;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.entities.BadCookieObject;
 import eu.quickgdx.game.mechanics.entities.CollisionObject;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
@@ -119,7 +120,7 @@ public class World {
                 if (cell != null) {
                     Object property = cell.getTile().getProperties().get("collision");
                     if (property != null) {
-                        gameObjects.add(new CollisionObject(new Vector2(x * SCALE * 16, y * SCALE * 16), this, SCALE * 16, SCALE * 16));
+                        gameObjects.add(new CollisionObject(new Vector2(x * SCALE * Constants.TILESIZE, y * SCALE * Constants.TILESIZE), this, SCALE * Constants.TILESIZE, SCALE * Constants.TILESIZE));
                     }
                 }
             }

@@ -134,22 +134,22 @@ public class World {
             String type = object.get("type", String.class);
             if (type.equals("controllableObject")) {
                 Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
-                ControlledObject playerObj1 = new ControlledObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls1, 1);
+                PlayerCharacterObject playerObj1 = new PlayerCharacterObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls1, 1);
                 gameObjects.add(playerObj1);
                 controlledObjects.add(playerObj1);
 
                 Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D);
-                ControlledObject playerObj2 = new ControlledObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls2, 2);
+                PlayerCharacterObject playerObj2 = new PlayerCharacterObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls2, 2);
                 gameObjects.add(playerObj2);
                 controlledObjects.add(playerObj2);
 
                 Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H);
-                ControlledObject playerObj3 = new ControlledObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls3, 3);
+                PlayerCharacterObject playerObj3 = new PlayerCharacterObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls3, 3);
                 gameObjects.add(playerObj3);
                 controlledObjects.add(playerObj3);
 
                 Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
-                ControlledObject playerObj4 = new ControlledObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls4, 4);
+                PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2(Math.round(object.get("x", Float.class) * SCALE), Math.round(object.get("y", Float.class) * SCALE)), this, controls4, 4);
                 gameObjects.add(playerObj4);
                 controlledObjects.add(playerObj4);
 

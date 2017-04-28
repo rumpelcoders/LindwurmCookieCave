@@ -13,7 +13,6 @@ public class PlayerCharacterObject extends ControlledObject {
 
     public PlayerCharacterObject(Vector2 position, World world,Controls controls,int playerNr) {
         super(position, world,controls,playerNr);
-
     }
 
     @Override
@@ -27,10 +26,10 @@ public class PlayerCharacterObject extends ControlledObject {
         for(int i = 0; i < world.gameObjects.size; i++){
             GameObject gameObject = world.gameObjects.get(i);
             if(gameObject.bounds != null){
-                if(gameObject.bounds.overlaps(world.goodCookieObject.bounds)){
-                    world.goodCookieObject.hit();
-                } else if(gameObject.bounds.overlaps(world.badCookieObject.bounds)){
-                    world.badCookieObject.hit();
+                if(gameObject.bounds.overlaps(world.goodCookieObject.bounds) && gameObject.getClass() == PlayerCharacterObject.class){
+                    world.goodCookieObject.hit(gameObject);
+                } else if(gameObject.bounds.overlaps(world.badCookieObject.bounds) && gameObject.getClass() == PlayerCharacterObject.class){
+                    world.badCookieObject.hit(gameObject);
                 }
             }
         }

@@ -12,6 +12,8 @@ import com.badlogic.gdx.math.Vector3;
 
 import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
+import eu.quickgdx.game.mechanics.states.SlowState;
+import eu.quickgdx.game.mechanics.states.State;
 
 /**
  * Gives you an simple object controlled by the user
@@ -76,6 +78,12 @@ public class ControlledObject extends MoveableObject {
                 if (gameObject.bounds.overlaps(newBounds)) {
                     if (gameObject.getClass() == CollisionObject.class)
                         return;
+                }
+            }
+            for (State state : states){
+                if(state.equals(SlowState.class)){
+                    speed = 5f;
+                    break;
                 }
             }
         }

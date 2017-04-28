@@ -3,6 +3,7 @@ package eu.quickgdx.game;
 import com.badlogic.gdx.Screen;
 
 import eu.quickgdx.game.screens.CreditsScreen;
+import eu.quickgdx.game.screens.GameOverScreen;
 import eu.quickgdx.game.screens.GameplayScreen;
 import eu.quickgdx.game.screens.LoadingScreen;
 import eu.quickgdx.game.screens.MenuScreen;
@@ -39,6 +40,8 @@ public class ScreenManager {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {
                 currentScreen = new GameplayScreen(parentGame);
+            } else if (state == ScreenState.GameOver) {
+                currentScreen = new GameOverScreen(parentGame);
             }
         }
     }

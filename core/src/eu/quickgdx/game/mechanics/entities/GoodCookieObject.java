@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
+import eu.quickgdx.game.ScreenManager;
 import eu.quickgdx.game.mechanics.World;
 
 /**
@@ -18,13 +19,12 @@ public class GoodCookieObject extends MoveableObject {
         this.bounds = new Rectangle(position.x + 16, position.y, 10, 10);
     }
 
-    public boolean hit() {
-
-        return false;
+    public void hit(GameObject player) {
+        world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.GameOver);
     }
 
     @Override
     public void render(float delta, SpriteBatch spriteBatch) {
-        
+
     }
 }

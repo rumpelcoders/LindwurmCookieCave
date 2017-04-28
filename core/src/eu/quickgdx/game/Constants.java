@@ -7,4 +7,5 @@ package eu.quickgdx.game;
 public class Constants {
 
     public final static String PLAYER_ASSET = "gameplay/test_char.png";
+    public final static int TILESIZE = 16;
 }

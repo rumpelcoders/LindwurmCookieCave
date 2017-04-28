@@ -74,7 +74,7 @@ public class ControlledObject extends MoveableObject {
             GameObject gameObject = world.gameObjects.get(j);
             if (gameObject.bounds != null) {
                 if (gameObject.bounds.overlaps(newBounds)) {
-                    if (gameObject.getClass() != this.getClass())
+                    if (gameObject.getClass() == CollisionObject.class)
                         return;
                 }
             }

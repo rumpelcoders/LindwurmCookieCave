@@ -14,10 +14,17 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+
+import org.omg.CORBA.MARSHAL;
+
+import eu.quickgdx.game.mechanics.entities.BadCookieObject;
 import eu.quickgdx.game.mechanics.entities.CollisionObject;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
 import eu.quickgdx.game.mechanics.entities.Controls;
 import eu.quickgdx.game.mechanics.entities.GameObject;
+import eu.quickgdx.game.mechanics.entities.GoodCookieObject;
+import eu.quickgdx.game.mechanics.entities.MoveableObject;
+import eu.quickgdx.game.mechanics.entities.PlayerCharacterObject;
 import eu.quickgdx.game.mechanics.hud.HUD;
 import eu.quickgdx.game.screens.GameplayScreen;
 
@@ -31,6 +38,8 @@ public class World {
     public HUD hud;
     ShapeRenderer sr = new ShapeRenderer();
     Array<ControlledObject> controlledObjects;
+    public GoodCookieObject goodCookieObject;
+    public BadCookieObject badCookieObject;
 
     //Tiled Map Variables
     String level = "level/sampleMap.tmx"; //This is your example Tiled Map.
@@ -118,6 +127,7 @@ public class World {
 
         // load controlled objects from map
         MapObjects objects = map.getLayers().get("objects").getObjects();
+
         // create controlled objects
         for (int i = 0; i < objects.getCount(); i++) {
             MapProperties object = objects.get(i).getProperties();
@@ -143,6 +153,12 @@ public class World {
                 gameObjects.add(playerObj4);
                 controlledObjects.add(playerObj4);
 
+                //TODO: delete later on
+                goodCookieObject = new GoodCookieObject(new Vector2(160,160),this);
+                badCookieObject = new BadCookieObject(new Vector2(200,200),this);
+
+                gameObjects.add(goodCookieObject);
+                gameObjects.add(badCookieObject);
             }
         }
     }

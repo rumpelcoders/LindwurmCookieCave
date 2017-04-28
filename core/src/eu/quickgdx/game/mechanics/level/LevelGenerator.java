@@ -11,10 +11,12 @@ import eu.quickgdx.game.mechanics.entities.MoveableObject;
  */
 public class LevelGenerator {
 
-    public static Level generateLevel(int levelsize, Array<ControlledObject> playerlist, MoveableObject goodcookie){
+    public static Level generateLevel(int levelsize, Array<ControlledObject> playerlist, Array<MoveableObject> cookielist){
         Level lvl = new Level(levelsize);
         for (ControlledObject player: playerlist) {
-            generatePath(lvl, player, goodcookie);
+            for (MoveableObject cookie: cookielist) {
+                generatePath(lvl, player, cookie);
+            }
         }
         obscureMap(lvl);
         finishMap(lvl);

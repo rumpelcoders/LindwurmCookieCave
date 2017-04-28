@@ -12,6 +12,10 @@ public class Level {
     public Level(int levelsize) {
         this.levelsize = levelsize;
         typemap = new Tiletype[levelsize][levelsize];
-        Arrays.fill(typemap, Tiletype.WALL);
+        for (int x = 0; x < levelsize; x++) {
+            for (int y = 0; y < levelsize; y++) {
+                typemap[x][y] = Tiletype.WALL;
+            }
+        }
     }
 }

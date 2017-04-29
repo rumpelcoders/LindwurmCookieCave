@@ -1,12 +1,10 @@
 package eu.quickgdx.game.mechanics.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -46,10 +44,10 @@ public class ControlledObject extends MoveableObject {
         System.out.println(this.bounds);
         this.speed = 10f;
         this.hitpoints = 5;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.PLAYER_ASSET, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
 //        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
 //        for (int i = 0; i<3; i++){
 //            for (int j = 0; j<4; j++){
@@ -93,6 +91,7 @@ public class ControlledObject extends MoveableObject {
             }
 
         }
+
         this.bounds = newBounds;
 
         this.position.add(direction.nor().scl(speed));

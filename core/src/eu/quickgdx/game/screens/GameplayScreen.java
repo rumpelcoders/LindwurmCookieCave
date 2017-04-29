@@ -37,7 +37,8 @@ public class GameplayScreen extends ScreenAdapter {
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         gameCam = new OrthographicCamera(QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
-        float screenMultiplikator = 2f;
+        float screenMultiplikator = 1f;
+        gameCam.zoom += 2.5f;
         gameCam.position.set(gameCam.viewportWidth / screenMultiplikator, gameCam.viewportHeight / screenMultiplikator, 0);
         gameCam.update();
         hudCam = new OrthographicCamera(QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);

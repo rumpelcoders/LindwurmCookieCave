@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import eu.quickgdx.game.QuickGdx;
-import eu.quickgdx.game.mechanics.World;
-import eu.quickgdx.game.mechanics.entities.ControlledObject;
 
 import java.text.DecimalFormat;
+
+import eu.quickgdx.game.QuickGdx;
+import eu.quickgdx.game.mechanics.World;
 
 /**
  * Created by Veit on 23.02.2016.
  */
 public class HUD {
+    private String debugText;
     World world;
-    ControlledObject object;
     static BitmapFont textFont;
     private GlyphLayout layout = new GlyphLayout();
     boolean multiplierUp = false;
@@ -23,19 +23,23 @@ public class HUD {
     DecimalFormat df = new DecimalFormat("#.##");
     Texture hitpointIndicator;
 
-    public HUD(ControlledObject object, World world) {
-        this.object = object;
+    public HUD(World world) {
         this.world = world;
+        this.debugText = "";
         textFont = world.gameplayScreen.parentGame.getAssetManager().get("fonts/RabbidHighwaySignII.fnt", BitmapFont.class);
         hitpointIndicator = world.gameplayScreen.parentGame.getAssetManager().get("hud/life_small.png");
     }
 
+    public void setDebugText(String debugText) {
+        this.debugText = debugText;
+    }
+
     public void render(float delta, SpriteBatch hudBatch) {
         //draws the hitpoint indicator
-        for (int i = 0; i < object.getHitpoints(); i++) {
-            hudBatch.draw(hitpointIndicator, (62 + 10 * i + hitpointIndicator.getWidth() * i), QuickGdx.GAME_HEIGHT - hitpointIndicator.getHeight() - 68);
+//        layout.setText(textFont, "Position: " + object.getPosition().x + " | " + object.getPosition().y);
+        if (debugText != null && debugText.length() > 0) {
+            layout.setText(textFont, debugText);
         }
-        layout.setText(textFont, "Position: " + object.getPosition().x + " | " + object.getPosition().y);
         textFont.draw(hudBatch, layout, QuickGdx.GAME_WIDTH / 2 - layout.width / 2, QuickGdx.GAME_HEIGHT - layout.height - 650);
     }
 }

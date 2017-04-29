@@ -3,14 +3,13 @@ package eu.quickgdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import eu.quickgdx.game.CamObject;
@@ -36,7 +35,7 @@ public class GameplayScreen extends ScreenAdapter {
     String[] menuStrings = {"Play", "Credits", "Exit"};
     int currentMenuItem = 0;
 
-    float offsetLeft = Constanze.GAME_WIDTH / 8, offsetTop = Constanze.GAME_WIDTH / 8, offsetY = Constanze.GAME_HEIGHT / 8;
+    //float offsetLeft = Constanze.GAME_WIDTH / 8, offsetTop = Constanze.GAME_WIDTH / 8, offsetY = Constanze.GAME_HEIGHT / 8;
 
 
     public GameplayScreen(QuickGdx game) {
@@ -48,44 +47,37 @@ public class GameplayScreen extends ScreenAdapter {
         float screenMultiplikator = 2f;
         this.gameCams = new Array<>();
         this.viewports = new Array<>();
+        int border = 40;
         for (int playNr = 0; playNr < nrPlayers; playNr++) {
 //            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
             CamObject gameCam = new CamObject(playNr);
-            FitViewport screenViewport = new FitViewport(Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2, gameCam);
+            ScreenViewport screenViewport = new ScreenViewport(gameCam);
             screenViewport.update(Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2);
             int xStart = 0;
-            int xEnd = 0;
+            int xEnd = (Constanze.GAME_WIDTH / 2) - border;
             int yStart = 0;
-            int yEnd = 0;
+            int yEnd = (Constanze.GAME_HEIGHT / 2) - border;
             switch (playNr) {
                 case 0:
-                    xStart = 10;
-                    xEnd = 950;
-                    yStart = 10;
-                    yEnd = 530;
+                    xStart = border;
+                    yStart = border;
                     break;
                 case 1:
-                    xStart = 970;
-                    xEnd = 1910;
-                    yStart = 10;
-                    yEnd = 530;
+                    xStart = (Constanze.GAME_WIDTH / 2) + border;
+                    yStart = border;
                     break;
                 case 2:
-                    xStart = 10;
-                    xEnd = 950;
-                    yStart = 550;
-                    yEnd = 1070;
+                    xStart = border;
+                    yStart = (Constanze.GAME_HEIGHT / 2) + border;
                     break;
                 case 3:
-                    xStart = 970;
-                    xEnd = 1910;
-                    yStart = 550;
-                    yEnd = 1070;
+                    xStart = (Constanze.GAME_WIDTH / 2) + border;
+                    yStart = (Constanze.GAME_HEIGHT / 2) + border;
                     break;
             }
             screenViewport.setScreenBounds(xStart, yStart, xEnd, yEnd);
             viewports.add(screenViewport);
-//            gameCam.zoom += 2.5f;
+            gameCam.zoom += 1.2f;
             gameCam.position.set(0, 0, 0);
             gameCam.update();
             gameCams.add(gameCam);
@@ -108,10 +100,10 @@ public class GameplayScreen extends ScreenAdapter {
         world.update(delta);
         for (int i = 0; i < gameCams.size; i++) {
             CamObject gameCam = gameCams.get(i);
-            viewports.get(i).apply();
             gameBatch.setProjectionMatrix(gameCam.combined);
+            viewports.get(i).apply();
+            world.render(delta, gameBatch, gameCam);
             gameCam.update();
-            world.render(delta, gameBatch);
 
         }
 

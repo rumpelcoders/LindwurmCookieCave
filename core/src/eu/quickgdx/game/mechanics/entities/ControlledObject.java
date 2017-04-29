@@ -20,6 +20,7 @@ import eu.quickgdx.game.mechanics.states.State;
  * Created by Veit on 06.02.2016.
  */
 public class ControlledObject extends MoveableObject {
+    private final int boundsSize;
     //    private TextureRegion[] regions = new TextureRegion[12];
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
 
@@ -39,24 +40,40 @@ public class ControlledObject extends MoveableObject {
         super(position, world);
 //        world.gameplayScreen.gameCam.position.x = position.x;
 //        world.gameplayScreen.gameCam.position.y = position.y;
-        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
-        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
+        boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
+        this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
         this.playnr = playnr;
         System.out.println(this.bounds);
         this.speed = 10f;
         this.hitpoints = 5;
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(Constants.ASSET_PLAYER, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-//        this.texture = world.gameplayScreen.parentGame.getAssetManager().get("gameplay/spritesheet.png");
-//        for (int i = 0; i<3; i++){
-//            for (int j = 0; j<4; j++){
-//                regions[i+(j*3)]= new TextureRegion(texture, i*46, j*64, 46, 64);
-//            }
-//        }
-
+        String assetIdle;
+        String assetUp;
+        String assetDown;
+        String assetSide;
+        switch (playnr){
+            case 1:
+                assetIdle = Constants.ASSET_OWL_FRONT;
+                assetUp = Constants.ASSET_OWL_FRONT;
+                assetDown = Constants.ASSET_OWL_FRONT;
+                assetSide = Constants.ASSET_OWL_FRONT;
+                break;
+            case 2:
+                assetIdle = Constants.ASSET_WIZARD_FRONT;
+                assetUp = Constants.ASSET_WIZARD_FRONT;
+                assetDown = Constants.ASSET_WIZARD_FRONT;
+                assetSide = Constants.ASSET_WIZARD_FRONT;
+                break;
+            default:
+                assetIdle = Constants.ASSET_PLAYER;
+                assetUp = Constants.ASSET_PLAYER;
+                assetDown = Constants.ASSET_PLAYER;
+                assetSide = Constants.ASSET_PLAYER;
+        }
+        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetIdle, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetUp, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetSide, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
     }
 
     @Override
@@ -79,7 +96,7 @@ public class ControlledObject extends MoveableObject {
             }
         }
         newPosition.add(direction.nor().scl(updateSpeed));
-        Rectangle newBounds = new Rectangle(newPosition.x, newPosition.y, 10, 10);
+        Rectangle newBounds = new Rectangle(newPosition.x, newPosition.y, boundsSize, boundsSize);
 
         for (int j = 0; j < world.gameObjects.size; j++) {
             GameObject gameObject = world.gameObjects.get(j);

@@ -166,13 +166,13 @@ public class World {
         this.cookieCount = mapHeight / 30 + players.size;
         goodCookieObject = new GoodCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
                 (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
-        goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE,goodCookieObject.getTileY() * Constants.TILESIZE));
+        goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE, goodCookieObject.getTileY() * Constants.TILESIZE));
         gameObjects.add(goodCookieObject);
-        for(int i=0;i<cookieCount;i++) {
+        for (int i = 0; i < cookieCount; i++) {
 
             BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
                     (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
-            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE,badCookieObject.getTileY() * Constants.TILESIZE));
+            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE, badCookieObject.getTileY() * Constants.TILESIZE));
             gameObjects.add(badCookieObject);
         }
 
@@ -192,34 +192,24 @@ public class World {
         AssetManager assMann = this.gameplayScreen.parentGame.getAssetManager();
         Texture groundTexture = assMann.get(Constants.ASSET_MAP_GROUND);
         Texture wallTexture = assMann.get(Constants.ASSET_MAP_CEILING_W);
-        Texture ceiling_borderless_empty= assMann.get(Constants.ASSET_MAP_CEILING_BORDERLESS_EMPTY);
-        Texture ceiling_e= assMann.get(Constants.ASSET_MAP_CEILING_E);
-        Texture ceiling_e_empty= assMann.get(Constants.ASSET_MAP_CEILING_E_EMPTY);
-        Texture ceiling_n= assMann.get(Constants.ASSET_MAP_CEILING_N);
-        Texture ceiling_ne_empty= assMann.get(Constants.ASSET_MAP_CEILING_NE_EMPTY);
-        Texture ceiling_nse_empty= assMann.get(Constants.ASSET_MAP_CEILING_NSE_EMPTY);
-        Texture ceiling_nswe= assMann.get(Constants.ASSET_MAP_CEILING_NSWE);
-        Texture ceiling_nsw_empty= assMann.get(Constants.ASSET_MAP_CEILING_NSW_EMPTY);
-        Texture ceiling_ns_empty= assMann.get(Constants.ASSET_MAP_CEILING_NS_EMPTY);
-        Texture ceiling_nwe_empty= assMann.get(Constants.ASSET_MAP_CEILING_NWE_EMPTY);
-        Texture ceiling_nw_empty= assMann.get(Constants.ASSET_MAP_CEILING_NW_EMPTY);
-        Texture ceiling_n_empty= assMann.get(Constants.ASSET_MAP_CEILING_N_EMPTY);
-        Texture ceiling_s= assMann.get(Constants.ASSET_MAP_CEILING_S);
-        Texture ceiling_se_empty= assMann.get(Constants.ASSET_MAP_CEILING_SE_EMPTY);
-        Texture ceiling_swe_empty= assMann.get(Constants.ASSET_MAP_CEILING_SWE_EMPTY);
-        Texture ceiling_sw_empty= assMann.get(Constants.ASSET_MAP_CEILING_SW_EMPTY);
-        Texture ceiling_s_empty= assMann.get(Constants.ASSET_MAP_CEILING_S_EMPTY);
-        Texture ceiling_w= assMann.get(Constants.ASSET_MAP_CEILING_W);
-        Texture ceiling_we_empty= assMann.get(Constants.ASSET_MAP_CEILING_WE_EMPTY);
-        Texture ceiling_w_empty= assMann.get(Constants.ASSET_MAP_CEILING_W_EMPTY);
-        Texture cookie_bag= assMann.get(Constants.ASSET_MAP_COOKIE_BAG);
-        Texture floor= assMann.get(Constants.ASSET_MAP_FLOOR);
-        Texture floor_wall= assMann.get(Constants.ASSET_MAP_FLOOR_WALL);
-        Texture floor_wall_ending_left= assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_LEFT);
-        Texture floor_wall_ending_right= assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT);
-        Texture floor_wall_ending_right_left= assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT_LEFT);
-        Texture owl_front= assMann.get(Constants.ASSET_MAP_OWL_FRONT);
-        Texture wizard_front= assMann.get(Constants.ASSET_MAP_WIZARD_FRONT);
+        Texture ceiling_e_empty = assMann.get(Constants.ASSET_MAP_CEILING_E_EMPTY);
+        Texture ceiling_ne_empty = assMann.get(Constants.ASSET_MAP_CEILING_NE_EMPTY);
+        Texture ceiling_nse_empty = assMann.get(Constants.ASSET_MAP_CEILING_NSE_EMPTY);
+        Texture ceiling_nswe = assMann.get(Constants.ASSET_MAP_CEILING_NSWE);
+        Texture ceiling_nsw_empty = assMann.get(Constants.ASSET_MAP_CEILING_NSW_EMPTY);
+        Texture ceiling_ns_empty = assMann.get(Constants.ASSET_MAP_CEILING_NS_EMPTY);
+        Texture ceiling_nwe_empty = assMann.get(Constants.ASSET_MAP_CEILING_NWE_EMPTY);
+        Texture ceiling_nw_empty = assMann.get(Constants.ASSET_MAP_CEILING_NW_EMPTY);
+        Texture ceiling_n_empty = assMann.get(Constants.ASSET_MAP_CEILING_N_EMPTY);
+        Texture ceiling_se_empty = assMann.get(Constants.ASSET_MAP_CEILING_SE_EMPTY);
+        Texture ceiling_swe_empty = assMann.get(Constants.ASSET_MAP_CEILING_SWE_EMPTY);
+        Texture ceiling_sw_empty = assMann.get(Constants.ASSET_MAP_CEILING_SW_EMPTY);
+        Texture ceiling_s_empty = assMann.get(Constants.ASSET_MAP_CEILING_S_EMPTY);
+        Texture ceiling_we_empty = assMann.get(Constants.ASSET_MAP_CEILING_WE_EMPTY);
+        Texture ceiling_w_empty = assMann.get(Constants.ASSET_MAP_CEILING_W_EMPTY);
+        Texture floor_wall_ending_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_LEFT);
+        Texture floor_wall_ending_right = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT);
+        Texture floor_wall_ending_right_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT_LEFT);
 
 
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
@@ -230,7 +220,6 @@ public class World {
             for (int y = 0; y < mapHeight; y++) {
                 Tiletype type = level.typemap[x][y];
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-<<<<<<< HEAD
                 boolean collision = true;
                 StaticTiledMapTile tile = null;
                 switch (type) {
@@ -298,7 +287,7 @@ public class World {
                     case CEILING_WE:
                         tile = new StaticTiledMapTile(new TextureRegion(ceiling_we_empty));
                         break;
-                    default:
+                    default: //the fallback
                         tile = new StaticTiledMapTile(new TextureRegion(groundTexture));
                         collision = false;
                 }
@@ -306,30 +295,12 @@ public class World {
                 layerGround.setCell(x, y, cell);
                 if (collision) {
                     gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
-
-=======
-                if (type.equals(Tiletype.FLOOR)) {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(groundTexture)));
-                    layerGround.setCell(x, y, cell);
-                } else {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
-                    layerCollision.setCell(x, y, cell);
-                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
->>>>>>> df6ba6445f6c9317f2853849106fb2196c069ae2
                 }
             }
+            this.map.getLayers().add(layerGround);
+            this.map.getLayers().add(layerCollision);
         }
-
-
-    this.map.getLayers().
-
-    add(layerGround);
-
-    this.map.getLayers().
-
-    add(layerCollision);
-
-}
+    }
 
     public void addFogLayer() {
         FogLayer fogLayer = new FogLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);

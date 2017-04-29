@@ -179,7 +179,7 @@ public class ControlledObject extends MoveableObject {
     }
 
     public void cameraFollow(Vector2 vector) {
-        world.gameplayScreen.gameCam.translate(vector);
+        world.gameplayScreen.player1Cam.translate(vector);
     }
     @Override
     public void addState(State state) {

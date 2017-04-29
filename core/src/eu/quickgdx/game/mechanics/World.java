@@ -106,7 +106,7 @@ public class World {
     }
 
     public void render(float delta, SpriteBatch spriteBatch) {
-        tiledMapRenderer.setView(gameplayScreen.gameCam);
+        tiledMapRenderer.setView(gameplayScreen.player1Cam);
         tiledMapRenderer.render();
         spriteBatch.begin();
         for (GameObject go : gameObjects) {
@@ -115,7 +115,7 @@ public class World {
         spriteBatch.end();
 
         //Debug Renderer
-        sr.setProjectionMatrix(gameplayScreen.gameCam.combined);
+        sr.setProjectionMatrix(gameplayScreen.player1Cam.combined);
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(0, 1, 0, 1);
         for (GameObject gameObject : gameObjects) {

@@ -11,7 +11,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = Constants.GAME_WIDTH;
         config.height = Constants.GAME_HEIGHT;
-		config.fullscreen = true;
+		config.fullscreen = false;
 		new LwjglApplication(new QuickGdx(), config);
 
 	}

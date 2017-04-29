@@ -123,4 +123,7 @@ public abstract class GameObject {
         return (int)this.position.y/ Constants.TILESIZE;
     }
 
+    public Vector2 getTilePoint() {
+        return new Vector2(getTileX(),getTileY());
+    }
 }

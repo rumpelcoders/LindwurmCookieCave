@@ -127,9 +127,9 @@ public class World {
     }
 
     public void renderHUD(float delta, SpriteBatch hudBatch) {
-//        hudBatch.begin();
-//        this.hud.render(delta, hudBatch);
-//        hudBatch.end();
+        hudBatch.begin();
+        this.hud.render(delta, hudBatch);
+        hudBatch.end();
     }
 
     public void touch(Vector3 touchCoords) {

@@ -37,6 +37,8 @@ public class HUD {
     public void render(float delta, SpriteBatch hudBatch) {
         //draws the hitpoint indicator
 //        layout.setText(textFont, "Position: " + object.getPosition().x + " | " + object.getPosition().y);
+        Texture lindwurm = this.world.gameplayScreen.parentGame.getAssetManager().get(Constanze.ASSET_LINDWURM_STANDARD.path, Texture.class);
+        hudBatch.draw(lindwurm, 0, 0);
         if (debugText != null && debugText.length() > 0) {
             layout.setText(textFont, debugText);
         }

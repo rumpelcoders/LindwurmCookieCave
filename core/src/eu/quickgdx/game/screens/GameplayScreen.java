@@ -47,7 +47,7 @@ public class GameplayScreen extends ScreenAdapter {
         float screenMultiplikator = 2f;
         this.gameCams = new Array<>();
         this.viewports = new Array<>();
-        int border = 40;
+        int border = Constanze.TILESIZE * 2;
         for (int playNr = 0; playNr < nrPlayers; playNr++) {
 //            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
             CamObject gameCam = new CamObject(playNr);
@@ -84,7 +84,10 @@ public class GameplayScreen extends ScreenAdapter {
         }
 
         hudCam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-        hudCam.position.set(hudCam.viewportWidth / screenMultiplikator, hudCam.viewportHeight / screenMultiplikator, 0);
+        ScreenViewport screenViewport = new ScreenViewport(hudCam);
+        screenViewport.update(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
+        viewports.add(screenViewport);
+//        hudCam.position.set(hudCam.viewportWidth / screenMultiplikator, hudCam.viewportHeight / screenMultiplikator, 0);
         hudCam.update();
         gameBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
@@ -110,6 +113,7 @@ public class GameplayScreen extends ScreenAdapter {
         }
 
         hudBatch.setProjectionMatrix(hudCam.combined);
+        viewports.get(viewports.size - 1).apply();
         world.renderHUD(delta, hudBatch);
         hudCam.update();
     }

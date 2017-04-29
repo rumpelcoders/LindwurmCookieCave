@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 
 import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
+import eu.quickgdx.game.mechanics.states.NoMovementState;
 import eu.quickgdx.game.mechanics.states.SlowState;
 import eu.quickgdx.game.mechanics.states.State;
 
@@ -63,7 +64,6 @@ public class ControlledObject extends MoveableObject {
         super.update(delta);
         handleInput();
         handleMovement(delta);
-
     }
 
     @Override
@@ -74,6 +74,8 @@ public class ControlledObject extends MoveableObject {
         for (State state : states) {
             if (state instanceof SlowState) {
                 updateSpeed = ((SlowState) state).getSlowPercentage() * updateSpeed;
+            }if (state instanceof NoMovementState) {
+                return;
             }
         }
         newPosition.add(direction.nor().scl(updateSpeed));
@@ -194,4 +196,10 @@ public class ControlledObject extends MoveableObject {
     public int getPlaynr() {
         return playnr;
     }
+
+    @Override
+    public void addState(State state) {
+        super.addState(state);
+    }
+
 }

@@ -1,6 +1,8 @@
 package eu.quickgdx.game.mechanics.states.global;
 
 import eu.quickgdx.game.mechanics.World;
+import eu.quickgdx.game.mechanics.entities.ControlledObject;
+import eu.quickgdx.game.mechanics.states.NoMovementState;
 
 /**
  * Created by putzchri on 29.04.2017.
@@ -21,6 +23,9 @@ public class GlobalFogState extends GlobalState {
     @Override
     protected void onStateCreated() {
         this.world.addFogLayer();
+        for(ControlledObject controlledObject : this.world.controlledObjects) {
+            controlledObject.addState(new NoMovementState(controlledObject,5f));
+        }
     }
 
 }

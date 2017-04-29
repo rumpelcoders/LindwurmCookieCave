@@ -62,6 +62,9 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load(Constants.ASSET_PLAYER, Texture.class);
         assMan.load(Constants.ASSET_OWL_FRONT, Texture.class);
         assMan.load(Constants.ASSET_WIZARD_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_FAIRY_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_SPACEORG_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_WIZARD_FRONT, Texture.class);
         assMan.load(Constants.ASSET_FOG, Texture.class);
         assMan.load(Constants.ASSET_MAP_GROUND, Texture.class);
         assMan.load(Constants.ASSET_MAP_CEILING_W, Texture.class);

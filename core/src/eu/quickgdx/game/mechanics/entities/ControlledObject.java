@@ -1,6 +1,8 @@
 package eu.quickgdx.game.mechanics.entities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +10,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.states.NoMovementState;
@@ -33,12 +36,14 @@ public class ControlledObject extends MoveableObject {
     protected Controls controls;
 
 
-    private boolean cameraFollow = false; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
+    private boolean cameraFollow = true; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
+    private CamObject gameCam;
 
-    public ControlledObject(Vector2 position, World world, Controls controls) {
+    public ControlledObject(Vector2 position, World world, Controls controls, CamObject camera) {
         super(position, world);
-//        world.gameplayScreen.gameCam.position.x = position.x;
-//        world.gameplayScreen.gameCam.position.y = position.y;
+        gameCam = camera;
+        camera.position.x = position.x;
+        camera.position.y = position.y;
         boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 3;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
@@ -51,11 +56,11 @@ public class ControlledObject extends MoveableObject {
     public void update(float delta) {
         super.update(delta);
         handleInput();
-        handleMovement(delta);
+        handleMovement(delta, true);
     }
 
     @Override
-    void handleMovement(Float delta) {
+    void handleMovement(Float delta, boolean updateCamera) {
         calcDirection();
         Vector2 newPosition = new Vector2(Math.round(position.x), Math.round(position.y));
         float updateSpeed = this.speed;
@@ -83,7 +88,7 @@ public class ControlledObject extends MoveableObject {
         this.bounds = newBounds;
 
         this.position.add(direction.nor().scl(updateSpeed));
-        if (cameraFollow) {
+        if (cameraFollow && updateCamera) {
             cameraFollow(direction.nor().scl(updateSpeed));
         }
         if (!direction.nor().isZero()) {
@@ -178,7 +183,7 @@ public class ControlledObject extends MoveableObject {
     }
 
     public void cameraFollow(Vector2 vector) {
-        world.gameplayScreen.gameCam.translate(vector);
+        this.gameCam.translate(vector);
     }
     @Override
     public void addState(State state) {

@@ -2,6 +2,7 @@ package eu.quickgdx.game.mechanics.entities;
 
 import com.badlogic.gdx.math.Vector2;
 
+import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.World;
 
@@ -13,14 +14,14 @@ public class PlayerCharacterObject extends ControlledObject {
 
     protected int playnr;
 
-    public PlayerCharacterObject(Vector2 position, World world, Controls controls, int playerNr) {
-        super(position, world, controls);
+    public PlayerCharacterObject(Vector2 position, World world, Controls controls, int playerNr, CamObject camera) {
+        super(position, world, controls, camera);
         this.playnr = playerNr;
         Constanze assetIdle;
         Constanze assetUp;
         Constanze assetDown;
         Constanze assetSide;
-        switch (playnr){
+        switch (playnr) {
             case 1:
                 assetIdle = Constanze.ASSET_OWL_FRONT;
                 assetUp = Constanze.ASSET_OWL_FRONT;
@@ -65,7 +66,7 @@ public class PlayerCharacterObject extends ControlledObject {
     }
 
     public void handleHit(float delta) {
-        handleMovement(delta);
+        handleMovement(delta, false);
 
         for (int i = 0; i < world.gameObjects.size; i++) {
             GameObject gameObject = world.gameObjects.get(i);

@@ -54,7 +54,7 @@ public enum Constanze {
     ASSET_CLOUD_SE("level/cloud_se.png"),
     ASSET_CLOUD_SW("level/cloud_sw.png");
 
-    public static final int FOG_TIME = 4;
+    public static final int FOG_TIME = 400;
 
     public final static int TILESIZE = 64;
     public final static float SCALE = 1.0f;

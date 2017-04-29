@@ -1,5 +1,6 @@
 package eu.quickgdx.game.mechanics.states.global;
 
+import eu.quickgdx.game.SoundManager;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
 import eu.quickgdx.game.mechanics.states.NoMovementState;
@@ -28,6 +29,7 @@ public class GlobalFogState extends GlobalState {
         for (ControlledObject controlledObject : this.world.controlledObjects) {
             controlledObject.addState(new NoMovementState(controlledObject, maxStateTime));
         }
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("mapchange1");
     }
 
 }

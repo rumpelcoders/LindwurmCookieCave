@@ -1,6 +1,7 @@
 package eu.quickgdx.game.mechanics;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -219,8 +220,30 @@ public class World {
                 this.map.getLayers().remove(mapLayer);
             }
         }
-        Texture groundTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_GROUND);
-        Texture wallTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_CEILING_W);
+        AssetManager assMann = this.gameplayScreen.parentGame.getAssetManager();
+        Texture groundTexture = assMann.get(Constants.ASSET_MAP_GROUND);
+        Texture wallTexture = assMann.get(Constants.ASSET_MAP_FLOOR_WALL);
+        Texture ceiling_e_empty = assMann.get(Constants.ASSET_MAP_CEILING_E_EMPTY);
+        Texture ceiling_ne_empty = assMann.get(Constants.ASSET_MAP_CEILING_NE_EMPTY);
+        Texture ceiling_nse_empty = assMann.get(Constants.ASSET_MAP_CEILING_NSE_EMPTY);
+        Texture ceiling_nswe = assMann.get(Constants.ASSET_MAP_CEILING_NSWE);
+        Texture ceiling_nsw_empty = assMann.get(Constants.ASSET_MAP_CEILING_NSW_EMPTY);
+        Texture ceiling_ns_empty = assMann.get(Constants.ASSET_MAP_CEILING_NS_EMPTY);
+        Texture ceiling_nwe_empty = assMann.get(Constants.ASSET_MAP_CEILING_NWE_EMPTY);
+        Texture ceiling_nw_empty = assMann.get(Constants.ASSET_MAP_CEILING_NW_EMPTY);
+        Texture ceiling_n_empty = assMann.get(Constants.ASSET_MAP_CEILING_N_EMPTY);
+        Texture ceiling_se_empty = assMann.get(Constants.ASSET_MAP_CEILING_SE_EMPTY);
+        Texture ceiling_swe_empty = assMann.get(Constants.ASSET_MAP_CEILING_SWE_EMPTY);
+        Texture ceiling_sw_empty = assMann.get(Constants.ASSET_MAP_CEILING_SW_EMPTY);
+        Texture ceiling_s_empty = assMann.get(Constants.ASSET_MAP_CEILING_S_EMPTY);
+        Texture ceiling_we_empty = assMann.get(Constants.ASSET_MAP_CEILING_WE_EMPTY);
+        Texture ceiling_w_empty = assMann.get(Constants.ASSET_MAP_CEILING_W_EMPTY);
+        Texture floor_wall_ending_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_LEFT);
+        Texture floor_wall_ending_right = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT);
+        Texture floor_wall_ending_right_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT_LEFT);
+        Texture ceiling_borderless_empty= assMann.get(Constants.ASSET_MAP_CEILING_BORDERLESS_EMPTY);
+
+
 
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
         // layer 0 - ground
@@ -230,18 +253,86 @@ public class World {
             for (int y = 0; y < mapHeight; y++) {
                 Tiletype type = level.typemap[x][y];
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                if (type.equals(Tiletype.FLOOR)) {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(groundTexture)));
-                    layerGround.setCell(x, y, cell);
-                } else {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
-                    layerCollision.setCell(x, y, cell);
+                boolean collision = true;
+                StaticTiledMapTile tile = null;
+                switch (type) {
+                    case FLOOR:
+                        tile = new StaticTiledMapTile(new TextureRegion(groundTexture));
+                        collision = false;
+                        break;
+                    case NONWALKABLE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_borderless_empty));
+                        break;
+                    case WALL:
+                        tile = new StaticTiledMapTile(new TextureRegion(wallTexture));
+                        break;
+                    case WALL_END_LEFT:
+                        tile = new StaticTiledMapTile(new TextureRegion(floor_wall_ending_left));
+                        break;
+                    case WALL_END_RIGHT:
+                        tile = new StaticTiledMapTile(new TextureRegion(floor_wall_ending_right));
+                        break;
+                    case WALL_END_BOTH:
+                        tile = new StaticTiledMapTile(new TextureRegion(floor_wall_ending_right_left));
+                        break;
+                    case CEILING_NSEW:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_nswe));
+                        break;
+                    case CEILING_N:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_n_empty));
+                        break;
+                    case CEILING_E:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_e_empty));
+                        break;
+                    case CEILING_W:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_w_empty));
+                        break;
+                    case CEILING_S:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_s_empty));
+                        break;
+                    case CEILING_NE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_ne_empty));
+                        break;
+                    case CEILING_NS:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_ns_empty));
+                        break;
+                    case CEILING_NSE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_nse_empty));
+                        break;
+                    case CEILING_NSW:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_nsw_empty));
+                        break;
+                    case CEILING_NW:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_nw_empty));
+                        break;
+                    case CEILING_NWE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_nwe_empty));
+                        break;
+                    case CEILING_SE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_se_empty));
+                        break;
+                    case CEILING_SW:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_sw_empty));
+                        break;
+                    case CEILING_SWE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_swe_empty));
+                        break;
+                    case CEILING_WE:
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_we_empty));
+                        break;
+                    default: //the fallback
+                        tile = new StaticTiledMapTile(new TextureRegion(groundTexture));
+                        collision = false;
+                }
+                cell.setTile(tile);
+                layerGround.setCell(x, y, cell);
+                if (collision) {
                     gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
                 }
             }
+            this.map.getLayers().add(layerGround);
+            this.map.getLayers().add(layerCollision);
         }
-        this.map.getLayers().add(layerGround);
-        this.map.getLayers().add(layerCollision);
     }
 
     public void addFogLayer() {

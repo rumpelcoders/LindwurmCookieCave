@@ -209,6 +209,14 @@ public class World {
                 }
             }
         }
+        for (int i = -1; i <= mapWidth ; i++) {
+            for (int j = -1; j <= mapHeight ; j++) {
+                if(i==-1||i==mapWidth|| j==-1 || j == mapHeight){
+                    gameObjects.add(new WallObject(new Vector2(i * Constanze.TILESIZE, j * Constanze.TILESIZE), this, Constanze.TILESIZE, Constanze.TILESIZE));
+                }
+            }
+        }
+
         this.map.getLayers().add(layerGround);
         this.map.getLayers().add(layerCollision);
     }

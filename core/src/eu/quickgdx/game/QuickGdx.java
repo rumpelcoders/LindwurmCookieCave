@@ -3,6 +3,7 @@ package eu.quickgdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -61,6 +62,8 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load("sfx/cookie3.mp3", Sound.class);
         assMan.load("sfx/cookie4.mp3", Sound.class);
         assMan.load("sfx/vomit.mp3", Sound.class);
+
+        assMan.load("sfx/dub.mp3", Music.class);
 
         //HUD
         assMan.load("hud/life_small.png", Texture.class);

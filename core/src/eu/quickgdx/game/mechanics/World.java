@@ -156,7 +156,7 @@ public class World {
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 2);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
 
         // layer 4 - collision
         // layer 5 - controlled objects

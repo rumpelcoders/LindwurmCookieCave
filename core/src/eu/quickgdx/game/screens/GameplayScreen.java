@@ -48,6 +48,7 @@ public class GameplayScreen extends ScreenAdapter {
         gameBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
         this.world = new World(this);
+        parentGame.getSoundManager().startBgMusic("bg1",true);
     }
 
     @Override
@@ -58,6 +59,7 @@ public class GameplayScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         world.update(delta);
+        parentGame.getSoundManager().update(delta);
         world.render(delta, gameBatch);
         world.renderHUD(delta, hudBatch);
         gameCam.update();

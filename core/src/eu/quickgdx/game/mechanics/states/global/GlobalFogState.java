@@ -22,10 +22,12 @@ public class GlobalFogState extends GlobalState {
         System.out.println(getClass().toString() + " remove");
         this.world.removeFogLayer();
         this.world.addGlobalState(new GlobalWaitForFogState(world, 15f)); //TODO make random here
+        world.gameplayScreen.parentGame.getSoundManager().startBgMusic("bg1",true);
     }
 
     @Override
     protected void onStateCreated() {
+        world.gameplayScreen.parentGame.getSoundManager().currentMusic.stop();
         System.out.println(getClass().toString() + " created");
         this.world.addFogLayer();
         for (ControlledObject controlledObject : this.world.controlledObjects) {

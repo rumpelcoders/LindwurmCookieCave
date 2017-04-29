@@ -7,6 +7,9 @@ package eu.quickgdx.game;
 public class Constants {
 
     public final static String ASSET_PLAYER = "gameplay/test_char_64.png";
+
+    public final static String ASSET_OWL_FRONT = "gameplay/owl_front.png";
+    public final static String ASSET_WIZARD_FRONT = "gameplay/wizard_front.png";
     public final static String ASSET_COOKIE_BAG = "gameplay/cookie_bag.png";
     public static final String ASSET_MAP_GROUND = "level/floor.png";
     public static final String ASSET_FOG = "level/fog_1.png";
@@ -46,5 +49,7 @@ public class Constants {
     public final static float SCALE = 1.0f;
     public final static float SCALED_TILE = TILESIZE * SCALE;
 
+    public static final int GAME_WIDTH = 1920;
+    public static final int GAME_HEIGHT = 1080;
 
 }

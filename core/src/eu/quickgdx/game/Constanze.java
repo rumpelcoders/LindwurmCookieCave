@@ -54,6 +54,8 @@ public enum Constanze {
     ASSET_CLOUD_SE("level/cloud_se.png"),
     ASSET_CLOUD_SW("level/cloud_sw.png"),
 
+    ASSET_TEST("level/black.png"),
+
     ASSET_ARENA_S("level/arenaborder_s.png"),
     ASSET_ARENA_E("level/arenaborder_e.png"),
     ASSET_ARENA_N("level/arenaborder_n.png"),

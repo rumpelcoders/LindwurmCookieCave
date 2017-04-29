@@ -62,18 +62,23 @@ public class PlayerCharacterObject extends ControlledObject {
     @Override
     public void update(float delta) {
         super.update(delta);
+        handleMovement(delta, false);
         handleHit(delta);
     }
 
     public void handleHit(float delta) {
-        handleMovement(delta, false);
-
         for (int i = 0; i < world.gameObjects.size; i++) {
             GameObject gameObject = world.gameObjects.get(i);
             if (gameObject instanceof MovableCollisionObject) {
                 MovableCollisionObject movableCollisionObject = (MovableCollisionObject) gameObject;
                 if (movableCollisionObject.getBounds().overlaps(this.bounds)) {
-                    movableCollisionObject.hit(this);
+                   movableCollisionObject.hit(this);
+                }
+            } else if (gameObject instanceof Projectile) {
+                if (gameObject.getBounds()!=null &&gameObject.getBounds().overlaps(this.bounds)) {
+                    if (((Projectile) gameObject).originObject != this) {
+                        ((Projectile) gameObject).hit(this);
+                    }
                 }
             }
         }

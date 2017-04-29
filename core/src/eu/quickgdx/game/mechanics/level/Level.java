@@ -14,8 +14,10 @@ public class Level {
         typemap = new Tiletype[levelsize][levelsize];
         for (int x = 0; x < levelsize; x++) {
             for (int y = 0; y < levelsize; y++) {
-                typemap[x][y] = Tiletype.WALL;
+                typemap[x][y] = Tiletype.NONWALKABLE;
             }
         }
+
+
     }
 }

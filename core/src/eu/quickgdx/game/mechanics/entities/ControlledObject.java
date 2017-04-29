@@ -81,12 +81,17 @@ public class ControlledObject extends MoveableObject {
                         return;
                 }
             }
-            for (State state : states){
-                if(state instanceof SlowState){
-                    speed = 5f;
-                    break;
+            if(states.size != 0) {
+                for (State state : states) {
+                    if (state instanceof SlowState) {
+                        speed = 5f;
+                        break;
+                    }
                 }
+            } else {
+                speed = 10f;
             }
+
         }
         this.bounds = newBounds;
 

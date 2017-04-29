@@ -77,12 +77,12 @@ public class ControlledObject extends MoveableObject {
             GameObject gameObject = world.gameObjects.get(j);
             if (gameObject.bounds != null) {
                 if (gameObject.bounds.overlaps(newBounds)) {
-                    if (gameObject.getClass() == CollisionObject.class)
+                    if (gameObject instanceof CollisionObject)
                         return;
                 }
             }
             for (State state : states){
-                if(state.equals(SlowState.class)){
+                if(state instanceof SlowState){
                     speed = 5f;
                     break;
                 }

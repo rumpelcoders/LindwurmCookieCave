@@ -26,9 +26,9 @@ public class PlayerCharacterObject extends ControlledObject {
         for(int i = 0; i < world.gameObjects.size; i++){
             GameObject gameObject = world.gameObjects.get(i);
             if(gameObject.bounds != null){
-                if(gameObject.bounds.overlaps(world.goodCookieObject.bounds) && gameObject.getClass() == PlayerCharacterObject.class){
+                if(gameObject.bounds.overlaps(world.goodCookieObject.bounds) && gameObject instanceof PlayerCharacterObject){
                     world.goodCookieObject.hit(gameObject);
-                } else if(gameObject.bounds.overlaps(world.badCookieObject.bounds) && gameObject.getClass() == PlayerCharacterObject.class){
+                } else if(gameObject.bounds.overlaps(world.badCookieObject.bounds) && gameObject instanceof PlayerCharacterObject){
                     world.badCookieObject.hit(gameObject);
                 }
             }

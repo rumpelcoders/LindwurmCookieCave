@@ -27,7 +27,7 @@ public abstract class MoveableObject extends GameObject {
         movingTime+=delta;
     }
 
-    void handleMovement(Float delta) {
+    void handleMovement(Float delta, boolean updateCamera) {
         this.position.add(direction.nor().scl(speed*delta));
         if(!(direction.nor().scl(speed*delta).isZero())){
             changeMovementTo(Movement.MOVING);

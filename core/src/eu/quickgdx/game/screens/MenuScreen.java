@@ -33,7 +33,7 @@ public class MenuScreen extends ScreenAdapter {
 
     public MenuScreen(QuickGdx game) {
         this.parentGame = game;
-
+        game.getSoundManager().initzializeMusic();
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

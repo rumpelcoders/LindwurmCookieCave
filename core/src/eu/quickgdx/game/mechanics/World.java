@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 
 import java.util.Iterator;
 
+import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.Utils;
 import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
@@ -64,12 +65,14 @@ public class World {
     int mapHeight;
     int tileHeight;
     private int cookieCount;
+    private int nrPlayers;
 
-    public World(GameplayScreen gameplayScreen) {
+    public World(GameplayScreen gameplayScreen, int nrPlayers) {
         mapWidth = 32;
         mapHeight = 32;
         tileHeight = Constanze.TILESIZE;
         tileWidth = Constanze.TILESIZE;
+        this.nrPlayers = nrPlayers;
         gameplayScreen.parentGame.setLastWinner(null);
         gameObjects = new Array<GameObject>();
         this.globalStates = new Array<GlobalState>();
@@ -80,7 +83,7 @@ public class World {
         //Add HUD
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
-        this.addGlobalState(new GlobalWaitForFogState(this, 5));
+        this.addGlobalState(new GlobalWaitForFogState(this, 10));
     }
 
     public void update(float delta) {
@@ -101,17 +104,17 @@ public class World {
         }
     }
 
-    public void render(float delta, SpriteBatch spriteBatch) {
-        tiledMapRenderer.setView(gameplayScreen.gameCam);
+    public void render(float delta, SpriteBatch spriteBatch, CamObject gameCam) {
+        tiledMapRenderer.setView(gameCam);
         tiledMapRenderer.render();
+
         spriteBatch.begin();
         for (GameObject go : gameObjects) {
             go.render(delta, spriteBatch);
         }
         spriteBatch.end();
 
-        //Debug Renderer
-        sr.setProjectionMatrix(gameplayScreen.gameCam.combined);
+        sr.setProjectionMatrix(gameCam.combined);
         sr.begin(ShapeRenderer.ShapeType.Line);
         sr.setColor(0, 1, 0, 1);
         for (GameObject gameObject : gameObjects) {
@@ -119,12 +122,14 @@ public class World {
                 sr.rect(gameObject.getBounds().x, gameObject.getBounds().y, gameObject.getBounds().width, gameObject.getBounds().height);
         }
         sr.end();
+
+        //Debug Renderer
     }
 
     public void renderHUD(float delta, SpriteBatch hudBatch) {
-        hudBatch.begin();
-        this.hud.render(delta, hudBatch);
-        hudBatch.end();
+//        hudBatch.begin();
+//        this.hud.render(delta, hudBatch);
+//        hudBatch.end();
     }
 
     public void touch(Vector3 touchCoords) {
@@ -136,27 +141,34 @@ public class World {
      */
     public void loadMap() {
         map = new TiledMap();
-        Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
-        PlayerCharacterObject playerObj1 = new PlayerCharacterObject(new Vector2(1f * Constanze.SCALED_TILE, 1f * Constanze.SCALED_TILE), this, controls1, 1);
-        gameObjects.add(playerObj1);
-        controlledObjects.add(playerObj1);
-
-        Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D);
-        PlayerCharacterObject playerObj2 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constanze.SCALED_TILE, 1f * Constanze.SCALED_TILE), this, controls2, 2);
-        gameObjects.add(playerObj2);
-        controlledObjects.add(playerObj2);
-
-        Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H);
-        PlayerCharacterObject playerObj3 = new PlayerCharacterObject(new Vector2(1 * Constanze.SCALED_TILE, (mapHeight - 1) * Constanze.SCALED_TILE), this, controls3, 3);
-        gameObjects.add(playerObj3);
-        controlledObjects.add(playerObj3);
-
-        Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
-        PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constanze.SCALED_TILE, (mapHeight - 1) * Constanze.SCALED_TILE), this, controls4, 4);
-        gameObjects.add(playerObj4);
-        controlledObjects.add(playerObj4);
-
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constanze.SCALE);
+        Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
+        Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D);
+        Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H);
+        Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
+        Controls[] controls = new Controls[]{controls1, controls2, controls3, controls4};
+
+
+        for (int i = 0; i < nrPlayers; i++) {
+            Vector2 startPosition;
+            switch (i) { //0
+                case 1:
+                    startPosition = new Vector2(Constanze.SCALED_TILE * (mapWidth - 1), Constanze.SCALED_TILE);
+                    break;
+                case 2:
+                    startPosition = new Vector2(Constanze.SCALED_TILE, Constanze.SCALED_TILE * (mapHeight - 1));
+                    break;
+                case 3:
+                    startPosition = new Vector2(Constanze.SCALED_TILE * (mapWidth - 1), Constanze.SCALED_TILE * (mapHeight - 1 ));
+                    break;
+                default:
+                    startPosition = new Vector2(Constanze.SCALED_TILE, Constanze.SCALED_TILE);
+            }
+            PlayerCharacterObject playerObj = new PlayerCharacterObject(startPosition, this, controls[i], i + 1, this.gameplayScreen.gameCams.get(i));
+            gameObjects.add(playerObj);
+            controlledObjects.add(playerObj);
+        }
+
 
         // layer 4 - collision
         // layer 5 - controlled objects
@@ -171,7 +183,7 @@ public class World {
         for (int i = 0; i < cookieCount; i++) {
 
             BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE,
-                    (int) Utils.calculateRandomX(mapHeight) * Constanze.TILESIZE), this);
+                    (int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE), this);
             badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constanze.TILESIZE, badCookieObject.getTileY() * Constanze.TILESIZE));
             gameObjects.add(badCookieObject);
         }

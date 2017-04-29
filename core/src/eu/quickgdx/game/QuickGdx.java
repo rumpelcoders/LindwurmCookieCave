@@ -65,6 +65,13 @@ public class QuickGdx extends ApplicationAdapter {
 
         assMan.load("sfx/dub.mp3", Music.class);
 
+        assMan.load("music/game-loop-2-1.mp3", Music.class);
+        assMan.load("music/game-loop-2-2.mp3", Music.class);
+        assMan.load("music/game-loop-2-3.mp3", Music.class);
+        assMan.load("music/game-loop-2-4.mp3", Music.class);
+        assMan.load("music/game-loop-3-1.mp3", Music.class);
+        assMan.load("music/game-loop-3-2.mp3", Music.class);
+
         //HUD
         assMan.load("hud/life_small.png", Texture.class);
 

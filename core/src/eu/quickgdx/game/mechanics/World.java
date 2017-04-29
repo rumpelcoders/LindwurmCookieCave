@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.Iterator;
+import java.util.concurrent.ThreadLocalRandom;
 
 import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
@@ -163,20 +164,50 @@ public class World {
 
 
         this.cookieCount = mapHeight / 30 + players.size;
-        goodCookieObject = new GoodCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
-                (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
-        goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE, goodCookieObject.getTileY() * Constants.TILESIZE));
+        goodCookieObject = new GoodCookieObject(new Vector2((int) calculateRandomX() * Constants.TILESIZE,
+                (int) calculateRandomY() * Constants.TILESIZE), this);
+        //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE, goodCookieObject.getTileY() * Constants.TILESIZE));
         gameObjects.add(goodCookieObject);
         for (int i = 0; i < cookieCount; i++) {
 
-            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
-                    (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
+            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) calculateRandomX() * Constants.TILESIZE,
+                    (int) calculateRandomY() * Constants.TILESIZE), this);
             badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE, badCookieObject.getTileY() * Constants.TILESIZE));
             gameObjects.add(badCookieObject);
         }
 
 
         createLevel();
+    }
+
+    private double calculateRandomX(){
+        double t = 2 * Math.PI * Math.random();
+        double u = Math.random() + Math.random();
+        double r;
+        if(u>1){
+            r = 2 - u;
+        } else {
+            r = u;
+        }
+        double pointUnitCircle = Math.abs(r * Math.cos(t));
+        double pointUnitCircleABS = pointUnitCircle + 1;
+        double pointInMapABS = pointUnitCircleABS * mapWidth;
+        return pointInMapABS;
+    }
+
+    private double calculateRandomY(){
+        double t = 2 * Math.PI * Math.random();
+        double u = Math.random() + Math.random();
+        double r;
+        if(u>1){
+            r = 2 - u;
+        } else {
+            r = u;
+        }
+        double pointUnitCircle = Math.abs(r * Math.sin(t));
+        double pointUnitCircleABS = pointUnitCircle + 1;
+        double pointInMapABS = pointUnitCircleABS * mapWidth;
+        return pointInMapABS;
     }
 
     public void createLevel() {

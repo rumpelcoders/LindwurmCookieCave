@@ -89,6 +89,7 @@ public class GameplayScreen extends ScreenAdapter {
         gameBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
         this.world = new World(this, nrPlayers);
+        parentGame.getSoundManager().startBgMusic();
     }
 
     @Override
@@ -98,6 +99,7 @@ public class GameplayScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         world.update(delta);
+        parentGame.getSoundManager().update(delta);
         for (int i = 0; i < gameCams.size; i++) {
             CamObject gameCam = gameCams.get(i);
             gameBatch.setProjectionMatrix(gameCam.combined);

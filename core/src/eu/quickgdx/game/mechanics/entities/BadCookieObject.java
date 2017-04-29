@@ -30,8 +30,8 @@ public class BadCookieObject extends MoveableObject {
     }
 
     public void hit(GameObject player) {
-        world.gameObjects.removeValue(this,true);
-        player.addState(new SlowState(player,1000,50));
+        world.gameObjects.removeValue(this,false);
+        player.addState(new SlowState(player,10,50));
     }
 
     @Override

@@ -77,7 +77,7 @@ public class GameplayScreen extends ScreenAdapter {
             }
             screenViewport.setScreenBounds(xStart, yStart, xEnd, yEnd);
             viewports.add(screenViewport);
-            gameCam.zoom += 1.2f;
+//            gameCam.zoom += 1.2f;
             gameCam.position.set(0, 0, 0);
             gameCam.update();
             gameCams.add(gameCam);

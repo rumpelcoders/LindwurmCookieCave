@@ -83,7 +83,7 @@ public class World {
         //Add HUD
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
-        this.addGlobalState(new GlobalWaitForFogState(this, 50000));
+        this.addGlobalState(new GlobalWaitForFogState(this, 10));
     }
 
     public void update(float delta) {

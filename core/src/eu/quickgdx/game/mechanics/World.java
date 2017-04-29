@@ -16,6 +16,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
+import com.sun.corba.se.impl.orbutil.closure.Constant;
 
 import java.util.Iterator;
 
@@ -61,6 +62,8 @@ public class World {
     int tileWidth;
     int mapHeight;
     int tileHeight;
+    private int cookieCount;
+    Array<PlayerCharacterObject> players;
 
     public World(GameplayScreen gameplayScreen) {
         mapWidth = 32;
@@ -78,7 +81,6 @@ public class World {
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
         this.addGlobalState(new GlobalWaitForFogState(this, 5));
-
     }
 
     public void update(float delta) {
@@ -152,16 +154,29 @@ public class World {
         PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
-        goodCookieObject = new GoodCookieObject(new Vector2(160, 160), this);
-        BadCookieObject badCookieObject = new BadCookieObject(new Vector2(200, 200), this);
 
-        gameObjects.add(goodCookieObject);
-        gameObjects.add(badCookieObject);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
-        createLevel();
 
         // layer 4 - collision
         // layer 5 - controlled objects
+        players = getGameObjectByType(PlayerCharacterObject.class);
+
+
+        this.cookieCount = mapHeight / 30 + players.size;
+        goodCookieObject = new GoodCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
+                (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
+        goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE,goodCookieObject.getTileY() * Constants.TILESIZE));
+        gameObjects.add(goodCookieObject);
+        for(int i=0;i<cookieCount;i++) {
+
+            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) (Math.random() * Math.abs(this.mapWidth) * Constants.TILESIZE),
+                    (int) (Math.random() * Math.abs(this.mapHeight) * Constants.TILESIZE)), this);
+            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE,badCookieObject.getTileY() * Constants.TILESIZE));
+            gameObjects.add(badCookieObject);
+        }
+
+
+        createLevel();
     }
 
     public void createLevel() {
@@ -190,7 +205,7 @@ public class World {
                 } else {
                     cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
                     layerCollision.setCell(x, y, cell);
-                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE,y * Constants.TILESIZE),this,Constants.TILESIZE,Constants.TILESIZE));
+                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
                 }
             }
         }
@@ -209,7 +224,7 @@ public class World {
             }
         }
         Array<WallObject> wallObjects = getGameObjectByType(WallObject.class);
-        gameObjects.removeAll(wallObjects,false);
+        gameObjects.removeAll(wallObjects, false);
         this.map.getLayers().add(fogLayer);
     }
 

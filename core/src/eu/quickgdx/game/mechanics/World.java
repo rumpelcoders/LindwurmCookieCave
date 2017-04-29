@@ -28,6 +28,7 @@ import eu.quickgdx.game.mechanics.entities.GameObject;
 import eu.quickgdx.game.mechanics.entities.GoodCookieObject;
 import eu.quickgdx.game.mechanics.entities.MoveableObject;
 import eu.quickgdx.game.mechanics.entities.PlayerCharacterObject;
+import eu.quickgdx.game.mechanics.entities.WallObject;
 import eu.quickgdx.game.mechanics.hud.HUD;
 import eu.quickgdx.game.mechanics.layers.FogLayer;
 import eu.quickgdx.game.mechanics.layers.GroundLayer;
@@ -71,7 +72,6 @@ public class World {
         this.globalStates = new Array<GlobalState>();
         this.gameplayScreen = gameplayScreen;
         this.controlledObjects = new Array<ControlledObject>();
-
         //loadTiledMap();
         loadMap();
         //Add HUD
@@ -190,12 +190,10 @@ public class World {
                 } else {
                     cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
                     layerCollision.setCell(x, y, cell);
+                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE,y * Constants.TILESIZE),this,Constants.TILESIZE,Constants.TILESIZE));
                 }
-
-
             }
         }
-
         this.map.getLayers().add(layerGround);
         this.map.getLayers().add(layerCollision);
     }
@@ -210,6 +208,8 @@ public class World {
                 fogLayer.setCell(x, y, cell);
             }
         }
+        Array<WallObject> wallObjects = getGameObjectByType(WallObject.class);
+        gameObjects.removeAll(wallObjects,false);
         this.map.getLayers().add(fogLayer);
     }
 

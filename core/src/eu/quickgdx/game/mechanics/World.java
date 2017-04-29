@@ -156,7 +156,7 @@ public class World {
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, 2);
 
         // layer 4 - collision
         // layer 5 - controlled objects
@@ -191,7 +191,7 @@ public class World {
         }
         AssetManager assMann = this.gameplayScreen.parentGame.getAssetManager();
         Texture groundTexture = assMann.get(Constants.ASSET_MAP_GROUND);
-        Texture wallTexture = assMann.get(Constants.ASSET_MAP_CEILING_W);
+        Texture wallTexture = assMann.get(Constants.ASSET_MAP_FLOOR_WALL);
         Texture ceiling_e_empty = assMann.get(Constants.ASSET_MAP_CEILING_E_EMPTY);
         Texture ceiling_ne_empty = assMann.get(Constants.ASSET_MAP_CEILING_NE_EMPTY);
         Texture ceiling_nse_empty = assMann.get(Constants.ASSET_MAP_CEILING_NSE_EMPTY);
@@ -210,6 +210,8 @@ public class World {
         Texture floor_wall_ending_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_LEFT);
         Texture floor_wall_ending_right = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT);
         Texture floor_wall_ending_right_left = assMann.get(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT_LEFT);
+        Texture ceiling_borderless_empty= assMann.get(Constants.ASSET_MAP_CEILING_BORDERLESS_EMPTY);
+
 
 
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
@@ -228,7 +230,7 @@ public class World {
                         collision = false;
                         break;
                     case NONWALKABLE:
-                        tile = new StaticTiledMapTile(new TextureRegion(groundTexture));
+                        tile = new StaticTiledMapTile(new TextureRegion(ceiling_borderless_empty));
                         break;
                     case WALL:
                         tile = new StaticTiledMapTile(new TextureRegion(wallTexture));

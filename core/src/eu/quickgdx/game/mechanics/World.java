@@ -305,9 +305,9 @@ public class World {
                     gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
                 }
             }
-            this.map.getLayers().add(layerGround);
-            this.map.getLayers().add(layerCollision);
         }
+        this.map.getLayers().add(layerGround);
+        this.map.getLayers().add(layerCollision);
     }
 
     public void addFogLayer() {

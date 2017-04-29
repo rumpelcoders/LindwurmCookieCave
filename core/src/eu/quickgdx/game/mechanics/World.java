@@ -1,5 +1,6 @@
 package eu.quickgdx.game.mechanics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
@@ -87,6 +88,7 @@ public class World {
     }
 
     public void update(float delta) {
+        this.hud.setDebugText(Gdx.graphics.getFramesPerSecond()+"");
         for (GlobalState globalState : globalStates) {
             globalState.update(delta);
         }

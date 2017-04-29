@@ -18,6 +18,7 @@ public class QuickGdx extends ApplicationAdapter {
     private ScreenManager screenManager;
     private SoundManager soundManager;
     private Animator animator;
+    private LastWinner lastWinner;
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.
@@ -85,5 +86,13 @@ public class QuickGdx extends ApplicationAdapter {
 
     public Animator getAnimator() {
         return animator;
+    }
+
+    public LastWinner getLastWinner() {
+        return lastWinner;
+    }
+
+    public void setLastWinner(LastWinner lastWinner) {
+        this.lastWinner = lastWinner;
     }
 }

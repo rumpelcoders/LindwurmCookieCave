@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 
 import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
@@ -69,8 +70,15 @@ public class ControlledObject extends MoveableObject {
     void handleMovement(Float delta) {
         calcDirection();
         Vector2 newPosition = new Vector2(Math.round(position.x), Math.round(position.y));
-        newPosition.add(direction.nor().scl(speed));
+        float updateSpeed = this.speed;
+        for (State state : states) {
+            if (state instanceof SlowState) {
+                updateSpeed = ((SlowState) state).getSlowPercentage() * updateSpeed;
+            }
+        }
+        newPosition.add(direction.nor().scl(updateSpeed));
         Rectangle newBounds = new Rectangle(newPosition.x, newPosition.y, 10, 10);
+
         for (int j = 0; j < world.gameObjects.size; j++) {
             GameObject gameObject = world.gameObjects.get(j);
             if (gameObject.bounds != null) {
@@ -79,24 +87,14 @@ public class ControlledObject extends MoveableObject {
                         return;
                 }
             }
-            if(states.size != 0) {
-                for (State state : states) {
-                    if (state instanceof SlowState) {
-                        speed = 5f;
-                        break;
-                    }
-                }
-            } else {
-                speed = 10f;
-            }
 
         }
 
         this.bounds = newBounds;
 
-        this.position.add(direction.nor().scl(speed));
+        this.position.add(direction.nor().scl(updateSpeed));
         if (cameraFollow) {
-            cameraFollow(direction.nor().scl(speed));
+            cameraFollow(direction.nor().scl(updateSpeed));
         }
         if (!direction.nor().isZero()) {
             if (direction.x > 0) {
@@ -191,5 +189,9 @@ public class ControlledObject extends MoveableObject {
 
     public void cameraFollow(Vector2 vector) {
         world.gameplayScreen.gameCam.translate(vector);
+    }
+
+    public int getPlaynr() {
+        return playnr;
     }
 }

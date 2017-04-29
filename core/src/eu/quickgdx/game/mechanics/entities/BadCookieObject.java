@@ -14,7 +14,7 @@ import eu.quickgdx.game.mechanics.states.State;
  * Created by putzchri on 28.04.2017.
  */
 
-public class BadCookieObject extends MoveableObject {
+public class BadCookieObject extends MovableCollisionObject {
 
     State state;
 
@@ -29,9 +29,10 @@ public class BadCookieObject extends MoveableObject {
         super.update(delta);
     }
 
-    public void hit(GameObject player) {
-        world.gameObjects.removeValue(this,false);
-        player.addState(new SlowState(player,10,50));
+    public void hit(ControlledObject player) {
+        player.addState(new SlowState(player, 1, 0.5f));
+        System.out.println("hit player" + player.getPlaynr());
+        this.toRemove = true;
     }
 
     @Override

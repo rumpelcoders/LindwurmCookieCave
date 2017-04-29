@@ -26,7 +26,7 @@ public class BadCookieObject extends AbstractCookieObject {
         super.update(delta);
     }
 
-    public void hit(ControlledObject player) {
+    public void hit(PlayerCharacterObject player) {
         player.addState(new SlowState(player, 1, 0.5f));
         System.out.println("hit player" + player.getPlaynr());
         this.toRemove = true;

@@ -22,8 +22,6 @@ public class QuickGdx extends ApplicationAdapter {
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.
-    public static final int GAME_WIDTH = 1366;
-    public static final int GAME_HEIGHT = 768;
 
 
     @Override
@@ -62,6 +60,8 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
         assMan.load("gameplay/movingAnimation_Down.png", Texture.class);
         assMan.load(Constants.ASSET_PLAYER, Texture.class);
+        assMan.load(Constants.ASSET_OWL_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_WIZARD_FRONT, Texture.class);
         assMan.load(Constants.ASSET_FOG, Texture.class);
         assMan.load(Constants.ASSET_MAP_GROUND, Texture.class);
         assMan.load(Constants.ASSET_MAP_CEILING_W, Texture.class);

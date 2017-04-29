@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
 
@@ -40,7 +42,7 @@ public class CreditsScreen extends ScreenAdapter {
         creditsFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 
         // Create camera that projects the game onto the actual screen size.
-        cam = new OrthographicCamera(QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
+        cam = new OrthographicCamera(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
@@ -61,17 +63,17 @@ public class CreditsScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         // draw bgImage
-        batch.draw(backgroundImage, 0, 0, QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
+        batch.draw(backgroundImage, 0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
 
         // draw moving text:
         for (int i = 0; i < credits.length; i++) {
-            creditsFont.draw(batch, credits[i], QuickGdx.GAME_WIDTH/8, moveY - i*creditsFont.getLineHeight()*1.5f);
+            creditsFont.draw(batch, credits[i], Constants.GAME_WIDTH/8, moveY - i*creditsFont.getLineHeight()*1.5f);
         }
 
 
         // draw gradient
-        batch.draw(gradientBottom, 0, 0, QuickGdx.GAME_WIDTH, gradientBottom.getHeight());
-        batch.draw(gradientTop, 0, QuickGdx.GAME_HEIGHT-gradientTop.getHeight(), QuickGdx.GAME_WIDTH, gradientTop.getHeight());
+        batch.draw(gradientBottom, 0, 0, Constants.GAME_WIDTH, gradientBottom.getHeight());
+        batch.draw(gradientTop, 0, Constants.GAME_HEIGHT-gradientTop.getHeight(), Constants.GAME_WIDTH, gradientTop.getHeight());
 
         batch.end();
     }

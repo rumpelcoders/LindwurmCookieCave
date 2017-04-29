@@ -184,7 +184,7 @@ public class World {
             for (int y = 0; y < mapHeight; y++) {
                 Tiletype type = level.typemap[x][y];
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                if (type.equals(Tiletype.FREE)) {
+                if (type.equals(Tiletype.FLOOR)) {
                     cell.setTile(new StaticTiledMapTile(new TextureRegion(groundTexture)));
                     layerGround.setCell(x, y, cell);
                 } else {

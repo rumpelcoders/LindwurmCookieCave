@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.World;
 
 /**
@@ -19,9 +19,9 @@ public abstract class AbstractCookieObject extends MovableCollisionObject {
 
     public AbstractCookieObject(Vector2 position, World world) {
         super(position, world);
-        boundsSize = Constants.TILESIZE - Constants.TILESIZE / 4;
+        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 4;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
-        cookieTexture = world.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_COOKIE_BAG, Texture.class);
+        cookieTexture = world.gameplayScreen.parentGame.getAssetManager().get(Constanze.ASSET_COOKIE_BAG.path, Texture.class);
 
     }
 

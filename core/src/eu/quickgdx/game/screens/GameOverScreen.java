@@ -2,7 +2,6 @@ package eu.quickgdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
 
@@ -34,7 +33,7 @@ public class GameOverScreen extends ScreenAdapter {
         gameOverFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 
         // Create camera that projects the game onto the actual screen size.
-        cam = new OrthographicCamera(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
+        cam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
@@ -54,12 +53,12 @@ public class GameOverScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         // draw bgImage
-        batch.draw(backgroundImage, 0, 0, Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
+        batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         //TODO Maybe more elegant solution
         String[] gameOver = ("Game Over!\n" +
                 "The winner is: " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
         for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
-            gameOverFont.draw(batch, gameOver[i], Constants.GAME_WIDTH/2,Constants.GAME_HEIGHT/2 + j*50);
+            gameOverFont.draw(batch, gameOver[i], Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
         }
 
         batch.end();

@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 
 import java.util.Iterator;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.Utils;
 import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
 import eu.quickgdx.game.mechanics.entities.BadCookieObject;
@@ -68,8 +68,8 @@ public class World {
     public World(GameplayScreen gameplayScreen) {
         mapWidth = 32;
         mapHeight = 32;
-        tileHeight = Constants.TILESIZE;
-        tileWidth = Constants.TILESIZE;
+        tileHeight = Constanze.TILESIZE;
+        tileWidth = Constanze.TILESIZE;
         gameplayScreen.parentGame.setLastWinner(null);
         gameObjects = new Array<GameObject>();
         this.globalStates = new Array<GlobalState>();
@@ -137,26 +137,26 @@ public class World {
     public void loadMap() {
         map = new TiledMap();
         Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
-        PlayerCharacterObject playerObj1 = new PlayerCharacterObject(new Vector2(1f * Constants.SCALED_TILE, 1f * Constants.SCALED_TILE), this, controls1, 1);
+        PlayerCharacterObject playerObj1 = new PlayerCharacterObject(new Vector2(1f * Constanze.SCALED_TILE, 1f * Constanze.SCALED_TILE), this, controls1, 1);
         gameObjects.add(playerObj1);
         controlledObjects.add(playerObj1);
 
         Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D);
-        PlayerCharacterObject playerObj2 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, 1f * Constants.SCALED_TILE), this, controls2, 2);
+        PlayerCharacterObject playerObj2 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constanze.SCALED_TILE, 1f * Constanze.SCALED_TILE), this, controls2, 2);
         gameObjects.add(playerObj2);
         controlledObjects.add(playerObj2);
 
         Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H);
-        PlayerCharacterObject playerObj3 = new PlayerCharacterObject(new Vector2(1 * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls3, 3);
+        PlayerCharacterObject playerObj3 = new PlayerCharacterObject(new Vector2(1 * Constanze.SCALED_TILE, (mapHeight - 1) * Constanze.SCALED_TILE), this, controls3, 3);
         gameObjects.add(playerObj3);
         controlledObjects.add(playerObj3);
 
         Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
-        PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
+        PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constanze.SCALED_TILE, (mapHeight - 1) * Constanze.SCALED_TILE), this, controls4, 4);
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
 
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
+        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constanze.SCALE);
 
         // layer 4 - collision
         // layer 5 - controlled objects
@@ -164,15 +164,15 @@ public class World {
 
 
         this.cookieCount = mapHeight / 30 + players.size;
-        goodCookieObject = new GoodCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constants.TILESIZE,
-                (int) Utils.calculateRandomY(mapWidth) * Constants.TILESIZE), this);
-        //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE, goodCookieObject.getTileY() * Constants.TILESIZE));
+        goodCookieObject = new GoodCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE,
+                (int) Utils.calculateRandomY(mapWidth) * Constanze.TILESIZE), this);
+        //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constanze.TILESIZE, goodCookieObject.getTileY() * Constanze.TILESIZE));
         gameObjects.add(goodCookieObject);
         for (int i = 0; i < cookieCount; i++) {
 
-            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constants.TILESIZE,
-                    (int) Utils.calculateRandomX(mapHeight) * Constants.TILESIZE), this);
-            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE, badCookieObject.getTileY() * Constants.TILESIZE));
+            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE,
+                    (int) Utils.calculateRandomX(mapHeight) * Constanze.TILESIZE), this);
+            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constanze.TILESIZE, badCookieObject.getTileY() * Constanze.TILESIZE));
             gameObjects.add(badCookieObject);
         }
 
@@ -193,8 +193,8 @@ public class World {
         AssetManager assMann = this.gameplayScreen.parentGame.getAssetManager();
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
         // layer 0 - ground
-        GroundLayer layerGround = new GroundLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
-        WallLayer layerCollision = new WallLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
+        GroundLayer layerGround = new GroundLayer(mapWidth, mapHeight, Constanze.TILESIZE, Constanze.TILESIZE);
+        WallLayer layerCollision = new WallLayer(mapWidth, mapHeight, Constanze.TILESIZE, Constanze.TILESIZE);
         Texture texture;
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
@@ -205,7 +205,7 @@ public class World {
                 cell.setTile(tile);
                 layerGround.setCell(x, y, cell);
                 if (type.isCollision()) {
-                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
+                    gameObjects.add(new WallObject(new Vector2(x * Constanze.TILESIZE, y * Constanze.TILESIZE), this, Constanze.TILESIZE, Constanze.TILESIZE));
                 }
             }
         }
@@ -214,10 +214,35 @@ public class World {
     }
 
     public void addFogLayer() {
-        FogLayer fogLayer = new FogLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
-        Texture fogTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_FOG);
+        FogLayer fogLayer = new FogLayer(mapWidth, mapHeight, Constanze.TILESIZE, Constanze.TILESIZE);
+        Texture fogTexture;
+        String path;
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
+                if (y == 0) {
+                    if (x == 0) {
+                        path = Constanze.ASSET_CLOUD_SW.path;
+                    } else if (x == mapWidth - 1) {
+                        path = Constanze.ASSET_CLOUD_SE.path;
+                    } else {
+                        path = Constanze.ASSET_CLOUD_S.path;
+                    }
+                } else if (y == mapHeight - 1) {
+                    if (x == 0) {
+                        path = Constanze.ASSET_CLOUD_NW.path;
+                    } else if (x == mapWidth - 1) {
+                        path = Constanze.ASSET_CLOUD_NE.path;
+                    } else {
+                        path = Constanze.ASSET_CLOUD_N.path;
+                    }
+                } else if (x == 0) {
+                    path = Constanze.ASSET_CLOUD_W.path;
+                } else if (x == mapWidth - 1) {
+                    path = Constanze.ASSET_CLOUD_E.path;
+                } else {
+                    path = Constanze.ASSET_CLOUD_CENTER.path;
+                }
+                fogTexture = this.gameplayScreen.parentGame.getAssetManager().get(path);
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
                 cell.setTile(new StaticTiledMapTile(new TextureRegion(fogTexture)));
                 fogLayer.setCell(x, y, cell);

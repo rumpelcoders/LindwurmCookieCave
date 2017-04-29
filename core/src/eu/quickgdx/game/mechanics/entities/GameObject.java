@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.states.State;
 import eu.quickgdx.game.mechanics.World;
 
@@ -116,11 +116,11 @@ public abstract class GameObject {
     }
 
     public int getTileX(){
-        return (int)this.position.x/ Constants.TILESIZE;
+        return (int)this.position.x/ Constanze.TILESIZE;
     }
 
     public int getTileY(){
-        return (int)this.position.y/ Constants.TILESIZE;
+        return (int)this.position.y/ Constanze.TILESIZE;
     }
 
     public Vector2 getTilePoint() {

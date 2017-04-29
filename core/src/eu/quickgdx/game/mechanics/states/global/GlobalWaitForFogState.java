@@ -1,6 +1,6 @@
 package eu.quickgdx.game.mechanics.states.global;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.World;
 
 /**
@@ -16,7 +16,7 @@ public class GlobalWaitForFogState extends GlobalState {
     @Override
     protected void onStateRemove() {
         System.out.println(getClass().toString() + " remove");
-        this.world.addGlobalState(new GlobalFogState(world, Constants.FOG_TIME));
+        this.world.addGlobalState(new GlobalFogState(world, Constanze.FOG_TIME));
 
     }
 

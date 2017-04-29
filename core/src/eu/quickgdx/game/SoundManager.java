@@ -27,11 +27,11 @@ public class SoundManager {
 
 
         event2sound.put("mapchange1", "sfx/mapchange/mapchange_1.mp3");
-        // event2sound.put("mapchange2", "sfx/mapchange/mapchange_2.wav");
-        // event2sound.put("mapchange3", "sfx/mapchange/mapchange_3.wav");
-        // event2sound.put("mapchange4", "sfx/mapchange/mapchange_4.wav");
-        // event2sound.put("mapchange5", "sfx/mapchange/mapchange_5.wav");
-        // event2sound.put("mapchange6", "sfx/mapchange/mapchange_6.wav");
+        event2sound.put("mapchange2", "sfx/mapchange/mapchange_2.mp3");
+        event2sound.put("mapchange3", "sfx/mapchange/mapchange_3.mp3");
+        event2sound.put("mapchange4", "sfx/mapchange/mapchange_4.mp3");
+        event2sound.put("mapchange5", "sfx/mapchange/mapchange_5.mp3");
+        event2sound.put("mapchange6", "sfx/mapchange/mapchange_6.mp3");
     }
 
     /**

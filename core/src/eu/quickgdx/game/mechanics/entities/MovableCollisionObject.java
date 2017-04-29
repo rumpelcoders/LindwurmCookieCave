@@ -25,5 +25,5 @@ public abstract class MovableCollisionObject extends MoveableObject {
         return;
     }
 
-    public abstract void hit(ControlledObject player);
+    public abstract void hit(PlayerCharacterObject player);
 }

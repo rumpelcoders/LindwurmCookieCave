@@ -20,7 +20,7 @@ public class GoodCookieObject extends AbstractCookieObject {
     }
 
     @Override
-    public void hit(ControlledObject player) {
+    public void hit(PlayerCharacterObject player) {
         world.gameplayScreen.parentGame.setLastWinner(new LastWinner(player.getPlaynr()));
         world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.GameOver);
     }

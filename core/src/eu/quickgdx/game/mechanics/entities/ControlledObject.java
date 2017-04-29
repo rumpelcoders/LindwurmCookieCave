@@ -26,54 +26,26 @@ public class ControlledObject extends MoveableObject {
 
     private boolean moveUp, moveDown, moveLeft, moveRight;
     private int heading; // 1 - UP, 2 - Right, 3 - Down, 4 - Left
-    private Animation idleAnimation;
-    private Animation movingUpAnimation;
-    private Animation movingDownAnimation;
-    private Animation movingSideAnimation;
-    private TextureRegion frame;
-    private Controls controls;
-    private int playnr;
+    protected Animation idleAnimation;
+    protected Animation movingUpAnimation;
+    protected Animation movingDownAnimation;
+    protected Animation movingSideAnimation;
+    protected TextureRegion frame;
+    protected Controls controls;
+
 
     private boolean cameraFollow = false; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
 
-    public ControlledObject(Vector2 position, World world, Controls controls, int playnr) {
+    public ControlledObject(Vector2 position, World world, Controls controls) {
         super(position, world);
 //        world.gameplayScreen.gameCam.position.x = position.x;
 //        world.gameplayScreen.gameCam.position.y = position.y;
         boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
-        this.playnr = playnr;
-        System.out.println(this.bounds);
         this.speed = 10f;
         this.hitpoints = 5;
-        String assetIdle;
-        String assetUp;
-        String assetDown;
-        String assetSide;
-        switch (playnr){
-            case 1:
-                assetIdle = Constants.ASSET_OWL_FRONT;
-                assetUp = Constants.ASSET_OWL_FRONT;
-                assetDown = Constants.ASSET_OWL_FRONT;
-                assetSide = Constants.ASSET_OWL_FRONT;
-                break;
-            case 2:
-                assetIdle = Constants.ASSET_WIZARD_FRONT;
-                assetUp = Constants.ASSET_WIZARD_FRONT;
-                assetDown = Constants.ASSET_WIZARD_FRONT;
-                assetSide = Constants.ASSET_WIZARD_FRONT;
-                break;
-            default:
-                assetIdle = Constants.ASSET_PLAYER;
-                assetUp = Constants.ASSET_PLAYER;
-                assetDown = Constants.ASSET_PLAYER;
-                assetSide = Constants.ASSET_PLAYER;
-        }
-        this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetIdle, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetUp, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetSide, 0.3f, Constants.TILESIZE, Constants.TILESIZE);
+
     }
 
     @Override
@@ -209,11 +181,6 @@ public class ControlledObject extends MoveableObject {
     public void cameraFollow(Vector2 vector) {
         world.gameplayScreen.gameCam.translate(vector);
     }
-
-    public int getPlaynr() {
-        return playnr;
-    }
-
     @Override
     public void addState(State state) {
         super.addState(state);

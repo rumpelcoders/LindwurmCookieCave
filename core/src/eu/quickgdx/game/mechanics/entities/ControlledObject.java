@@ -143,16 +143,16 @@ public class ControlledObject extends MoveableObject {
         if (Gdx.input.isKeyPressed(controls.SHOOT)) {
             switch (heading) {
                 case 1:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(1f, 0f), this, heading));
-                    break;
-                case 2:
                     world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, 1f), this, heading));
                     break;
+                case 2:
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(1f, 0f), this, heading));
+                    break;
                 case 3:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(-1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, -1f), this, heading));
                     break;
                 case 4:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, -1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(-1f, 0f), this, heading));
                     break;
             }
 

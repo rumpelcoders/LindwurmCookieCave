@@ -33,6 +33,18 @@ public class PlayerCharacterObject extends ControlledObject {
                 assetDown = Constants.ASSET_WIZARD_FRONT;
                 assetSide = Constants.ASSET_WIZARD_FRONT;
                 break;
+            case 3:
+                assetIdle = Constants.ASSET_SPACEORG_FRONT;
+                assetUp = Constants.ASSET_SPACEORG_FRONT;
+                assetDown = Constants.ASSET_SPACEORG_FRONT;
+                assetSide = Constants.ASSET_SPACEORG_FRONT;
+                break;
+            case 4:
+                assetIdle = Constants.ASSET_FAIRY_FRONT;
+                assetUp = Constants.ASSET_FAIRY_FRONT;
+                assetDown = Constants.ASSET_FAIRY_FRONT;
+                assetSide = Constants.ASSET_FAIRY_FRONT;
+                break;
             default:
                 assetIdle = Constants.ASSET_PLAYER;
                 assetUp = Constants.ASSET_PLAYER;

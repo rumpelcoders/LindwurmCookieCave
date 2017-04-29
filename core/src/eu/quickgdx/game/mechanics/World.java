@@ -1,12 +1,13 @@
 package eu.quickgdx.game.mechanics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import java.util.Iterator;
 
 import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Utils;
 import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
 import eu.quickgdx.game.mechanics.entities.BadCookieObject;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
@@ -61,6 +63,7 @@ public class World {
     int tileWidth;
     int mapHeight;
     int tileHeight;
+    private int cookieCount;
 
     public World(GameplayScreen gameplayScreen) {
         mapWidth = 32;
@@ -78,10 +81,10 @@ public class World {
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
         this.addGlobalState(new GlobalWaitForFogState(this, 5));
-
     }
 
     public void update(float delta) {
+        this.hud.setDebugText(Gdx.graphics.getFramesPerSecond() + "");
         for (GlobalState globalState : globalStates) {
             globalState.update(delta);
         }
@@ -152,17 +155,31 @@ public class World {
         PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
-        goodCookieObject = new GoodCookieObject(new Vector2(160, 160), this);
-        BadCookieObject badCookieObject = new BadCookieObject(new Vector2(200, 200), this);
 
-        gameObjects.add(goodCookieObject);
-        gameObjects.add(badCookieObject);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
-        createLevel();
 
         // layer 4 - collision
         // layer 5 - controlled objects
+        Array<PlayerCharacterObject> players = getGameObjectByType(PlayerCharacterObject.class);
+
+
+        this.cookieCount = mapHeight / 30 + players.size;
+        goodCookieObject = new GoodCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constants.TILESIZE,
+                (int) Utils.calculateRandomY(mapWidth) * Constants.TILESIZE), this);
+        //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constants.TILESIZE, goodCookieObject.getTileY() * Constants.TILESIZE));
+        gameObjects.add(goodCookieObject);
+        for (int i = 0; i < cookieCount; i++) {
+
+            BadCookieObject badCookieObject = new BadCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constants.TILESIZE,
+                    (int) Utils.calculateRandomX(mapHeight) * Constants.TILESIZE), this);
+            badCookieObject.setPosition(new Vector2(badCookieObject.getTileX() * Constants.TILESIZE, badCookieObject.getTileY() * Constants.TILESIZE));
+            gameObjects.add(badCookieObject);
+        }
+
+
+        createLevel();
     }
+
 
     public void createLevel() {
 
@@ -173,24 +190,22 @@ public class World {
                 this.map.getLayers().remove(mapLayer);
             }
         }
-        Texture groundTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_GROUND);
-        Texture wallTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_CEILING_W);
-
+        AssetManager assMann = this.gameplayScreen.parentGame.getAssetManager();
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
         // layer 0 - ground
         GroundLayer layerGround = new GroundLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
         WallLayer layerCollision = new WallLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
+        Texture texture;
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 Tiletype type = level.typemap[x][y];
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                if (type.equals(Tiletype.FLOOR)) {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(groundTexture)));
-                    layerGround.setCell(x, y, cell);
-                } else {
-                    cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
-                    layerCollision.setCell(x, y, cell);
-                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE,y * Constants.TILESIZE),this,Constants.TILESIZE,Constants.TILESIZE));
+                texture = assMann.get(type.getAssetPath());
+                StaticTiledMapTile tile = new StaticTiledMapTile(new TextureRegion(texture));
+                cell.setTile(tile);
+                layerGround.setCell(x, y, cell);
+                if (type.isCollision()) {
+                    gameObjects.add(new WallObject(new Vector2(x * Constants.TILESIZE, y * Constants.TILESIZE), this, Constants.TILESIZE, Constants.TILESIZE));
                 }
             }
         }
@@ -209,7 +224,7 @@ public class World {
             }
         }
         Array<WallObject> wallObjects = getGameObjectByType(WallObject.class);
-        gameObjects.removeAll(wallObjects,false);
+        gameObjects.removeAll(wallObjects, false);
         this.map.getLayers().add(fogLayer);
     }
 

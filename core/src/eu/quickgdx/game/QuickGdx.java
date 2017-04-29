@@ -49,6 +49,13 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load("sfx/pickup.wav", Sound.class);
         assMan.load("sfx/powerup.wav", Sound.class);
 
+        assMan.load("sfx/mapchange/mapchange_1.mp3", Sound.class);
+        assMan.load("sfx/mapchange/mapchange_2.mp3", Sound.class);
+        assMan.load("sfx/mapchange/mapchange_3.mp3", Sound.class);
+        assMan.load("sfx/mapchange/mapchange_4.mp3", Sound.class);
+        assMan.load("sfx/mapchange/mapchange_5.mp3", Sound.class);
+        assMan.load("sfx/mapchange/mapchange_6.mp3", Sound.class);
+
         //HUD
         assMan.load("hud/life_small.png", Texture.class);
 
@@ -62,11 +69,42 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load(Constants.ASSET_PLAYER, Texture.class);
         assMan.load(Constants.ASSET_OWL_FRONT, Texture.class);
         assMan.load(Constants.ASSET_WIZARD_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_FAIRY_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_SPACEORG_FRONT, Texture.class);
+        assMan.load(Constants.ASSET_WIZARD_FRONT, Texture.class);
         assMan.load(Constants.ASSET_FOG, Texture.class);
-        assMan.load(Constants.ASSET_MAP_GROUND, Texture.class);
-        assMan.load(Constants.ASSET_MAP_CEILING_W, Texture.class);
         assMan.load(Constants.ASSET_COOKIE_BAG, Texture.class);
 
+        loadMapAssets();
+
+    }
+
+    protected void loadMapAssets() {
+        assMan.load(Constants.ASSET_MAP_CEILING_BORDERLESS_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_E, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_E_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_N, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NSE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NSWE, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NSW_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NS_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NWE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_NW_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_N_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_S, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_SE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_SWE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_SW_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_S_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_W, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_WE_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_CEILING_W_EMPTY, Texture.class);
+        assMan.load(Constants.ASSET_MAP_FLOOR, Texture.class);
+        assMan.load(Constants.ASSET_MAP_FLOOR_WALL, Texture.class);
+        assMan.load(Constants.ASSET_MAP_FLOOR_WALL_ENDING_LEFT, Texture.class);
+        assMan.load(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT, Texture.class);
+        assMan.load(Constants.ASSET_MAP_FLOOR_WALL_ENDING_RIGHT_LEFT, Texture.class);
     }
 
     @Override

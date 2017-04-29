@@ -16,14 +16,8 @@ import eu.quickgdx.game.mechanics.states.State;
 
 public class BadCookieObject extends AbstractCookieObject {
 
-
     public BadCookieObject(Vector2 position, World world) {
         super(position, world);
-    }
-
-    @Override
-    public void update(float delta) {
-        super.update(delta);
     }
 
     public void hit(PlayerCharacterObject player) {

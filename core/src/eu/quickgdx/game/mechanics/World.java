@@ -30,9 +30,14 @@ import eu.quickgdx.game.mechanics.entities.GoodCookieObject;
 import eu.quickgdx.game.mechanics.entities.MoveableObject;
 import eu.quickgdx.game.mechanics.entities.PlayerCharacterObject;
 import eu.quickgdx.game.mechanics.hud.HUD;
+import eu.quickgdx.game.mechanics.layers.FogLayer;
+import eu.quickgdx.game.mechanics.layers.GroundLayer;
+import eu.quickgdx.game.mechanics.layers.WallLayer;
 import eu.quickgdx.game.mechanics.level.Level;
 import eu.quickgdx.game.mechanics.level.LevelGenerator;
 import eu.quickgdx.game.mechanics.level.Tiletype;
+import eu.quickgdx.game.mechanics.states.global.GlobalState;
+import eu.quickgdx.game.mechanics.states.global.GlobalWaitForFogState;
 import eu.quickgdx.game.screens.GameplayScreen;
 
 /**
@@ -44,8 +49,9 @@ public class World {
     public GameplayScreen gameplayScreen;
     public HUD hud;
     ShapeRenderer sr = new ShapeRenderer();
-    Array<ControlledObject> controlledObjects;
+    public Array<ControlledObject> controlledObjects;
     public GoodCookieObject goodCookieObject;
+    private Array<GlobalState> globalStates;
 
     //Tiled Map Variables
     String level = "level/sampleMap.tmx"; //This is your example Tiled Map.
@@ -57,26 +63,35 @@ public class World {
     int tileHeight;
 
     public World(GameplayScreen gameplayScreen) {
+        mapWidth = 32;
+        mapHeight = 32;
+        tileHeight = Constants.TILESIZE;
+        tileWidth = Constants.TILESIZE;
         gameplayScreen.parentGame.setLastWinner(null);
         gameObjects = new Array<GameObject>();
+        this.globalStates = new Array<GlobalState>();
         this.gameplayScreen = gameplayScreen;
         this.controlledObjects = new Array<ControlledObject>();
+
         //loadTiledMap();
         loadMap();
         //Add HUD
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
+        this.addGlobalState(new GlobalWaitForFogState(this, 10f));
 
     }
 
     public void update(float delta) {
+        for (GlobalState globalState : globalStates) {
+            globalState.update(delta);
+        }
         Iterator<GameObject> gameObjectIterator = gameObjects.iterator();
-        while (gameObjectIterator.hasNext()){
+        while (gameObjectIterator.hasNext()) {
             GameObject go = gameObjectIterator.next();
-            if(go instanceof MoveableObject){
-                if(((MoveableObject) go).toRemove){
+            if (go instanceof MoveableObject) {
+                if (((MoveableObject) go).toRemove) {
                     gameObjectIterator.remove();
-                    System.out.println("remove cookie");
                     continue;
                 }
             }
@@ -118,10 +133,6 @@ public class World {
      * load map
      */
     public void loadMap() {
-        mapWidth = 32;
-        mapHeight = 32;
-        tileHeight = Constants.TILESIZE;
-        tileWidth = Constants.TILESIZE;
         map = new TiledMap();
         Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
         PlayerCharacterObject playerObj1 = new PlayerCharacterObject(new Vector2(1f * Constants.SCALED_TILE, 1f * Constants.SCALED_TILE), this, controls1, 1);
@@ -159,69 +170,50 @@ public class World {
 
         Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, cookieList);
         // layer 0 - ground
-        TiledMapTileLayer layer = new TiledMapTileLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
+        GroundLayer layerGround = new GroundLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
+        WallLayer layerCollision = new WallLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
         for (int x = 0; x < mapWidth; x++) {
             for (int y = 0; y < mapHeight; y++) {
                 Tiletype type = level.typemap[x][y];
                 TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-                if(type.equals(Tiletype.FREE)) {
+                if (type.equals(Tiletype.FREE)) {
                     cell.setTile(new StaticTiledMapTile(new TextureRegion(groundTexture)));
+                    layerGround.setCell(x, y, cell);
                 } else {
                     cell.setTile(new StaticTiledMapTile(new TextureRegion(wallTexture)));
+                    layerCollision.setCell(x, y, cell);
                 }
 
-                layer.setCell(x, y, cell);
+
             }
         }
-        mapLayers.add(layer);
-
+        mapLayers.add(layerGround);
+        mapLayers.add(layerCollision);
         // layer 4 - collision
-        mapLayers.add(layer);
         // layer 5 - controlled objects
-
-
     }
 
-    /**
-     * create the map out of the tmx files
-     */
-    public void loadTiledMap() {
-        TmxMapLoader.Parameters params = new TmxMapLoader.Parameters();
-        params.textureMinFilter = Texture.TextureFilter.Linear;
-        params.textureMagFilter = Texture.TextureFilter.Linear;
-        map = new TmxMapLoader().load(level);
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE); //Just scaled the map - This is not how you should do it obviously!
-        mapWidth = map.getProperties().get("width", Integer.class);
-        tileWidth = map.getProperties().get("tilewidth", Integer.class);
-        mapHeight = map.getProperties().get("height", Integer.class);
-        tileHeight = map.getProperties().get("tileheight", Integer.class);
-
-        //load collision map
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get(1);
-        for (int x = 0; x < layer.getWidth(); x++) {
-            for (int y = 0; y < layer.getHeight(); y++) {
-                TiledMapTileLayer.Cell cell = layer.getCell(x, y);
-                if (cell != null) {
-                    Object property = cell.getTile().getProperties().get("collision");
-                    if (property != null) {
-                        gameObjects.add(new CollisionObject(new Vector2(x * Constants.SCALE * Constants.TILESIZE, y * Constants.SCALE * Constants.TILESIZE), this, Constants.SCALE * Constants.TILESIZE, Constants.SCALE * Constants.TILESIZE));
-                    }
-                }
+    public void addFogLayer() {
+        FogLayer fogLayer = new FogLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
+        Texture fogTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_FOG);
+        for (int x = 0; x < mapWidth; x++) {
+            for (int y = 0; y < mapHeight; y++) {
+                TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+                cell.setTile(new StaticTiledMapTile(new TextureRegion(fogTexture)));
+                fogLayer.setCell(x, y, cell);
             }
         }
+        this.map.getLayers().add(fogLayer);
+    }
 
-        // load controlled objects from map
-        MapObjects objects = map.getLayers().get("objects").getObjects();
-
-        // create controlled objects
-        for (int i = 0; i < objects.getCount(); i++) {
-            MapProperties object = objects.get(i).getProperties();
-            String type = object.get("type", String.class);
-            if (type.equals("controllableObject")) {
-
-                //TODO: delete later on
-
-            }
+    public void removeFogLayer() {
+        Array<FogLayer> mapLayer = this.map.getLayers().getByType(FogLayer.class);
+        for (FogLayer fogLayer : mapLayer) {
+            this.map.getLayers().remove(fogLayer);
         }
+    }
+
+    public void addGlobalState(GlobalState state){
+        this.globalStates.add(state);
     }
 }

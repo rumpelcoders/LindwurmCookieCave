@@ -13,6 +13,7 @@ public abstract class MoveableObject extends GameObject {
     Float speed;
     Movement movement;
     Float movingTime;
+    public boolean toRemove;
 
     public MoveableObject(Vector2 position, World world) {
         super(position, world);

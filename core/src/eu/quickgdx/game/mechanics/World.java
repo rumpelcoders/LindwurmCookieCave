@@ -18,6 +18,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Iterator;
+
 import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.entities.BadCookieObject;
 import eu.quickgdx.game.mechanics.entities.CollisionObject;
@@ -44,7 +46,6 @@ public class World {
     ShapeRenderer sr = new ShapeRenderer();
     Array<ControlledObject> controlledObjects;
     public GoodCookieObject goodCookieObject;
-    public BadCookieObject badCookieObject;
 
     //Tiled Map Variables
     String level = "level/sampleMap.tmx"; //This is your example Tiled Map.
@@ -56,6 +57,7 @@ public class World {
     int tileHeight;
 
     public World(GameplayScreen gameplayScreen) {
+        gameplayScreen.parentGame.setLastWinner(null);
         gameObjects = new Array<GameObject>();
         this.gameplayScreen = gameplayScreen;
         this.controlledObjects = new Array<ControlledObject>();
@@ -68,7 +70,16 @@ public class World {
     }
 
     public void update(float delta) {
-        for (GameObject go : gameObjects) {
+        Iterator<GameObject> gameObjectIterator = gameObjects.iterator();
+        while (gameObjectIterator.hasNext()){
+            GameObject go = gameObjectIterator.next();
+            if(go instanceof MoveableObject){
+                if(((MoveableObject) go).toRemove){
+                    gameObjectIterator.remove();
+                    System.out.println("remove cookie");
+                    continue;
+                }
+            }
             go.update(delta);
         }
     }
@@ -134,7 +145,7 @@ public class World {
 
         Array<MoveableObject> cookieList = new Array<MoveableObject>();
         goodCookieObject = new GoodCookieObject(new Vector2(160, 160), this);
-        badCookieObject = new BadCookieObject(new Vector2(200, 200), this);
+        BadCookieObject badCookieObject = new BadCookieObject(new Vector2(200, 200), this);
 
         gameObjects.add(goodCookieObject);
         gameObjects.add(badCookieObject);

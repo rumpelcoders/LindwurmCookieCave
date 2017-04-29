@@ -25,8 +25,6 @@ public class GameOverScreen extends ScreenAdapter {
 
     Texture backgroundImage;
 
-    String[] gameOver = ("Game Over!\n" +
-            "The winner is:\n").split("\\n");
     private BitmapFont gameOverFont;
 
     public GameOverScreen(QuickGdx parentGame) {
@@ -57,6 +55,8 @@ public class GameOverScreen extends ScreenAdapter {
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
         //TODO Maybe more elegant solution
+        String[] gameOver = ("Game Over!\n" +
+                "The winner is: " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
         for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
             gameOverFont.draw(batch, gameOver[i], QuickGdx.GAME_WIDTH/2,QuickGdx.GAME_HEIGHT/2 + j*50);
         }

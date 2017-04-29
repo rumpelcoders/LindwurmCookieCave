@@ -64,7 +64,6 @@ public class World {
     int mapHeight;
     int tileHeight;
     private int cookieCount;
-    Array<PlayerCharacterObject> players;
 
     public World(GameplayScreen gameplayScreen) {
         mapWidth = 32;
@@ -152,7 +151,7 @@ public class World {
         controlledObjects.add(playerObj3);
 
         Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
-        PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
+        PlayerCharacterObject  playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
 
@@ -160,7 +159,7 @@ public class World {
 
         // layer 4 - collision
         // layer 5 - controlled objects
-        players = getGameObjectByType(PlayerCharacterObject.class);
+        Array<PlayerCharacterObject>  players = getGameObjectByType(PlayerCharacterObject.class);
 
 
         this.cookieCount = mapHeight / 30 + players.size;

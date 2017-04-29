@@ -15,12 +15,14 @@ public class GlobalWaitForFogState extends GlobalState {
 
     @Override
     protected void onStateRemove() {
+        System.out.println(getClass().toString() + " remove");
         this.world.addGlobalState(new GlobalFogState(world, Constants.FOG_TIME));
+
     }
 
     @Override
     protected void onStateCreated() {
-
+        System.out.println(getClass().toString() + " created");
     }
 
 }

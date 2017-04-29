@@ -16,15 +16,17 @@ public class GlobalFogState extends GlobalState {
 
     @Override
     protected void onStateRemove() {
+        System.out.println(getClass().toString() + " remove");
         this.world.removeFogLayer();
-        this.world.addGlobalState(new GlobalWaitForFogState(world, 15f));
+        this.world.addGlobalState(new GlobalWaitForFogState(world, 15f)); //TODO make random here
     }
 
     @Override
     protected void onStateCreated() {
+        System.out.println(getClass().toString() + " created");
         this.world.addFogLayer();
-        for(ControlledObject controlledObject : this.world.controlledObjects) {
-            controlledObject.addState(new NoMovementState(controlledObject,5f));
+        for (ControlledObject controlledObject : this.world.controlledObjects) {
+            controlledObject.addState(new NoMovementState(controlledObject, maxStateTime));
         }
     }
 

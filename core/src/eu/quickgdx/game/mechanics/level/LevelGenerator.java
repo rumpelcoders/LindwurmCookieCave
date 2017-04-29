@@ -3,6 +3,7 @@ package eu.quickgdx.game.mechanics.level;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
+import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
 import eu.quickgdx.game.mechanics.entities.GameObject;
 import eu.quickgdx.game.mechanics.entities.MoveableObject;
@@ -13,7 +14,7 @@ import eu.quickgdx.game.mechanics.entities.MoveableObject;
 public class LevelGenerator {
     static Level lvl;
 
-    public static Level generateLevel(int levelsize, Array<ControlledObject> playerlist, Array<MoveableObject> cookielist){
+    public static Level generateLevel(int levelsize, Array<ControlledObject> playerlist, Array<AbstractCookieObject> cookielist){
        lvl = new Level(levelsize);
         for (ControlledObject player: playerlist) {
             for (MoveableObject cookie: cookielist) {

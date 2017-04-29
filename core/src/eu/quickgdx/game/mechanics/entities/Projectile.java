@@ -17,6 +17,6 @@ public abstract class Projectile extends MoveableObject {
     }
 
     public void hit(GameObject object){
-        if(object)
+        //if(object)
     }
 }

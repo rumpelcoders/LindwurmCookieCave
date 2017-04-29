@@ -7,6 +7,7 @@ package eu.quickgdx.game;
 public class Constants {
 
     public final static String ASSET_PLAYER = "gameplay/test_char_64.png";
+    public final static String ASSET_COOKIE_BAG = "gameplay/cookie_bag.png";
     public static final String ASSET_MAP_GROUND = "level/floor.png";
     public static final String ASSET_MAP_CEILING_W = "level/ceiling_w.png";
     public static final String ASSET_MAP_CEILING_E = "level/ceiling_e.png";

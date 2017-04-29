@@ -23,7 +23,143 @@ public class LevelGenerator {
         }
         obscureMap(lvl);
         finishMap(lvl);
+        makePretty(lvl);
         return lvl;
+    }
+
+    private static void makePretty(Level lvl) {
+        boolean n, s, w, e;
+        boolean wallse, wallsw;
+        for (int i = 0; i < lvl.levelsize; i++) {
+            for (int j = 0; j < lvl.levelsize; j++) {
+                wallse = false;
+                wallsw = false;
+                if(lvl.typemap[i][j] == Tiletype.NONWALKABLE){
+                    if(j-1>=0 && lvl.typemap[i][j-1] == Tiletype.FLOOR){
+                        if(i-1>=0 && lvl.typemap[i-1][j-1] == Tiletype.FLOOR) {
+                            wallsw = true;
+                        }
+                        if(i+1<lvl.levelsize && lvl.typemap[i+1][j-1] == Tiletype.FLOOR) {
+                            wallse = true;
+                        }
+                        if(wallse){
+                            if(wallsw){
+                                lvl.typemap[i][j] = Tiletype.WALL_END_BOTH;
+                            }
+                            else{
+                                lvl.typemap[i][j] = Tiletype.WALL_END_RIGHT;
+                            }
+
+                        }
+                        else if (wallsw){
+                            lvl.typemap[i][j] = Tiletype.WALL_END_LEFT;
+                        }
+                        else{
+                            lvl.typemap[i][j] = Tiletype.WALL;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < lvl.levelsize; i++) {
+            for (int j = 0; j < lvl.levelsize; j++) {
+                if(lvl.typemap[i][j] == Tiletype.NONWALKABLE){
+                    n = false;
+                    e = false;
+                    s = false;
+                    w = false;
+
+                    if(j-1>=0){
+                        if(lvl.typemap[i][j] == Tiletype.WALL ||lvl.typemap[i][j] == Tiletype.WALL_END_LEFT || lvl.typemap[i][j] == Tiletype.WALL_END_RIGHT)
+                            w = true;
+                    }
+                    if(i-1>=0){
+                        if(lvl.typemap[i][j] == Tiletype.FLOOR)
+                            s = true;
+                    }
+                    if(i+1<lvl.levelsize){
+                        if(lvl.typemap[i][j] == Tiletype.FLOOR)
+                            n = true;
+                    }
+                    if(j+1<lvl.levelsize){
+                        if(lvl.typemap[i][j] == Tiletype.FLOOR)
+                            e = true;
+                    }
+
+                    if(n){
+                        if(s){
+                            if(e){
+                                if(w){
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NSEW;
+                                }
+                                else{
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NSE;
+                                }
+                            }
+                            else{
+                                if(w){
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NSW;
+                                }
+                                else {
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NS;
+                                }
+                            }
+                        }
+                        else{
+                            if(e){
+                                if(w){
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NWE;
+                                }
+                                else{
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NE;
+                                }
+                            }
+                            else{
+                                if(w){
+                                    lvl.typemap[i][j] = Tiletype.CEILING_NW;
+                                }
+                                else{
+                                    lvl.typemap[i][j] = Tiletype.CEILING_N;
+                                }
+                            }
+                        }
+                    }
+                    else if(s){
+                        if(e){
+                            if(w){
+                                lvl.typemap[i][j] = Tiletype.CEILING_SWE;
+                            }
+                            else{
+                                lvl.typemap[i][j] = Tiletype.CEILING_SE;
+                            }
+
+                        }
+                        else{
+                            if(w){
+                                lvl.typemap[i][j] = Tiletype.CEILING_SW;
+                            }
+                            else{
+                                lvl.typemap[i][j] = Tiletype.CEILING_S;
+                            }
+
+                        }
+                    }
+                    else if(w){
+                        if(e){
+                            lvl.typemap[i][j] = Tiletype.CEILING_WE;
+                        }
+                        else{
+                            lvl.typemap[i][j] = Tiletype.CEILING_W;
+                        }
+                    }
+                    else if(e){
+                        lvl.typemap[i][j] = Tiletype.CEILING_E;
+                    }
+
+
+                }
+            }
+        }
     }
 
     private static void finishMap(Level lvl) {
@@ -36,7 +172,7 @@ public class LevelGenerator {
 
     private static void generatePath(Level lvl, GameObject start, GameObject end){
         GridPoint startPoint = new GridPoint(start.getTileX(),start.getTileY());
-        lvl.typemap[startPoint.x][startPoint.y] = Tiletype.FREE;
+        lvl.typemap[startPoint.x][startPoint.y] = Tiletype.FLOOR;
         GridPoint currentPoint = new GridPoint(startPoint.x, startPoint.y);
         GridPoint goalPoint;
         GridPoint endPoint = new GridPoint(end.getTileX(),end.getTileY());
@@ -100,7 +236,7 @@ public class LevelGenerator {
             else{
                 currentPoint.x--;
             }
-            lvl.typemap[currentPoint.x][currentPoint.y] = Tiletype.FREE;
+            lvl.typemap[currentPoint.x][currentPoint.y] = Tiletype.FLOOR;
         }
         while(goalPoint.y!=currentPoint.y){
             if(goalPoint.y>currentPoint.y){
@@ -109,7 +245,7 @@ public class LevelGenerator {
             else{
                 currentPoint.y--;
             }
-            lvl.typemap[currentPoint.x][currentPoint.y] = Tiletype.FREE;
+            lvl.typemap[currentPoint.x][currentPoint.y] = Tiletype.FLOOR;
         }
     }
 

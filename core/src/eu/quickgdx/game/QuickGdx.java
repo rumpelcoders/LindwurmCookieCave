@@ -22,8 +22,6 @@ public class QuickGdx extends ApplicationAdapter {
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.
-    public static final int GAME_WIDTH = 1366;
-    public static final int GAME_HEIGHT = 768;
 
 
     @Override

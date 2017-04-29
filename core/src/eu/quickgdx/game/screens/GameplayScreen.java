@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.QuickGdx;
 
@@ -28,7 +29,7 @@ public class GameplayScreen extends ScreenAdapter {
     String[] menuStrings = {"Play", "Credits", "Exit"};
     int currentMenuItem = 0;
 
-    float offsetLeft = QuickGdx.GAME_WIDTH / 8, offsetTop = QuickGdx.GAME_WIDTH / 8, offsetY = QuickGdx.GAME_HEIGHT / 8;
+    float offsetLeft = Constants.GAME_WIDTH / 8, offsetTop = Constants.GAME_WIDTH / 8, offsetY = Constants.GAME_HEIGHT / 8;
 
 
     public GameplayScreen(QuickGdx game) {
@@ -36,12 +37,12 @@ public class GameplayScreen extends ScreenAdapter {
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        gameCam = new OrthographicCamera(QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
+        gameCam = new OrthographicCamera(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         float screenMultiplikator = 1f;
         gameCam.zoom += 2.5f;
         gameCam.position.set(gameCam.viewportWidth / screenMultiplikator, gameCam.viewportHeight / screenMultiplikator, 0);
         gameCam.update();
-        hudCam = new OrthographicCamera(QuickGdx.GAME_WIDTH, QuickGdx.GAME_HEIGHT);
+        hudCam = new OrthographicCamera(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
         hudCam.position.set(hudCam.viewportWidth / screenMultiplikator, hudCam.viewportHeight / screenMultiplikator, 0);
         hudCam.update();
         gameBatch = new SpriteBatch();

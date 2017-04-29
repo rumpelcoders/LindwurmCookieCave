@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.text.DecimalFormat;
 
+import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.mechanics.World;
 
@@ -40,6 +41,6 @@ public class HUD {
         if (debugText != null && debugText.length() > 0) {
             layout.setText(textFont, debugText);
         }
-        textFont.draw(hudBatch, layout, QuickGdx.GAME_WIDTH / 2 - layout.width / 2, QuickGdx.GAME_HEIGHT - layout.height - 650);
+        textFont.draw(hudBatch, layout, Constants.GAME_WIDTH / 2 - layout.width / 2, Constants.GAME_HEIGHT - layout.height - 650);
     }
 }

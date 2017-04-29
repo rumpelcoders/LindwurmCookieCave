@@ -52,7 +52,9 @@ public enum Constanze {
     ASSET_CLOUD_NE("level/cloud_ne.png"),
     ASSET_CLOUD_NW("level/cloud_nw.png"),
     ASSET_CLOUD_SE("level/cloud_se.png"),
-    ASSET_CLOUD_SW("level/cloud_sw.png");
+    ASSET_CLOUD_SW("level/cloud_sw.png"),
+
+    ASSET_TEST("level/black.png");
 
 
     public static final int FOG_TIME = 4;

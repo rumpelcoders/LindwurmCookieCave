@@ -18,6 +18,7 @@ public class BadCookieObject extends AbstractCookieObject {
     public void hit(PlayerCharacterObject player) {
         player.addState(new SlowState(player, 1, 0.5f));
         System.out.println("hit player" + player.getPlaynr());
+        world.gameplayScreen.parentGame.getSoundManager().playEvent("vomit");
         this.toRemove = true;
     }
 }

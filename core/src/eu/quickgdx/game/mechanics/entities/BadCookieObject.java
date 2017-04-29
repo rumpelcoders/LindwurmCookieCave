@@ -26,6 +26,7 @@ public class BadCookieObject extends AbstractCookieObject {
             case 4: world.gameplayScreen.parentGame.getSoundManager().playEvent("cookie4"); break;
         }
         world.gameplayScreen.parentGame.getSoundManager().playTimedEvent("vomit",2);
+        world.gameplayScreen.parentGame.getSoundManager().increaseIntensity();
         this.toRemove = true;
     }
 }

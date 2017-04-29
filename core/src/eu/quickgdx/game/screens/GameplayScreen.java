@@ -48,7 +48,7 @@ public class GameplayScreen extends ScreenAdapter {
         gameBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
         this.world = new World(this);
-        parentGame.getSoundManager().startBgMusic("bg1",true);
+        parentGame.getSoundManager().startBgMusic();
     }
 
     @Override

@@ -42,7 +42,7 @@ public class ControlledObject extends MoveableObject {
         boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 3;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
-        this.speed = 20f;
+        this.speed = 12f;
         this.hitpoints = 5;
 
     }

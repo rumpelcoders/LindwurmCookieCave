@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
 
@@ -33,7 +33,7 @@ public class LoadingScreen extends ScreenAdapter {
         loadingFrames = TextureRegion.split(loadingSheet, 180, 40)[0];
 
         // Create camera taht projects the game onto the actual screen size.
-        cam = new OrthographicCamera(Constants.GAME_WIDTH, Constants.GAME_HEIGHT);
+        cam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
 
         cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
         cam.update();
@@ -60,7 +60,7 @@ public class LoadingScreen extends ScreenAdapter {
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(loadingFrames[animationFrame], Constants.GAME_WIDTH/2 - loadingFrames[animationFrame].getRegionWidth()/2, Constants.GAME_HEIGHT/2-loadingFrames[animationFrame].getRegionHeight()/2);
+        batch.draw(loadingFrames[animationFrame], Constanze.GAME_WIDTH/2 - loadingFrames[animationFrame].getRegionWidth()/2, Constanze.GAME_HEIGHT/2-loadingFrames[animationFrame].getRegionHeight()/2);
         batch.end();
     }
 

@@ -1,14 +1,9 @@
 package eu.quickgdx.game.mechanics.entities;
 
-import com.badlogic.gdx.graphics.Cursor;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.states.SlowState;
-import eu.quickgdx.game.mechanics.states.State;
 
 /**
  * Created by putzchri on 28.04.2017.

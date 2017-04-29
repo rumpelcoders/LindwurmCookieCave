@@ -7,9 +7,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 
-import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.states.NoMovementState;
 import eu.quickgdx.game.mechanics.states.SlowState;
@@ -40,7 +39,7 @@ public class ControlledObject extends MoveableObject {
         super(position, world);
 //        world.gameplayScreen.gameCam.position.x = position.x;
 //        world.gameplayScreen.gameCam.position.y = position.y;
-        boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
+        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 3;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
         this.speed = 20f;

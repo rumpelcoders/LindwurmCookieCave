@@ -1,12 +1,9 @@
 package eu.quickgdx.game.mechanics.entities;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import eu.quickgdx.game.LastWinner;
 import eu.quickgdx.game.ScreenManager;
-import eu.quickgdx.game.Constants;
 import eu.quickgdx.game.mechanics.World;
 
 /**

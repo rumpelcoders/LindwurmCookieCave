@@ -13,18 +13,10 @@ import eu.quickgdx.game.mechanics.World;
  * Created by putzchri on 28.04.2017.
  */
 
-public class GoodCookieObject extends MovableCollisionObject {
-
+public class GoodCookieObject extends AbstractCookieObject {
 
     public GoodCookieObject(Vector2 position, World world) {
         super(position, world);
-        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
-        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
-    }
-
-    @Override
-    public void render(float delta, SpriteBatch spriteBatch) {
-
     }
 
     @Override

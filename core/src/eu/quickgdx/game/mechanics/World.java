@@ -5,24 +5,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
 
 import java.util.Iterator;
 
 import eu.quickgdx.game.Constants;
+import eu.quickgdx.game.mechanics.entities.AbstractCookieObject;
 import eu.quickgdx.game.mechanics.entities.BadCookieObject;
-import eu.quickgdx.game.mechanics.entities.CollisionObject;
 import eu.quickgdx.game.mechanics.entities.ControlledObject;
 import eu.quickgdx.game.mechanics.entities.Controls;
 import eu.quickgdx.game.mechanics.entities.GameObject;
@@ -78,7 +77,7 @@ public class World {
         //Add HUD
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
-        this.addGlobalState(new GlobalWaitForFogState(this, 10f));
+        this.addGlobalState(new GlobalWaitForFogState(this, 5));
 
     }
 
@@ -153,22 +152,31 @@ public class World {
         PlayerCharacterObject playerObj4 = new PlayerCharacterObject(new Vector2((mapWidth - 1) * Constants.SCALED_TILE, (mapHeight - 1) * Constants.SCALED_TILE), this, controls4, 4);
         gameObjects.add(playerObj4);
         controlledObjects.add(playerObj4);
-
-        Array<MoveableObject> cookieList = new Array<MoveableObject>();
         goodCookieObject = new GoodCookieObject(new Vector2(160, 160), this);
         BadCookieObject badCookieObject = new BadCookieObject(new Vector2(200, 200), this);
 
         gameObjects.add(goodCookieObject);
         gameObjects.add(badCookieObject);
-        cookieList.add(goodCookieObject);
-        cookieList.add(badCookieObject);
-
-        MapLayers mapLayers = map.getLayers();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constants.SCALE);
+        createLevel();
+
+        // layer 4 - collision
+        // layer 5 - controlled objects
+    }
+
+    public void createLevel() {
+
+        Iterator<MapLayer> mapLayerIterator = this.map.getLayers().iterator();
+        while (mapLayerIterator.hasNext()) {
+            MapLayer mapLayer = mapLayerIterator.next();
+            if (mapLayer instanceof GroundLayer || mapLayer instanceof WallLayer) {
+                this.map.getLayers().remove(mapLayer);
+            }
+        }
         Texture groundTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_GROUND);
         Texture wallTexture = this.gameplayScreen.parentGame.getAssetManager().get(Constants.ASSET_MAP_CEILING_W);
 
-        Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, cookieList);
+        Level level = LevelGenerator.generateLevel(mapHeight, controlledObjects, getGameObjectByType(AbstractCookieObject.class));
         // layer 0 - ground
         GroundLayer layerGround = new GroundLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
         WallLayer layerCollision = new WallLayer(mapWidth, mapHeight, Constants.TILESIZE, Constants.TILESIZE);
@@ -187,10 +195,9 @@ public class World {
 
             }
         }
-        mapLayers.add(layerGround);
-        mapLayers.add(layerCollision);
-        // layer 4 - collision
-        // layer 5 - controlled objects
+
+        this.map.getLayers().add(layerGround);
+        this.map.getLayers().add(layerCollision);
     }
 
     public void addFogLayer() {
@@ -208,12 +215,29 @@ public class World {
 
     public void removeFogLayer() {
         Array<FogLayer> mapLayer = this.map.getLayers().getByType(FogLayer.class);
+        this.createLevel();
         for (FogLayer fogLayer : mapLayer) {
             this.map.getLayers().remove(fogLayer);
         }
     }
 
-    public void addGlobalState(GlobalState state){
+    public void addGlobalState(GlobalState state) {
         this.globalStates.add(state);
     }
+
+    public void removeGlobalState(GlobalState state) {
+        this.globalStates.removeValue(state, false);
+    }
+
+
+    public <T extends GameObject> Array<T> getGameObjectByType(Class<T> type) {
+        Array<T> returnTypes = new Array<T>();
+        for (GameObject gameObject : gameObjects) {
+            if (ClassReflection.isInstance(type, gameObject)) {
+                returnTypes.add((T) gameObject);
+            }
+        }
+        return returnTypes;
+    }
+
 }

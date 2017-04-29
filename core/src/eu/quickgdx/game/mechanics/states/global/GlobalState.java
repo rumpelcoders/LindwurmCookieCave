@@ -17,7 +17,7 @@ public abstract class GlobalState {
         this.world = world;
         this.stateTime = 0;
         this.maxStateTime = maxStateTime;
-        this.hasMaxStateTime = maxStateTime == 0;
+        this.hasMaxStateTime = maxStateTime != 0;
         this.onStateCreated();
     }
 
@@ -25,6 +25,7 @@ public abstract class GlobalState {
         this.stateTime += delta;
         if (this.hasMaxStateTime) {
             if (this.maxStateTime < this.stateTime) {
+                this.world.removeGlobalState(this);
                 this.onStateRemove();
             }
         }

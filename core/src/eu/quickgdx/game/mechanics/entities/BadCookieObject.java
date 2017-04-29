@@ -14,14 +14,11 @@ import eu.quickgdx.game.mechanics.states.State;
  * Created by putzchri on 28.04.2017.
  */
 
-public class BadCookieObject extends MovableCollisionObject {
+public class BadCookieObject extends AbstractCookieObject {
 
-    State state;
 
     public BadCookieObject(Vector2 position, World world) {
         super(position, world);
-        int boundsSize = Constants.TILESIZE - Constants.TILESIZE / 3;
-        this.bounds = new Rectangle(position.x + Constants.TILESIZE, position.y, boundsSize, boundsSize);
     }
 
     @Override
@@ -33,10 +30,5 @@ public class BadCookieObject extends MovableCollisionObject {
         player.addState(new SlowState(player, 1, 0.5f));
         System.out.println("hit player" + player.getPlaynr());
         this.toRemove = true;
-    }
-
-    @Override
-    public void render(float delta, SpriteBatch spriteBatch) {
-
     }
 }

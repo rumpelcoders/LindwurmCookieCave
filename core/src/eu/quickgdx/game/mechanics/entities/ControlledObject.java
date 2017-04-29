@@ -1,8 +1,6 @@
 package eu.quickgdx.game.mechanics.entities;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -67,7 +65,8 @@ public class ControlledObject extends MoveableObject {
         for (State state : states) {
             if (state instanceof SlowState) {
                 updateSpeed = ((SlowState) state).getSlowPercentage() * updateSpeed;
-            }if (state instanceof NoMovementState) {
+            }
+            if (state instanceof NoMovementState) {
                 return;
             }
         }
@@ -142,18 +141,18 @@ public class ControlledObject extends MoveableObject {
             moveRight = true;
         }
         if (Gdx.input.isKeyPressed(controls.SHOOT)) {
-            switch (heading){
+            switch (heading) {
                 case 1:
-                    world.gameObjects.add(new Projectile(this.position,world,20,new Vector2(1f,0f),this,heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(1f, 0f), this, heading));
                     break;
                 case 2:
-                    world.gameObjects.add(new Projectile(this.position, world, 20, new Vector2(0f, 1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, 1f), this, heading));
                     break;
                 case 3:
-                    world.gameObjects.add(new Projectile(this.position, world, 20, new Vector2(-1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(-1f, 0f), this, heading));
                     break;
                 case 4:
-                    world.gameObjects.add(new Projectile(this.position, world, 20, new Vector2(0f, -1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, -1f), this, heading));
                     break;
             }
 
@@ -202,6 +201,7 @@ public class ControlledObject extends MoveableObject {
     public void cameraFollow(Vector2 vector) {
         this.gameCam.translate(vector);
     }
+
     @Override
     public void addState(State state) {
         super.addState(state);

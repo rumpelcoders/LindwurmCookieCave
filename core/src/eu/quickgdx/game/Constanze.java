@@ -114,7 +114,7 @@ public enum Constanze {
     ASSET_GREENSTUFF_2("gameplay/animation/green_lightning_2.png"),
     ASSET_MENU_SCREEN("menu/MenuScreen.png"),
     ASSET_MENU_EMPTY("menu/LindwurmBackground.png"),
-    ;
+    ASSET_GOLDEN_COOKIE("gameplay/golden_cookie.png");
 
 
     public static final int FOG_TIME = 4;

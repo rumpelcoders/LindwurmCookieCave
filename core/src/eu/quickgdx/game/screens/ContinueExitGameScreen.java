@@ -91,6 +91,7 @@ public class ContinueExitGameScreen extends ScreenAdapter {
             }
         }
         gameOverFont.draw(batch,"PRESS ENTER TO START A NEW GAME OR ESCAPE TO END IT!".toUpperCase(),offsetLeft, Constanze.GAME_HEIGHT / 4);
+        batch.draw(this.parentGame.getAssetManager().getTexture(Constanze.ASSET_GOLDEN_COOKIE), Constanze.GAME_WIDTH - 400 / 2, Constanze.GAME_HEIGHT / 2);
         batch.end();
     }
 

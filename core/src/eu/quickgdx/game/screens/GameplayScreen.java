@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -50,8 +51,13 @@ public class GameplayScreen extends ScreenAdapter {
         for (int playNr = 0; playNr < nrPlayers; playNr++) {
 //            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
             CamObject gameCam = new CamObject(playNr);
-            ScreenViewport screenViewport = new ScreenViewport(gameCam);
-            viewports.add(screenViewport);
+            Viewport viewport;
+            if(nrPlayers < 3) {
+                viewport = new FitViewport(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT * 2, gameCam);
+            } else {
+                viewport = new ScreenViewport(gameCam);
+            }
+            viewports.add(viewport);
             gameCams.add(gameCam);
         }
         hudCam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);

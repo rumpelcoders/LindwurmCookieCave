@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
@@ -21,7 +23,8 @@ public class GameOverScreen extends ScreenAdapter {
 
     public QuickGdx parentGame;
     private final SpriteBatch batch;
-    private final OrthographicCamera cam;
+    private final CamObject cam;
+    ScreenViewport screenViewport;
 
     Texture backgroundImage;
 
@@ -33,9 +36,11 @@ public class GameOverScreen extends ScreenAdapter {
         gameOverFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
 
         // Create camera that projects the game onto the actual screen size.
-        cam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-
-        cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+        cam = new CamObject(0);
+        screenViewport = new ScreenViewport(cam);
+        screenViewport.update(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
+        screenViewport.setScreenBounds(0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
+        cam.position.set(0, 0, 0);
         cam.update();
 
         batch = new SpriteBatch();
@@ -45,18 +50,17 @@ public class GameOverScreen extends ScreenAdapter {
     public void render(float delta) {
         handleInput();
         // camera:
-        cam.update();
-        batch.setProjectionMatrix(cam.combined);
-
-
         Gdx.gl.glClearColor(0.3f, 0.3f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.setProjectionMatrix(cam.combined);
+        screenViewport.apply(true);
+        cam.update();
         batch.begin();
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         //TODO Maybe more elegant solution
         String[] gameOver = ("Game Over!\n" +
-                "The winner is: " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
+                "The winner is: Player " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
         for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
             gameOverFont.draw(batch, gameOver[i], Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
         }

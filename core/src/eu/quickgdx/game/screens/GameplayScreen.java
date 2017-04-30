@@ -43,7 +43,7 @@ public class GameplayScreen extends ScreenAdapter {
     public GameplayScreen(QuickGdx game) {
         this.parentGame = game;
         this.nrPlayers = game.getNumberOfPlayers();
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        //backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         this.gameCams = new Array<>();

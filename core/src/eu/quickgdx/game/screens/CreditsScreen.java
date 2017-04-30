@@ -3,6 +3,7 @@ package eu.quickgdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -35,7 +36,7 @@ public class CreditsScreen extends ScreenAdapter {
     public CreditsScreen(QuickGdx game) {
         this.parentGame = game;
 
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        backgroundImage = parentGame.getAssetManager().getTexture(Constanze.ASSET_MENU_EMPTY);
         gradientTop = parentGame.getAssetManager().get("credits/gradient_top.png");
         gradientBottom = parentGame.getAssetManager().get("credits/gradient_bottom.png");
 
@@ -64,7 +65,7 @@ public class CreditsScreen extends ScreenAdapter {
         batch.begin();
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-
+        creditsFont.setColor(Color.SKY);
         // draw moving text:
         for (int i = 0; i < credits.length; i++) {
             creditsFont.draw(batch, credits[i], Constanze.GAME_WIDTH/8, moveY - i*creditsFont.getLineHeight()*1.5f);

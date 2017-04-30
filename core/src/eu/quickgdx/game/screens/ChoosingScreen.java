@@ -3,6 +3,7 @@ package eu.quickgdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -46,7 +47,7 @@ public class ChoosingScreen extends ScreenAdapter {
 
     public ChoosingScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        backgroundImage = parentGame.getAssetManager().getTexture(Constanze.ASSET_MENU_EMPTY);
         cookieBagImage = parentGame.getAssetManager().get(Constanze.ASSET_COOKIE_BAG.path);
         choosingFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         choosingFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -76,11 +77,12 @@ public class ChoosingScreen extends ScreenAdapter {
         cam.update();
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
+        choosingFont.setColor(Color.SKY);
         choosingFont.draw(batch, "CHOOSE NUMBER OF PLAYERS: ", offsetLeft, Constanze.GAME_HEIGHT - offsetTop);
         choosingFont.draw(batch, "PRESS ENTER TO START THE GAME", offsetLeft, Constanze.GAME_HEIGHT / 4);
         for (int i = 0; i < playerStrings.length; i++) {
             if (i == currentMenuItem) choosingFont.setColor(0.2f, 1f, 0.2f, 1f);
-            else choosingFont.setColor(0.2f, 0.2f, 1f, 1f);
+            else choosingFont.setColor(Color.SKY);
             choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2 - i * offsetY);
         }
         switch (nrOfPlayers){

@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,11 +15,10 @@ import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
 
 /**
- * Created by putzchri on 28.04.2017.
+ * Created by putzchri on 30.04.2017.
  */
 
-public class GameOverScreen extends ScreenAdapter {
-
+public class ContinueExitGameScreen extends ScreenAdapter {
     public QuickGdx parentGame;
     private final SpriteBatch batch;
     private final CamObject cam;
@@ -29,8 +27,9 @@ public class GameOverScreen extends ScreenAdapter {
     Texture backgroundImage;
 
     private BitmapFont gameOverFont;
+    float offsetLeft = Constanze.GAME_WIDTH / 16, offsetTop = Constanze.GAME_HEIGHT / 16, offsetY = Constanze.GAME_HEIGHT / 16;
 
-    public GameOverScreen(QuickGdx parentGame) {
+    public ContinueExitGameScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         gameOverFont = parentGame.getAssetManager().get("fonts/retro.fnt");
@@ -59,19 +58,23 @@ public class GameOverScreen extends ScreenAdapter {
         batch.begin();
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-        //TODO Maybe more elegant solution
-        String[] gameOver = ("Statistics:\n").split("\\n");
-                //"The winner is: Player " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
-        for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
-            gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
+        if(parentGame.getScreenManager().getCurrentState() != ScreenManager.ScreenState.Game) {
+            //TODO Maybe more elegant solution
+            String[] gameOver = ("Game Over!\n" +
+                    "The winner is: Player " + parentGame.getLastWinner().getPlaynr() + "\n").split("\\n");
+            for (int i = 0; i < gameOver.length; i++) {
+                gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - i * 50);
+            }
         }
-
+        gameOverFont.draw(batch,"PRESS ENTER TO START A NEW GAME OR ESCAPE TO END IT!".toUpperCase(),offsetLeft, Constanze.GAME_HEIGHT / 4);
         batch.end();
     }
 
     private void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY) || Gdx.input.justTouched()) {
-            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.GameOver);
+        } else if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
         }
     }
 }

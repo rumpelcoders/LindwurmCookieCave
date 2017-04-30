@@ -44,7 +44,7 @@ public class ControlledObject extends MoveableObject {
         gameCam = camera;
         camera.position.x = position.x;
         camera.position.y = position.y;
-        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 1.8f;
+        boundsSize = Constanze.TILESIZE-30;
         this.bounds = getPlayerRectangle(position);
         this.controls = controls;
         this.speed = 8f;

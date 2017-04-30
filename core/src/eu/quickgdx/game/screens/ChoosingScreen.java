@@ -117,7 +117,7 @@ public class ChoosingScreen extends ScreenAdapter {
             // find the menu item ..
             for (int i = 0; i < playerStrings.length; i++) {
                 if (touchWorldCoords.x > offsetLeft) {
-                    float pos = Constanze.GAME_HEIGHT - offsetTop * 2 - i * offsetY;
+                    float pos = Constanze.GAME_HEIGHT -offsetTop - Constanze.TILESIZE * 2 - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - choosingFont.getLineHeight()) {
                         currentMenuItem = i;
                         nrOfPlayers = i + 2;

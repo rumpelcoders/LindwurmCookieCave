@@ -8,6 +8,7 @@ import eu.quickgdx.game.mechanics.World;
  */
 
 public class GlobalWaitForFogState extends GlobalState {
+    boolean playsound = false;
 
     public GlobalWaitForFogState(World world, float maxStateTime) {
         super(world, maxStateTime);
@@ -20,6 +21,15 @@ public class GlobalWaitForFogState extends GlobalState {
 
     }
 
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        if(!playsound && stateTime>=maxStateTime-2){
+            System.out.println("Test");
+            world.gameplayScreen.parentGame.getSoundManager().playEvent("lw_maze");
+            playsound = true;
+        }
+    }
     @Override
     protected void onStateCreated() {
         System.out.println(getClass().toString() + " created");

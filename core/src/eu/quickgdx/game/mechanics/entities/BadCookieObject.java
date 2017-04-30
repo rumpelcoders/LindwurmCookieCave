@@ -18,12 +18,15 @@ public class BadCookieObject extends AbstractCookieObject {
     public void hit(PlayerCharacterObject player) {
         player.addState(new SlowState(player, 1, 0.5f));
         System.out.println("hit player" + player.getPlaynr());
-        int rand = 1 + (int)(Math.random() * ((4 - 1) + 1));
+        int rand = 1 + (int)(Math.random() * ((6 - 1) + 1));
         switch (rand){
             case 1: world.gameplayScreen.parentGame.getSoundManager().playEvent("cookie1"); break;
             case 2: world.gameplayScreen.parentGame.getSoundManager().playEvent("cookie2"); break;
             case 3: world.gameplayScreen.parentGame.getSoundManager().playEvent("cookie3"); break;
             case 4: world.gameplayScreen.parentGame.getSoundManager().playEvent("cookie4"); break;
+            case 5: world.gameplayScreen.parentGame.getSoundManager().playEvent("lw_badcookie1"); break;
+            case 6: world.gameplayScreen.parentGame.getSoundManager().playEvent("lw_badcookie2"); break;
+
         }
         world.gameplayScreen.parentGame.getSoundManager().playTimedEvent("vomit",2);
         world.gameplayScreen.parentGame.getSoundManager().increaseIntensity();

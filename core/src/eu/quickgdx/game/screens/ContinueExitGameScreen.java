@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import eu.quickgdx.game.CamObject;
@@ -23,7 +24,7 @@ public class ContinueExitGameScreen extends ScreenAdapter {
     private final SpriteBatch batch;
     private final CamObject cam;
     ScreenViewport screenViewport;
-
+    Array<Texture> playerChars;
     Texture backgroundImage;
 
     private BitmapFont gameOverFont;
@@ -44,6 +45,11 @@ public class ContinueExitGameScreen extends ScreenAdapter {
         screenViewport.setScreenBounds(0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         cam.position.set(0, 0, 0);
         cam.update();
+        playerChars = new Array<>();
+        playerChars.add(new Texture(Constanze.ASSET_OWL_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_WIZARD_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_SPACEORG_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_FAIRY_FRONT.path));
 
         batch = new SpriteBatch();
     }
@@ -65,7 +71,21 @@ public class ContinueExitGameScreen extends ScreenAdapter {
             String[] gameOver = ("Game Over!\n" +
                     "The winner is: Player " + parentGame.getLastWinner().getPlaynr() + "\n").split("\\n");
             for (int i = 0; i < gameOver.length; i++) {
-                gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - i * 50);
+                gameOverFont.draw(batch, gameOver[i].toUpperCase(), (-1)*gameOver[i].length()/2+Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT / 2 + i * Constanze.TILESIZE);
+            }
+            switch (parentGame.getLastWinner().getPlaynr()) {
+                case 1:
+                    batch.draw(playerChars.get(0),Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - 3 * 64, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                    break;
+                case 2:
+                    batch.draw(playerChars.get(1),Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - 3 * 64, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                    break;
+                case 3:
+                    batch.draw(playerChars.get(2),Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - 3 * 64, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                    break;
+                case 4:
+                    batch.draw(playerChars.get(3),Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 - 3 * 64, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                    break;
             }
         }
         gameOverFont.draw(batch,"PRESS ENTER TO START A NEW GAME OR ESCAPE TO END IT!".toUpperCase(),offsetLeft, Constanze.GAME_HEIGHT / 4);

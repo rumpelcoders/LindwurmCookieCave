@@ -13,9 +13,29 @@ public enum Constanze {
     ASSET_PLAYER("gameplay/test_char_64.png"),
 
     ASSET_OWL_FRONT("gameplay/owl_front.png"),
+    ASSET_OWL_DOWN_1("gameplay/animation/owl_move_down_1.png"),
+    ASSET_OWL_DOWN_2("gameplay/animation/owl_move_down_2.png"),
+    ASSET_OWL_UP_1("gameplay/animation/owl_move_up_1.png"),
+    ASSET_OWL_UP_2("gameplay/animation/owl_move_up_2.png"),
+
     ASSET_FAIRY_FRONT("gameplay/fairy_front.png"),
+    ASSET_FAIRY_UP_1("gameplay/animation/fairy_move_up_1.png"),
+    ASSET_FAIRY_UP_2("gameplay/animation/fairy_move_up_2.png"),
+    ASSET_FAIRY_DOWN_1("gameplay/animation/fairy_move_down_1.png"),
+    ASSET_FAIRY_DOWN_2("gameplay/animation/fairy_move_down_2.png"),
+
     ASSET_WIZARD_FRONT("gameplay/wizard_front.png"),
+    ASSET_WIZARD_UP_1("gameplay/animation/wizard_move_up_1.png"),
+    ASSET_WIZARD_UP_2("gameplay/animation/wizard_move_up_2.png"),
+    ASSET_WIZARD_DOWN_1("gameplay/animation/wizard_move_down_1.png"),
+    ASSET_WIZARD_DOWN_2("gameplay/animation/wizard_move_down_2.png"),
+
     ASSET_SPACEORG_FRONT("gameplay/spaceorc_front.png"),
+    ASSET_SPACEORG_UP_1("gameplay/animation/spaceorc_move_up_1.png"),
+    ASSET_SPACEORG_UP_2("gameplay/animation/spaceorc_move_up_2.png"),
+    ASSET_SPACEORG_DOWN_1("gameplay/animation/spaceorc_move_down_1.png"),
+    ASSET_SPACEORG_DOWN_2("gameplay/animation/spaceorc_move_down_2.png"),
+
     ASSET_COOKIE_BAG("gameplay/cookie_bag.png"),
     ASSET_FOG("level/fog_1.png"),
 

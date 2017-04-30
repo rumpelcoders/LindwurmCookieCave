@@ -18,43 +18,43 @@ public class PlayerCharacterObject extends ControlledObject {
         super(position, world, controls, camera);
         this.playnr = playerNr;
         Constanze assetIdle;
-        Constanze assetUp;
-        Constanze assetDown;
+        String assetUp;
+        String assetDown;
         Constanze assetSide;
         switch (playnr) {
             case 1:
                 assetIdle = Constanze.ASSET_OWL_FRONT;
-                assetUp = Constanze.ASSET_OWL_FRONT;
-                assetDown = Constanze.ASSET_OWL_FRONT;
+                assetUp = "gameplay/animation/owl_move_up_";
+                assetDown = "gameplay/animation/owl_move_down_";
                 assetSide = Constanze.ASSET_OWL_FRONT;
                 break;
             case 2:
                 assetIdle = Constanze.ASSET_WIZARD_FRONT;
-                assetUp = Constanze.ASSET_WIZARD_FRONT;
-                assetDown = Constanze.ASSET_WIZARD_FRONT;
+                assetUp = "gameplay/animation/wizard_move_up_";
+                assetDown = "gameplay/animation/wizard_move_down_";
                 assetSide = Constanze.ASSET_WIZARD_FRONT;
                 break;
             case 3:
                 assetIdle = Constanze.ASSET_SPACEORG_FRONT;
-                assetUp = Constanze.ASSET_SPACEORG_FRONT;
-                assetDown = Constanze.ASSET_SPACEORG_FRONT;
+                assetUp = "gameplay/animation/spaceorc_move_up_";
+                assetDown = "gameplay/animation/spaceorc_move_down_";
                 assetSide = Constanze.ASSET_SPACEORG_FRONT;
                 break;
             case 4:
                 assetIdle = Constanze.ASSET_FAIRY_FRONT;
-                assetUp = Constanze.ASSET_FAIRY_FRONT;
-                assetDown = Constanze.ASSET_FAIRY_FRONT;
+                assetUp = "gameplay/animation/fairy_move_up_";
+                assetDown = "gameplay/animation/fairy_move_down_";
                 assetSide = Constanze.ASSET_FAIRY_FRONT;
                 break;
             default:
                 assetIdle = Constanze.ASSET_PLAYER;
-                assetUp = Constanze.ASSET_PLAYER;
-                assetDown = Constanze.ASSET_PLAYER;
+                assetUp = Constanze.ASSET_PLAYER.path;
+                assetDown = Constanze.ASSET_PLAYER.path;
                 assetSide = Constanze.ASSET_PLAYER;
         }
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetIdle.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetUp.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+        this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetUp, 2, 0.1f);
+        this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown, 2, 0.1f);
         this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetSide.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
 
     }

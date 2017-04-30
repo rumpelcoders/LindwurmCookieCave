@@ -77,6 +77,7 @@ public enum Constanze {
     public final static int TILESIZE = 64;
     public final static float SCALE = 1.0f;
     public final static float SCALED_TILE = TILESIZE * SCALE;
+    public static final float SHOOTCOOLDWON = 0.5f;
 
     public static final String GROUP_LINDWURM_IDLE = "lindwurm_idle";
 

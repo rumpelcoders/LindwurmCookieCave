@@ -36,6 +36,7 @@ public class ControlledObject extends MoveableObject {
 
     private boolean cameraFollow = true; // If this flag is true the camera will follow this Object (Not tested with multiple conrolledObjects)
     private CamObject gameCam;
+    private float shoottimer = 0;
 
     public ControlledObject(Vector2 position, World world, Controls controls, CamObject camera) {
         super(position, world);
@@ -55,6 +56,7 @@ public class ControlledObject extends MoveableObject {
         super.update(delta);
         handleInput();
         handleMovement(delta, true);
+        shoottimer-=delta;
     }
 
     @Override
@@ -141,6 +143,9 @@ public class ControlledObject extends MoveableObject {
             moveRight = true;
         }
         if (Gdx.input.isKeyPressed(controls.SHOOT)) {
+            if(shoottimer>0)
+                return;
+            shoottimer+=Constanze.SHOOTCOOLDWON;
             switch (heading) {
                 case 1:
                     world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, 1f), this, heading));

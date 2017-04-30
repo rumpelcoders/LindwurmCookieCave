@@ -75,7 +75,7 @@ public class PlayerCharacterObject extends ControlledObject {
                    movableCollisionObject.hit(this);
                 }
             } else if (gameObject instanceof Projectile) {
-                if (gameObject.getBounds()!=null &&gameObject.getBounds().overlaps(this.bounds)) {
+                if (gameObject.getBounds()!=null && gameObject.getBounds().overlaps(this.bounds)) {
                     if (((Projectile) gameObject).originObject != this) {
                         ((Projectile) gameObject).hit(this);
                     }

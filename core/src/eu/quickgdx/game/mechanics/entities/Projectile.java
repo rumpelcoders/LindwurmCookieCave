@@ -32,10 +32,10 @@ public class Projectile extends MoveableObject {
         this.heading = heading;
         switch (((PlayerCharacterObject)originObject).getPlaynr()){
             case 1: assetEverything = Constanze.ASSET_TEST;
-                    this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                    this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                    this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                    this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+                    this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/green_lightning_",2,0.3f);
+                    this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/green_lightning_",2,0.3f);
+                    this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/green_lightning_",2,0.3f);
+                    this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/green_lightning_",2,0.3f);
                     break;
             case 2: this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/fireball_up_",2,0.3f);
                     this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/fireball_down_",2,0.3f);
@@ -43,16 +43,15 @@ public class Projectile extends MoveableObject {
                     this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/fireball_left_",2,0.3f);
                     break;
             case 3: assetEverything = Constanze.ASSET_TEST;
-                this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+                this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingaxe_",4,0.1f);
+                this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingaxe_",4,0.1f);
+                this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingaxe_",4,0.1f);
+                this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingaxe_",4,0.1f);
                     break;
-            case 4: assetEverything = Constanze.ASSET_TEST;
-                this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
-                this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetEverything.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+            case 4: this.animationUp = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingstar_up_",2,0.3f);
+                    this.animationDown = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingstar_down_",2,0.3f);
+                    this.animationRight = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingstar_right_",2,0.3f);
+                    this.animationLeft = world.gameplayScreen.parentGame.getAnimator().loadAnimation("gameplay/animation/throwingstar_left_",2,0.3f);
                     break;
         }
         this.setBounds(new Rectangle(position.x,position.y,10,10));

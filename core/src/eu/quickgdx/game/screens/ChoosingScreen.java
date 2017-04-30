@@ -15,6 +15,7 @@ import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.QuickGdx;
 import eu.quickgdx.game.ScreenManager;
+import eu.quickgdx.game.mechanics.stats.PlayerStats;
 
 /**
  * Created by putzchri on 30.04.2017.
@@ -109,6 +110,7 @@ public class ChoosingScreen extends ScreenAdapter {
     private void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             parentGame.setNumberOfPlayers(nrOfPlayers);
+            parentGame.playerStats = new PlayerStats(nrOfPlayers);
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
         } else if (Gdx.input.justTouched()) {
             Vector3 touchWorldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));

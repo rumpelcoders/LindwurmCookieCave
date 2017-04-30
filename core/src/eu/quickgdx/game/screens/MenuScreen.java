@@ -34,7 +34,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(QuickGdx game) {
         this.parentGame = game;
         game.getSoundManager().initzializeMusic();
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        backgroundImage = parentGame.getAssetManager().getTexture(Constanze.ASSET_MENU_SCREEN);
         menuFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the game onto the actual screen size.

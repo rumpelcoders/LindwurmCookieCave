@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import eu.quickgdx.game.AssetManager;
 import eu.quickgdx.game.CamObject;
 import eu.quickgdx.game.Constanze;
 import eu.quickgdx.game.QuickGdx;
@@ -60,12 +61,34 @@ public class GameOverScreen extends ScreenAdapter {
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         //TODO Maybe more elegant solution
-        String[] gameOver = ("Statistics:\n").split("\\n");
-                //"The winner is: Player " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
-        for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
-            gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
+        int winnerNr = this.parentGame.playerStats.getWinner();
+        String winnerText = "The winner is player Nr " + winnerNr + "\n";
+        for (int i = 0; i < this.parentGame.playerStats.getPlayerStats().length; i++) {
+            winnerText += "Player " + (i + 1) + ": " + this.parentGame.playerStats.getPlayerStats()[i] + " \n";
         }
-
+        String[] gameOver = (winnerText).split("\\n");
+        for (int i = gameOver.length - 1, j = 0; i >= 0; i--, j++) {
+            gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2 + j * 50);
+        }
+        AssetManager assetManager = parentGame.getAssetManager();
+        Texture winnerTexture = null;
+        switch (winnerNr) {
+            case 1:
+                winnerTexture = assetManager.getTexture(Constanze.ASSET_OWL_FRONT);
+                break;
+            case 2:
+                winnerTexture = assetManager.getTexture(Constanze.ASSET_WIZARD_FRONT);
+                break;
+            case 3:
+                winnerTexture = assetManager.getTexture(Constanze.ASSET_SPACEORG_FRONT);
+                break;
+            case 4:
+                winnerTexture = assetManager.getTexture(Constanze.ASSET_FAIRY_FRONT);
+                break;
+        }
+        if (winnerTexture != null) {
+            batch.draw(winnerTexture, Constanze.GAME_WIDTH / 2 - winnerTexture.getWidth() * 8, Constanze.GAME_HEIGHT / 2, Constanze.TILESIZE*4, Constanze.TILESIZE*4);
+        }
         batch.end();
     }
 

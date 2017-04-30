@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import eu.quickgdx.game.mechanics.stats.PlayerStats;
+
 /**
  * Main entry point in our game. Asset loading should be done here.
  * provides you with the basic manager classes (assets, screen, sound) and the animator helper class
@@ -20,6 +22,7 @@ public class QuickGdx extends ApplicationAdapter {
     private Animator animator;
     private LastWinner lastWinner;
     private int numberOfPlayers;
+    public PlayerStats playerStats;
 
     // gives the original size for all screen working with the scaling orthographic camera
     // set in DesktopLauncher to any resolution and it will be scaled automatically.

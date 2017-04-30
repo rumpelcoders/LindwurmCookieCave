@@ -81,12 +81,24 @@ public class GameplayScreen extends ScreenAdapter {
             int heightView = (height - Constanze.borderTop - Constanze.borderBottom) / 2;
             switch (playNr) {
                 case 0:
-                    xStart = Constanze.borderLeft;
-                    yStart = Constanze.borderBottom + heightView;
+                    if (nrPlayers > 2) {
+                        xStart = Constanze.borderLeft;
+                        yStart = Constanze.borderBottom + heightView;
+                    } else {
+                        xStart = Constanze.borderLeft;
+                        heightView = heightView * 2;
+                        yStart = Constanze.borderBottom;
+                    }
                     break;
                 case 1:
-                    xStart = width - Constanze.borderRight - withView;
-                    yStart = Constanze.borderBottom + heightView;
+                    if (nrPlayers > 2) {
+                        xStart = width - Constanze.borderRight - withView;
+                        yStart = Constanze.borderBottom + heightView;
+                    } else {
+                        xStart = width - Constanze.borderRight - withView;
+                        yStart = Constanze.borderBottom;
+                        heightView = heightView * 2;
+                    }
                     break;
                 case 2:
                     xStart = Constanze.borderLeft;

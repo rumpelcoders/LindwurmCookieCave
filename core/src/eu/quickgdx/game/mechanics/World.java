@@ -69,8 +69,8 @@ public class World {
     private float alreadyplayedtimer=0;
 
     public World(GameplayScreen gameplayScreen, int nrPlayers) {
-        mapWidth = 32;
-        mapHeight = 32;
+        mapWidth = nrPlayers*20;
+        mapHeight = nrPlayers*20;
         tileHeight = Constanze.TILESIZE;
         tileWidth = Constanze.TILESIZE;
         this.nrPlayers = nrPlayers;
@@ -127,14 +127,14 @@ public class World {
         }
         spriteBatch.end();
 
-        sr.setProjectionMatrix(gameCam.combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.setColor(0, 1, 0, 1);
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject.getBounds() != null)
-                sr.rect(gameObject.getBounds().x, gameObject.getBounds().y, gameObject.getBounds().width, gameObject.getBounds().height);
-        }
-        sr.end();
+//        sr.setProjectionMatrix(gameCam.combined);
+//        sr.begin(ShapeRenderer.ShapeType.Line);
+//        sr.setColor(0, 1, 0, 1);
+//        for (GameObject gameObject : gameObjects) {
+//            if (gameObject.getBounds() != null)
+//                sr.rect(gameObject.getBounds().x, gameObject.getBounds().y, gameObject.getBounds().width, gameObject.getBounds().height);
+//        }
+//        sr.end();
 
         //Debug Renderer
     }
@@ -188,7 +188,7 @@ public class World {
         Array<PlayerCharacterObject> players = getGameObjectByType(PlayerCharacterObject.class);
 
 
-        this.cookieCount = mapHeight / 30 + players.size;
+        this.cookieCount = mapHeight / 30 + players.size * 2;
         goodCookieObject = new GoodCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE,
                 (int) Utils.calculateRandomY(mapWidth) * Constanze.TILESIZE), this);
         //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constanze.TILESIZE, goodCookieObject.getTileY() * Constanze.TILESIZE));

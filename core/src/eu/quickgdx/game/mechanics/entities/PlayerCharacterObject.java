@@ -55,7 +55,8 @@ public class PlayerCharacterObject extends ControlledObject {
         this.idleAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetIdle.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
         this.movingUpAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetUp, 2, 0.1f);
         this.movingDownAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown, 2, 0.1f);
-        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetSide.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+//        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetSide.path, 0.3f, Constanze.TILESIZE, Constanze.TILESIZE);
+        this.movingSideAnimation = world.gameplayScreen.parentGame.getAnimator().loadAnimation(assetDown, 2, 0.1f);
 
     }
 

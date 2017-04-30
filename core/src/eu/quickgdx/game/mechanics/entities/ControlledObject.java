@@ -43,7 +43,7 @@ public class ControlledObject extends MoveableObject {
         gameCam = camera;
         camera.position.x = position.x;
         camera.position.y = position.y;
-        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 3;
+        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 2;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
         this.speed = 12f;
@@ -66,7 +66,8 @@ public class ControlledObject extends MoveableObject {
         float updateSpeed = this.speed;
         for (State state : states) {
             if (state instanceof SlowState) {
-                updateSpeed = ((SlowState) state).getSlowPercentage() * updateSpeed;
+                updateSpeed = ((SlowState) state).getSlowPercentage() / 100 * updateSpeed;
+                updateSpeed = updateSpeed < 1 ? 1f : updateSpeed;
             }
             if (state instanceof NoMovementState) {
                 return;

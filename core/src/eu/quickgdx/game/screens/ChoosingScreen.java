@@ -36,7 +36,7 @@ public class ChoosingScreen extends ScreenAdapter {
     public ChoosingScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        choosingFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+        choosingFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         choosingFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         cam = new CamObject(0);
@@ -74,8 +74,7 @@ public class ChoosingScreen extends ScreenAdapter {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             parentGame.setNumberOfPlayers(nrOfPlayers);
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
-        } else
-        if (Gdx.input.justTouched()) {
+        } else if (Gdx.input.justTouched()) {
             Vector3 touchWorldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
             // find the menu item ..
             for (int i = 0; i < playerStrings.length; i++) {
@@ -88,6 +87,8 @@ public class ChoosingScreen extends ScreenAdapter {
                     }
                 }
             }
+        } else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
         }
     }
 }

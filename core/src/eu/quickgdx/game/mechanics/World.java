@@ -188,7 +188,7 @@ public class World {
         Array<PlayerCharacterObject> players = getGameObjectByType(PlayerCharacterObject.class);
 
 
-        this.cookieCount = mapHeight / 30 + players.size;
+        this.cookieCount = mapHeight / 30 + players.size * 2;
         goodCookieObject = new GoodCookieObject(new Vector2((int) Utils.calculateRandomX(mapWidth) * Constanze.TILESIZE,
                 (int) Utils.calculateRandomY(mapWidth) * Constanze.TILESIZE), this);
         //goodCookieObject.setPosition(new Vector2(goodCookieObject.getTileX() * Constanze.TILESIZE, goodCookieObject.getTileY() * Constanze.TILESIZE));

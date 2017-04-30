@@ -52,7 +52,25 @@ public enum Constanze {
     ASSET_CLOUD_NE("level/cloud_ne.png"),
     ASSET_CLOUD_NW("level/cloud_nw.png"),
     ASSET_CLOUD_SE("level/cloud_se.png"),
-    ASSET_CLOUD_SW("level/cloud_sw.png");
+    ASSET_CLOUD_SW("level/cloud_sw.png"),
+
+    ASSET_TEST("level/black.png"),
+
+    ASSET_ARENA_S("level/arenaborder_s.png"),
+    ASSET_ARENA_E("level/arenaborder_e.png"),
+    ASSET_ARENA_N("level/arenaborder_n.png"),
+    ASSET_ARENA_W("level/arenaborder_w.png"),
+    ASSET_ARENA_NE("level/arenaborder_ne.png"),
+    ASSET_ARENA_NW("level/arenaborder_nw.png"),
+    ASSET_ARENA_SE("level/arenaborder_se.png"),
+    ASSET_ARENA_SW("level/arenaborder_sw.png"),
+
+    ASSET_LINDWURM_STANDARD("gameplay/lindwurm_blow.png"),
+    ASSET_LINDWURM_LOOK_LEFT("gameplay/lindwurm_look_left.png"),
+    ASSET_LINDWURM_LOOK_RIGHT("gameplay/lindwurm_look_right.png"),
+    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),
+    ;
+
 
 
     public static final int FOG_TIME = 4;
@@ -61,8 +79,8 @@ public enum Constanze {
     public final static float SCALE = 1.0f;
     public final static float SCALED_TILE = TILESIZE * SCALE;
 
-    public static final int GAME_WIDTH = 1920;
-    public static final int GAME_HEIGHT = 1080;
+    public static int GAME_WIDTH = 1920;
+    public static int GAME_HEIGHT = 1080;
 
 
     public final String path;

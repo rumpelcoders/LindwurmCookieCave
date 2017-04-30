@@ -9,6 +9,7 @@ public class Controls {
     public final int DOWN;
     public final int LEFT;
     public final int RIGHT;
+    public final int SHOOT;
 
     /**
      * should be used with Input.Keys from gdx
@@ -18,10 +19,11 @@ public class Controls {
      * @param LEFT
      * @param RIGHT
      */
-    public Controls(int UP, int DOWN, int LEFT, int RIGHT) {
+    public Controls(int UP, int DOWN, int LEFT, int RIGHT, int SHOOT) {
         this.UP = UP;
         this.DOWN = DOWN;
         this.LEFT = LEFT;
         this.RIGHT = RIGHT;
+        this.SHOOT = SHOOT;
     }
 }

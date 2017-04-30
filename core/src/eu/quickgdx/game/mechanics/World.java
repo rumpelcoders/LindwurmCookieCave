@@ -127,9 +127,9 @@ public class World {
     }
 
     public void renderHUD(float delta, SpriteBatch hudBatch) {
-//        hudBatch.begin();
-//        this.hud.render(delta, hudBatch);
-//        hudBatch.end();
+        hudBatch.begin();
+        this.hud.render(delta, hudBatch);
+        hudBatch.end();
     }
 
     public void touch(Vector3 touchCoords) {
@@ -142,10 +142,10 @@ public class World {
     public void loadMap() {
         map = new TiledMap();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, Constanze.SCALE);
-        Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT);
-        Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D);
-        Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H);
-        Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L);
+        Controls controls1 = new Controls(Input.Keys.UP, Input.Keys.DOWN, Input.Keys.LEFT, Input.Keys.RIGHT, Input.Keys.CONTROL_RIGHT);
+        Controls controls2 = new Controls(Input.Keys.W, Input.Keys.S, Input.Keys.A, Input.Keys.D, Input.Keys.Q);
+        Controls controls3 = new Controls(Input.Keys.T, Input.Keys.G, Input.Keys.F, Input.Keys.H, Input.Keys.R);
+        Controls controls4 = new Controls(Input.Keys.I, Input.Keys.K, Input.Keys.J, Input.Keys.L, Input.Keys.U);
         Controls[] controls = new Controls[]{controls1, controls2, controls3, controls4};
 
 

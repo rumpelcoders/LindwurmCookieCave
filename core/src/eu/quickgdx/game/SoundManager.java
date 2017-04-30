@@ -70,6 +70,7 @@ public class SoundManager {
         songs.add(new Song(musicArray1));
 
         Array<Music> musicArray2 = new Array<>();
+        musicArray2.add(parentGame.getAssetManager().get("music/game-loop-3-0.mp3", Music.class));
         musicArray2.add(parentGame.getAssetManager().get("music/game-loop-3-1.mp3", Music.class));
         musicArray2.add(parentGame.getAssetManager().get("music/game-loop-3-2.mp3", Music.class));
         songs.add(new Song(musicArray2));

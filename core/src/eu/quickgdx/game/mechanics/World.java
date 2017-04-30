@@ -69,8 +69,8 @@ public class World {
     private float alreadyplayedtimer=0;
 
     public World(GameplayScreen gameplayScreen, int nrPlayers) {
-        mapWidth = 32;
-        mapHeight = 32;
+        mapWidth = 48;
+        mapHeight = 48;
         tileHeight = Constanze.TILESIZE;
         tileWidth = Constanze.TILESIZE;
         this.nrPlayers = nrPlayers;
@@ -127,14 +127,14 @@ public class World {
         }
         spriteBatch.end();
 
-        sr.setProjectionMatrix(gameCam.combined);
-        sr.begin(ShapeRenderer.ShapeType.Line);
-        sr.setColor(0, 1, 0, 1);
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject.getBounds() != null)
-                sr.rect(gameObject.getBounds().x, gameObject.getBounds().y, gameObject.getBounds().width, gameObject.getBounds().height);
-        }
-        sr.end();
+//        sr.setProjectionMatrix(gameCam.combined);
+//        sr.begin(ShapeRenderer.ShapeType.Line);
+//        sr.setColor(0, 1, 0, 1);
+//        for (GameObject gameObject : gameObjects) {
+//            if (gameObject.getBounds() != null)
+//                sr.rect(gameObject.getBounds().x, gameObject.getBounds().y, gameObject.getBounds().width, gameObject.getBounds().height);
+//        }
+//        sr.end();
 
         //Debug Renderer
     }

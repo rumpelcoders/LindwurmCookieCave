@@ -23,6 +23,7 @@ public class ChoosingScreen extends ScreenAdapter {
 
     public QuickGdx parentGame;
     Texture backgroundImage;
+    Texture cookieBagImage;
 
     private BitmapFont choosingFont;
     private final CamObject cam;
@@ -32,10 +33,19 @@ public class ChoosingScreen extends ScreenAdapter {
     int currentMenuItem = 0;
     float offsetLeft = Constanze.GAME_WIDTH / 16, offsetTop = Constanze.GAME_HEIGHT / 16, offsetY = Constanze.GAME_HEIGHT / 16;
     int nrOfPlayers = 2;
+    String[] introduction =
+            ("The goal of this game\n" +
+                    " is to find the\n" +
+                    "good cookie and pick\n" +
+                    "it up with your\n" +
+                    "character.\n" +
+                    "There is one good and\n" +
+                    "many bad cookies!").split("\\n");
 
     public ChoosingScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        cookieBagImage = parentGame.getAssetManager().get(Constanze.ASSET_COOKIE_BAG.path);
         choosingFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         choosingFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
@@ -60,13 +70,17 @@ public class ChoosingScreen extends ScreenAdapter {
         cam.update();
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-        choosingFont.draw(batch, "CHOOSE NUMBER OF PLAYERS: ",offsetLeft,Constanze.GAME_HEIGHT - offsetTop);
+        choosingFont.draw(batch, "CHOOSE NUMBER OF PLAYERS: ", offsetLeft, Constanze.GAME_HEIGHT - offsetTop);
         choosingFont.draw(batch, "PRESS ENTER TO START THE GAME", offsetLeft, Constanze.GAME_HEIGHT / 4);
         for (int i = 0; i < playerStrings.length; i++) {
             if (i == currentMenuItem) choosingFont.setColor(0.2f, 1f, 0.2f, 1f);
             else choosingFont.setColor(0.2f, 0.2f, 1f, 1f);
             choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - 100 - i * offsetY);
         }
+        for (int i = 0; i < introduction.length; i++) {
+            choosingFont.draw(batch, introduction[i].toUpperCase(), offsetLeft + Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT - offsetTop - i * 50);
+        }
+        batch.draw(cookieBagImage,offsetLeft + Constanze.GAME_WIDTH / 2,Constanze.GAME_HEIGHT/2 - cookieBagImage.getHeight() * 4,cookieBagImage.getWidth()*4, cookieBagImage.getHeight()*4);
         batch.end();
     }
 
@@ -82,13 +96,23 @@ public class ChoosingScreen extends ScreenAdapter {
                     float pos = Constanze.GAME_HEIGHT - offsetTop * 2 - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - choosingFont.getLineHeight()) {
                         currentMenuItem = i;
-                        nrOfPlayers = i+2;
+                        nrOfPlayers = i + 2;
                         System.out.println(nrOfPlayers);
                     }
                 }
             }
-        } else if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Menu);
+        } if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            currentMenuItem = (currentMenuItem + 1) % playerStrings.length;
+            nrOfPlayers = currentMenuItem+2;
+            parentGame.getSoundManager().playEvent("blip");
+            System.out.println(nrOfPlayers);
+        } else if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            currentMenuItem = (currentMenuItem - 1) % playerStrings.length;
+            parentGame.getSoundManager().playEvent("blip");
+            nrOfPlayers = currentMenuItem+2;
+            System.out.println(nrOfPlayers);
         }
     }
 }

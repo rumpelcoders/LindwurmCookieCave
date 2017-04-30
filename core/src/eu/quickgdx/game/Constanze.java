@@ -69,7 +69,16 @@ public enum Constanze {
     ASSET_LINDWURM_STANDARD("gameplay/lindwurm_standard.png", Constanze.GROUP_LINDWURM_IDLE),
     ASSET_LINDWURM_LOOK_LEFT("gameplay/lindwurm_look_left.png", Constanze.GROUP_LINDWURM_IDLE),
     ASSET_LINDWURM_LOOK_RIGHT("gameplay/lindwurm_look_right.png", Constanze.GROUP_LINDWURM_IDLE),
-    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),;
+    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),
+    ASSET_SHOOT_FIREBALL_1("gameplay/animation/fireball_down_1.png"),
+    ASSET_SHOOT_FIREBALL_2("gameplay/animation/fireball_down_2.png"),
+    ASSET_SHOOT_FIREBALL_3("gameplay/animation/fireball_up_1.png"),
+    ASSET_SHOOT_FIREBALL_4("gameplay/animation/fireball_up_2.png"),
+    ASSET_SHOOT_FIREBALL_5("gameplay/animation/fireball_right_1.png"),
+    ASSET_SHOOT_FIREBALL_6("gameplay/animation/fireball_right_2.png"),
+    ASSET_SHOOT_FIREBALL_7("gameplay/animation/fireball_left_1.png"),
+    ASSET_SHOOT_FIREBALL_8("gameplay/animation/fireball_left_2.png")
+    ;
 
 
     public static final int FOG_TIME = 4;

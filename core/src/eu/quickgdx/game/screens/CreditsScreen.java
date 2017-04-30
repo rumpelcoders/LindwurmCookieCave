@@ -29,7 +29,14 @@ public class CreditsScreen extends ScreenAdapter {
             "VEIT FRICK\n" +
             "THOMAS GRAFENAUER\n" +
             "CRISTOPH PUTZ\n" +
-            "CHRISTIAN ZELLOT").split("\\n");
+            "CHRISTIAN ZELLOT\n" +
+            "\n"+
+            "ADDITIONAL HELP:\n" +
+            "ARMIN LIPPITZ\n" +
+            "MATHIAS LUX\n" +
+            "\n"+
+            "ADDITIONAL \"HELP\":\n" +
+            "LUKAS KNOCH").split("\\n");
     private float moveY;
 
 

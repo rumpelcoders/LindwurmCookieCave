@@ -33,6 +33,7 @@ public class GlobalFogState extends GlobalState {
         this.world.addFogLayer();
         for (ControlledObject controlledObject : this.world.controlledObjects) {
             controlledObject.addState(new NoMovementState(controlledObject, maxStateTime));
+            controlledObject.setTilePostionCorrect();
         }
 
         //world.gameplayScreen.parentGame.getSoundManager().playEvent("mapchange3");

@@ -65,7 +65,7 @@ public class Projectile extends MoveableObject {
     public void update(float delta) {
         super.update(delta);
         super.handleMovement(delta, false);
-        this.setBounds(new Rectangle(position.x, position.y, 10, 10));
+        this.setBounds(new Rectangle(position.x+20, position.y+20, 30, 30));
         for (int i = 0; i < world.gameObjects.size; i++) {
             GameObject gameObject = world.gameObjects.get(i);
             if (gameObject instanceof CollisionObject) {
@@ -103,7 +103,7 @@ public class Projectile extends MoveableObject {
 
     public void hit(GameObject object){
         if(object instanceof PlayerCharacterObject)
-            object.addState(new SlowState(object,2,50));
+            object.addState(new SlowState(object,3,15));
         world.gameObjects.removeValue(this,false);
     }
 }

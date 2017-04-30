@@ -14,6 +14,7 @@ import eu.quickgdx.game.mechanics.World;
 import eu.quickgdx.game.mechanics.states.NoMovementState;
 import eu.quickgdx.game.mechanics.states.SlowState;
 import eu.quickgdx.game.mechanics.states.State;
+import eu.quickgdx.game.mechanics.states.global.GlobalFogState;
 
 /**
  * Gives you an simple object controlled by the user
@@ -60,7 +61,7 @@ public class ControlledObject extends MoveableObject {
     }
 
     private Rectangle getPlayerRectangle(Vector2 position) {
-        return new Rectangle(position.x + Constanze.TILESIZE / 4, position.y + Constanze.TILESIZE / 4, boundsSize, boundsSize);
+        return new Rectangle(position.x + Constanze.TILESIZE / 4, position.y + 4, boundsSize, boundsSize);
     }
 
     @Override
@@ -135,6 +136,8 @@ public class ControlledObject extends MoveableObject {
     }
 
     private void handleInput() {
+        if(world.hasGlobalState(GlobalFogState.class))
+            return;
         if (Gdx.input.isKeyPressed(controls.DOWN)) {
             moveDown = true;
         }
@@ -150,19 +153,20 @@ public class ControlledObject extends MoveableObject {
         if (Gdx.input.isKeyPressed(controls.SHOOT)) {
             if (shoottimer > 0)
                 return;
+            shoottimer=0;
             shoottimer += Constanze.SHOOTCOOLDWON;
             switch (heading) {
                 case 1:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, 1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 800f, new Vector2(0f, 1f), this, heading));
                     break;
                 case 2:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 800f, new Vector2(1f, 0f), this, heading));
                     break;
                 case 3:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, -1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 800f, new Vector2(0f, -1f), this, heading));
                     break;
                 case 4:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(-1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 800f, new Vector2(-1f, 0f), this, heading));
                     break;
             }
 

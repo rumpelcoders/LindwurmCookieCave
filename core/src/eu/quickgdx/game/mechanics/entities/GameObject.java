@@ -118,6 +118,10 @@ public abstract class GameObject {
     public int getTileX(){
         return (int)this.position.x/ Constanze.TILESIZE;
     }
+    public void setTilePostionCorrect(){
+        this.position.x=getTileX()*Constanze.TILESIZE;
+        this.position.y=getTileY()*Constanze.TILESIZE;
+    }
 
     public int getTileY(){
         return (int)this.position.y/ Constanze.TILESIZE;

@@ -78,6 +78,7 @@ public class QuickGdx extends ApplicationAdapter {
 
         //Fonts
         assMan.load("fonts/RabbidHighwaySignII.fnt", BitmapFont.class);
+        assMan.load("fonts/retro.fnt", BitmapFont.class);
 
         //Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);

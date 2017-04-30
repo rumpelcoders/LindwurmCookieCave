@@ -289,6 +289,15 @@ public class World {
         this.globalStates.removeValue(state, false);
     }
 
+    public boolean hasGlobalState(Class type){
+        for (GlobalState globalState : globalStates) {
+            if(ClassReflection.isInstance(type, globalState)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public <T extends GameObject> Array<T> getGameObjectByType(Class<T> type) {
         Array<T> returnTypes = new Array<T>();

@@ -213,6 +213,8 @@ public class SoundManager {
         public void play(){
             if(currentMusic!=null)
                 currentMusic.stop();
+            if(intesity>=tracks.size || intesity<0)
+                intesity=tracks.size-1;
             tracks.get(intesity).play();
             currentMusic=tracks.get(intesity);
             stopped=false;

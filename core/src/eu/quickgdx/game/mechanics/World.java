@@ -69,8 +69,8 @@ public class World {
     private float alreadyplayedtimer=0;
 
     public World(GameplayScreen gameplayScreen, int nrPlayers) {
-        mapWidth = 48;
-        mapHeight = 48;
+        mapWidth = nrPlayers*20;
+        mapHeight = nrPlayers*20;
         tileHeight = Constanze.TILESIZE;
         tileWidth = Constanze.TILESIZE;
         this.nrPlayers = nrPlayers;

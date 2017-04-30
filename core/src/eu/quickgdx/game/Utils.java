@@ -29,4 +29,8 @@ public class Utils {
         }
         return Math.abs(r * Math.sin(t)) * mapWidth;
     }
+
+    public static int randRange(int minimum, int maximum) {
+        return minimum + (int) (Math.random() * maximum);
+    }
 }

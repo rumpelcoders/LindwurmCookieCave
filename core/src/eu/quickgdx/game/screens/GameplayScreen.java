@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -27,10 +28,7 @@ public class GameplayScreen extends ScreenAdapter {
     public final Array<Viewport> viewports;
     public final OrthographicCamera hudCam;
     private final int nrPlayers;
-    int borderTop = Constanze.TILESIZE * 2;
-    int borderLeft = Constanze.TILESIZE * 2;
-    int borderRight = Constanze.TILESIZE * 2;
-    int borderBottom = Constanze.TILESIZE * 2;
+
     public QuickGdx parentGame;
 
     Texture backgroundImage;
@@ -53,8 +51,13 @@ public class GameplayScreen extends ScreenAdapter {
         for (int playNr = 0; playNr < nrPlayers; playNr++) {
 //            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
             CamObject gameCam = new CamObject(playNr);
-            ScreenViewport screenViewport = new ScreenViewport(gameCam);
-            viewports.add(screenViewport);
+            Viewport viewport;
+            if(nrPlayers < 3) {
+                viewport = new FitViewport(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT * 2, gameCam);
+            } else {
+                viewport = new ScreenViewport(gameCam);
+            }
+            viewports.add(viewport);
             gameCams.add(gameCam);
         }
         hudCam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
@@ -79,25 +82,37 @@ public class GameplayScreen extends ScreenAdapter {
             Viewport screenViewport = this.viewports.get(playNr);
             screenViewport.update(width / 2, height / 2);
             int xStart = 0;
-            int withView = (width - borderLeft - borderRight) / 2;
+            int withView = (width - Constanze.borderLeft - Constanze.borderRight) / 2;
             int yStart = 0;
-            int heightView = (height - borderTop - borderBottom) / 2;
+            int heightView = (height - Constanze.borderTop - Constanze.borderBottom) / 2;
             switch (playNr) {
                 case 0:
-                    xStart = borderLeft;
-                    yStart = borderBottom + heightView;
+                    if (nrPlayers > 2) {
+                        xStart = Constanze.borderLeft;
+                        yStart = Constanze.borderBottom + heightView;
+                    } else {
+                        xStart = Constanze.borderLeft;
+                        heightView = heightView * 2;
+                        yStart = Constanze.borderBottom;
+                    }
                     break;
                 case 1:
-                    xStart = width - borderRight - withView;
-                    yStart = borderBottom + heightView;
+                    if (nrPlayers > 2) {
+                        xStart = width - Constanze.borderRight - withView;
+                        yStart = Constanze.borderBottom + heightView;
+                    } else {
+                        xStart = width - Constanze.borderRight - withView;
+                        yStart = Constanze.borderBottom;
+                        heightView = heightView * 2;
+                    }
                     break;
                 case 2:
-                    xStart = borderLeft;
-                    yStart = borderBottom;
+                    xStart = Constanze.borderLeft;
+                    yStart = Constanze.borderBottom;
                     break;
                 case 3:
-                    xStart = width - borderRight - withView;
-                    yStart = borderBottom;
+                    xStart = width - Constanze.borderRight - withView;
+                    yStart = Constanze.borderBottom;
                     break;
             }
             screenViewport.setScreenBounds(xStart, yStart, withView, heightView);
@@ -107,6 +122,9 @@ public class GameplayScreen extends ScreenAdapter {
 
         }
         this.viewports.get(this.viewports.size - 1).update(width, height);
+//        this.viewports.get(this.viewports.size - 1).setScreenBounds(0, 0, width, height);
+        this.hudCam.position.set(0, 0, 0);
+        this.hudCam.update();
 
     }
 

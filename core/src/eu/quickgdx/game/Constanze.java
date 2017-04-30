@@ -2,6 +2,7 @@ package eu.quickgdx.game;
 
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Created by chzellot on 28.04.17.
@@ -65,12 +66,10 @@ public enum Constanze {
     ASSET_ARENA_SE("level/arenaborder_se.png"),
     ASSET_ARENA_SW("level/arenaborder_sw.png"),
 
-    ASSET_LINDWURM_STANDARD("gameplay/lindwurm_blow.png"),
-    ASSET_LINDWURM_LOOK_LEFT("gameplay/lindwurm_look_left.png"),
-    ASSET_LINDWURM_LOOK_RIGHT("gameplay/lindwurm_look_right.png"),
-    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),
-    ;
-
+    ASSET_LINDWURM_STANDARD("gameplay/lindwurm_standard.png", Constanze.GROUP_LINDWURM_IDLE),
+    ASSET_LINDWURM_LOOK_LEFT("gameplay/lindwurm_look_left.png", Constanze.GROUP_LINDWURM_IDLE),
+    ASSET_LINDWURM_LOOK_RIGHT("gameplay/lindwurm_look_right.png", Constanze.GROUP_LINDWURM_IDLE),
+    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),;
 
 
     public static final int FOG_TIME = 4;
@@ -78,22 +77,50 @@ public enum Constanze {
     public final static int TILESIZE = 64;
     public final static float SCALE = 1.0f;
     public final static float SCALED_TILE = TILESIZE * SCALE;
+    public static final float SHOOTCOOLDWON = 0.5f;
+
+    public static final String GROUP_LINDWURM_IDLE = "lindwurm_idle";
+
+    public static int borderTop = Constanze.TILESIZE * 4;
+    public static int borderLeft = Constanze.TILESIZE * 2;
+    public static int borderRight = Constanze.TILESIZE * 2;
+    public static int borderBottom = Constanze.TILESIZE * 0;
+
 
     public static int GAME_WIDTH = 1920;
     public static int GAME_HEIGHT = 1080;
 
 
     public final String path;
+    public final String group;
     public final Class toLOad;
 
     Constanze(String path) {
-        this(path, Texture.class);
+        this(path, "", Texture.class);
+    }
+
+    Constanze(String path, String group) {
+        this(path, group, Texture.class);
     }
 
     Constanze(String path, Class toLOad) {
+        this(path, "", toLOad);
+    }
+
+    Constanze(String path, String group, Class toLOad) {
         this.path = path;
+        this.group = group;
         this.toLOad = toLOad;
     }
 
+    public static Array<Constanze> getByGroup(String group) {
+        Array<Constanze> constanzes = new Array<>();
+        for (Constanze constanze : Constanze.values()) {
+            if (constanze.group.equals(group)) {
+                constanzes.add(constanze);
+            }
+        }
+        return constanzes;
+    }
 
 }

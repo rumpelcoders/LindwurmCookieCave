@@ -25,7 +25,7 @@ public class MenuScreen extends ScreenAdapter {
     Texture backgroundImage;
     BitmapFont menuFont;
 
-    String[] menuStrings = {"Play", "Credits", "Exit"};
+    String[] menuStrings = {"PLAY", "CREDITS", "EXIT"};
     int currentMenuItem = 0;
 
     float offsetLeft = Constanze.GAME_WIDTH / 8, offsetTop = Constanze.GAME_WIDTH / 8, offsetY = Constanze.GAME_HEIGHT / 8;
@@ -35,7 +35,7 @@ public class MenuScreen extends ScreenAdapter {
         this.parentGame = game;
         game.getSoundManager().initzializeMusic();
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
+        menuFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
@@ -77,13 +77,16 @@ public class MenuScreen extends ScreenAdapter {
             currentMenuItem = (currentMenuItem - 1) % menuStrings.length;
             parentGame.getSoundManager().playEvent("blip");
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            if (menuStrings[currentMenuItem].equals("Exit")) {
+            if (menuStrings[currentMenuItem].equals("EXIT")) {
                 Gdx.app.exit();
                 parentGame.getSoundManager().playEvent("explode");
-            } else if (menuStrings[currentMenuItem].equals("Credits")) {
-                parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
+            } else if (menuStrings[currentMenuItem].equals("CREDITS")) {
+                parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);}
+            else if (menuStrings[currentMenuItem].equals("PLAY")) {
+                    parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ChooseGame);
+                }
             }
-        }
+
         // touch
         if (Gdx.input.justTouched()) {
             Vector3 touchWorldCoords = cam.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 1));
@@ -93,11 +96,11 @@ public class MenuScreen extends ScreenAdapter {
                     float pos = Constanze.GAME_HEIGHT - offsetTop - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos-menuFont.getLineHeight()) {
                         // it's there
-                        if (menuStrings[i].equals("Exit")) {
+                        if (menuStrings[i].equals("EXIT")) {
                             Gdx.app.exit();
-                        } else if (menuStrings[i].equals("Play")) {
+                        } else if (menuStrings[i].equals("PLAY")) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ChooseGame);
-                        } else if (menuStrings[i].equals("Credits")) {
+                        } else if (menuStrings[i].equals("CREDITS")) {
                             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Credits);
                         }
                     }

@@ -2,7 +2,6 @@ package eu.quickgdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -78,6 +77,7 @@ public class QuickGdx extends ApplicationAdapter {
 
         //Fonts
         assMan.load("fonts/RabbidHighwaySignII.fnt", BitmapFont.class);
+        assMan.load("fonts/retro.fnt", BitmapFont.class);
 
         //Entities
         assMan.load("gameplay/spritesheet.png", Texture.class);

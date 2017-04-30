@@ -50,7 +50,6 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load("sfx/pickup.wav", Sound.class);
         assMan.load("sfx/powerup.wav", Sound.class);
 
-        assMan.load("sfx/mapchange/mapchange_1.mp3", Sound.class);
         assMan.load("sfx/mapchange/mapchange_2.mp3", Sound.class);
         assMan.load("sfx/mapchange/mapchange_3.mp3", Sound.class);
         assMan.load("sfx/mapchange/mapchange_4.mp3", Sound.class);
@@ -63,7 +62,18 @@ public class QuickGdx extends ApplicationAdapter {
         assMan.load("sfx/cookie4.mp3", Sound.class);
         assMan.load("sfx/vomit.mp3", Sound.class);
 
-        assMan.load("sfx/dub.mp3", Music.class);
+        assMan.load("sfx/lindwurmcookieroyale.mp3", Sound.class);
+        assMan.load("sfx/lw_badcookie1.mp3", Sound.class);
+        assMan.load("sfx/lw_badcookie2.mp3", Sound.class);
+        assMan.load("sfx/lw_goodcookie.mp3", Sound.class);
+        assMan.load("sfx/lw_hit.mp3", Sound.class);
+        assMan.load("sfx/lw_laughter.mp3", Sound.class);
+        assMan.load("sfx/lw_maze.mp3", Sound.class);
+        assMan.load("sfx/lw_start1.mp3", Sound.class);
+        assMan.load("sfx/lw_start2.mp3", Sound.class);
+        assMan.load("sfx/lw_start3.mp3", Sound.class);
+
+
 
         assMan.load("music/game-loop-2-1.mp3", Music.class);
         assMan.load("music/game-loop-2-2.mp3", Music.class);

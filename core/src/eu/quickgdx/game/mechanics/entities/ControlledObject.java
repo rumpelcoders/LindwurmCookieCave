@@ -20,7 +20,7 @@ import eu.quickgdx.game.mechanics.states.State;
  * Created by Veit on 06.02.2016.
  */
 public class ControlledObject extends MoveableObject {
-    private final int boundsSize;
+    private final float boundsSize;
     //    private TextureRegion[] regions = new TextureRegion[12];
     private Vector3 touchCoordinates = new Vector3(0, 0, 0);
 
@@ -43,10 +43,10 @@ public class ControlledObject extends MoveableObject {
         gameCam = camera;
         camera.position.x = position.x;
         camera.position.y = position.y;
-        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 2;
-        this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
+        boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 1.8f;
+        this.bounds = getPlayerRectangle(position);
         this.controls = controls;
-        this.speed = 12f;
+        this.speed = 8f;
         this.hitpoints = 5;
 
     }
@@ -56,7 +56,11 @@ public class ControlledObject extends MoveableObject {
         super.update(delta);
         handleInput();
         handleMovement(delta, true);
-        shoottimer-=delta;
+        shoottimer -= delta;
+    }
+
+    private Rectangle getPlayerRectangle(Vector2 position) {
+        return new Rectangle(position.x + Constanze.TILESIZE / 4, position.y + Constanze.TILESIZE / 4, boundsSize, boundsSize);
     }
 
     @Override
@@ -74,7 +78,7 @@ public class ControlledObject extends MoveableObject {
             }
         }
         newPosition.add(direction.nor().scl(updateSpeed));
-        Rectangle newBounds = new Rectangle(newPosition.x, newPosition.y, boundsSize, boundsSize);
+        Rectangle newBounds = getPlayerRectangle(newPosition);
 
         for (int j = 0; j < world.gameObjects.size; j++) {
             GameObject gameObject = world.gameObjects.get(j);
@@ -144,21 +148,21 @@ public class ControlledObject extends MoveableObject {
             moveRight = true;
         }
         if (Gdx.input.isKeyPressed(controls.SHOOT)) {
-            if(shoottimer>0)
+            if (shoottimer > 0)
                 return;
-            shoottimer+=Constanze.SHOOTCOOLDWON;
+            shoottimer += Constanze.SHOOTCOOLDWON;
             switch (heading) {
                 case 1:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, 1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, 1f), this, heading));
                     break;
                 case 2:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(1f, 0f), this, heading));
                     break;
                 case 3:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, -1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, -1f), this, heading));
                     break;
                 case 4:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(-1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(-1f, 0f), this, heading));
                     break;
             }
 

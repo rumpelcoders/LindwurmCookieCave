@@ -33,7 +33,8 @@ public class GameOverScreen extends ScreenAdapter {
     public GameOverScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
-        gameOverFont = parentGame.getAssetManager().get("menu/Ravie_42.fnt");
+        gameOverFont = parentGame.getAssetManager().get("fonts/retro.fnt");
+        gameOverFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 
         // Create camera that projects the game onto the actual screen size.
         cam = new CamObject(0);
@@ -59,10 +60,10 @@ public class GameOverScreen extends ScreenAdapter {
         // draw bgImage
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         //TODO Maybe more elegant solution
-        String[] gameOver = ("Game Over!\n" +
-                "The winner is: Player " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
+        String[] gameOver = ("Statistics:\n").split("\\n");
+                //"The winner is: Player " + parentGame.getLastWinner().getPlaynr() +"\n").split("\\n");
         for (int i = gameOver.length-1,j=0; i >= 0; i--,j++) {
-            gameOverFont.draw(batch, gameOver[i], Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
+            gameOverFont.draw(batch, gameOver[i].toUpperCase(), Constanze.GAME_WIDTH/2, Constanze.GAME_HEIGHT/2 + j*50);
         }
 
         batch.end();

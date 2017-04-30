@@ -66,6 +66,7 @@ public class World {
     int tileHeight;
     private int cookieCount;
     private int nrPlayers;
+    private float alreadyplayedtimer=0;
 
     public World(GameplayScreen gameplayScreen, int nrPlayers) {
         mapWidth = 32;
@@ -83,10 +84,18 @@ public class World {
         //Add HUD
         this.hud = new HUD(this);
         this.hud.setDebugText("debugText");
-        this.addGlobalState(new GlobalWaitForFogState(this, 10));
+        this.addGlobalState(new GlobalWaitForFogState(this, Utils.randRange(2,15)));
+        switch(Utils.randRange(1,3)){
+            case 1: gameplayScreen.parentGame.getSoundManager().playEvent("lw_start1"); break;
+            case 2: gameplayScreen.parentGame.getSoundManager().playEvent("lw_start2"); break;
+            case 3: gameplayScreen.parentGame.getSoundManager().playEvent("lw_start3"); break;
+
+
+        }
     }
 
     public void update(float delta) {
+        alreadyplayedtimer+=delta;
         this.hud.setDebugText(Gdx.graphics.getFramesPerSecond() + "");
         for (GlobalState globalState : globalStates) {
             globalState.update(delta);
@@ -101,6 +110,10 @@ public class World {
                 }
             }
             go.update(delta);
+        }
+        if(Math.random()<0.002 && alreadyplayedtimer>10){
+            alreadyplayedtimer=0;
+            gameplayScreen.parentGame.getSoundManager().playEvent("lw_laughter");
         }
     }
 

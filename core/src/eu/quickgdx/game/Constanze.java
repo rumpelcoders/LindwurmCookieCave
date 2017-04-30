@@ -111,8 +111,8 @@ public enum Constanze {
     ASSET_SHOOT_THROWINGSTAR_7("gameplay/animation/throwingstar_left_1.png"),
     ASSET_SHOOT_THROWINGSTAR_8("gameplay/animation/throwingstar_left_2.png"),
     ASSET_GREENSTUFF_1("gameplay/animation/green_lightning_1.png"),
-    ASSET_GREENSTUFF_2("gameplay/animation/green_lightning_2.png")
-
+    ASSET_GREENSTUFF_2("gameplay/animation/green_lightning_2.png"),
+    ASSET_MENU_SCREEN("menu/MenuScreen.png"),
     ;
 
 

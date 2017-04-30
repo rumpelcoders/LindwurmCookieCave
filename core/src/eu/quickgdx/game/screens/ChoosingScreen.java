@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import eu.quickgdx.game.CamObject;
@@ -24,7 +25,7 @@ public class ChoosingScreen extends ScreenAdapter {
     public QuickGdx parentGame;
     Texture backgroundImage;
     Texture cookieBagImage;
-
+    Array<Texture> playerChars;
     private BitmapFont choosingFont;
     private final CamObject cam;
     private final SpriteBatch batch;
@@ -55,7 +56,11 @@ public class ChoosingScreen extends ScreenAdapter {
         screenViewport.setScreenBounds(0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         cam.position.set(0, 0, 0);
         cam.update();
-
+        playerChars = new Array<>();
+        playerChars.add(new Texture(Constanze.ASSET_OWL_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_WIZARD_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_SPACEORG_FRONT.path));
+        playerChars.add(new Texture(Constanze.ASSET_FAIRY_FRONT.path));
         batch = new SpriteBatch();
     }
 
@@ -75,7 +80,24 @@ public class ChoosingScreen extends ScreenAdapter {
         for (int i = 0; i < playerStrings.length; i++) {
             if (i == currentMenuItem) choosingFont.setColor(0.2f, 1f, 0.2f, 1f);
             else choosingFont.setColor(0.2f, 0.2f, 1f, 1f);
-            choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - 100 - i * offsetY);
+            choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2 - i * offsetY);
+        }
+        switch (nrOfPlayers){
+            case 2:
+                batch.draw(playerChars.get(0),offsetLeft * 2 + Constanze.TILESIZE, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(1),offsetLeft * 2 + Constanze.TILESIZE*2, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                break;
+            case 3:
+                batch.draw(playerChars.get(0),offsetLeft * 2 + Constanze.TILESIZE, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(1),offsetLeft * 2 + Constanze.TILESIZE*2, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(2),offsetLeft * 2 + Constanze.TILESIZE*3, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                break;
+            case 4:
+                batch.draw(playerChars.get(0),offsetLeft * 2 + Constanze.TILESIZE, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(1),offsetLeft * 2 + Constanze.TILESIZE*2, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(2),offsetLeft * 2 + Constanze.TILESIZE*3, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                batch.draw(playerChars.get(3),offsetLeft * 2 + Constanze.TILESIZE*4, Constanze.GAME_HEIGHT - offsetTop - Constanze.TILESIZE*2, playerChars.get(0).getWidth(),playerChars.get(0).getHeight());
+                break;
         }
         for (int i = 0; i < introduction.length; i++) {
             choosingFont.draw(batch, introduction[i].toUpperCase(), offsetLeft + Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT - offsetTop - i * 50);

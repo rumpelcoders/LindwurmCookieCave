@@ -69,7 +69,31 @@ public enum Constanze {
     ASSET_LINDWURM_STANDARD("gameplay/lindwurm_standard.png", Constanze.GROUP_LINDWURM_IDLE),
     ASSET_LINDWURM_LOOK_LEFT("gameplay/lindwurm_look_left.png", Constanze.GROUP_LINDWURM_IDLE),
     ASSET_LINDWURM_LOOK_RIGHT("gameplay/lindwurm_look_right.png", Constanze.GROUP_LINDWURM_IDLE),
-    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),;
+    ASSET_LINDWURM_BLOW("gameplay/lindwurm_blow.png"),
+    ASSET_SHOOT_FIREBALL_1("gameplay/animation/fireball_down_1.png"),
+    ASSET_SHOOT_FIREBALL_2("gameplay/animation/fireball_down_2.png"),
+    ASSET_SHOOT_FIREBALL_3("gameplay/animation/fireball_up_1.png"),
+    ASSET_SHOOT_FIREBALL_4("gameplay/animation/fireball_up_2.png"),
+    ASSET_SHOOT_FIREBALL_5("gameplay/animation/fireball_right_1.png"),
+    ASSET_SHOOT_FIREBALL_6("gameplay/animation/fireball_right_2.png"),
+    ASSET_SHOOT_FIREBALL_7("gameplay/animation/fireball_left_1.png"),
+    ASSET_SHOOT_FIREBALL_8("gameplay/animation/fireball_left_2.png"),
+    ASSET_THROWAXE_1("gameplay/animation/throwingaxe_1.png"),
+    ASSET_THROWAXE_2("gameplay/animation/throwingaxe_2.png"),
+    ASSET_THROWAXE_3("gameplay/animation/throwingaxe_3.png"),
+    ASSET_THROWAXE_4("gameplay/animation/throwingaxe_4.png"),
+    ASSET_SHOOT_THROWINGSTAR_1("gameplay/animation/throwingstar_down_1.png"),
+    ASSET_SHOOT_THROWINGSTAR_2("gameplay/animation/throwingstar_down_2.png"),
+    ASSET_SHOOT_THROWINGSTAR_3("gameplay/animation/throwingstar_up_1.png"),
+    ASSET_SHOOT_THROWINGSTAR_4("gameplay/animation/throwingstar_up_2.png"),
+    ASSET_SHOOT_THROWINGSTAR_5("gameplay/animation/throwingstar_right_1.png"),
+    ASSET_SHOOT_THROWINGSTAR_6("gameplay/animation/throwingstar_right_2.png"),
+    ASSET_SHOOT_THROWINGSTAR_7("gameplay/animation/throwingstar_left_1.png"),
+    ASSET_SHOOT_THROWINGSTAR_8("gameplay/animation/throwingstar_left_2.png"),
+    ASSET_GREENSTUFF_1("gameplay/animation/green_lightning_1.png"),
+    ASSET_GREENSTUFF_2("gameplay/animation/green_lightning_2.png")
+
+    ;
 
 
     public static final int FOG_TIME = 4;

@@ -36,12 +36,25 @@ public class SoundManager {
         event2sound.put("cookie4", "sfx/cookie4.mp3");
         event2sound.put("vomit", "sfx/vomit.mp3");
 
-        event2sound.put("mapchange1", "sfx/mapchange/mapchange_1.mp3");
+        event2sound.put("mapchange1", "sfx/mapchange/mapchange_6.mp3");
         event2sound.put("mapchange2","sfx/mapchange/mapchange_2.mp3");
         event2sound.put("mapchange3","sfx/mapchange/mapchange_3.mp3");
         event2sound.put("mapchange4","sfx/mapchange/mapchange_4.mp3");
         event2sound.put("mapchange5","sfx/mapchange/mapchange_5.mp3");
-        event2sound.put("mapchange6","sfx/mapchange/mapchange_6.mp3");
+
+        event2sound.put("lcr","sfx/lindwurmcookieroyale.mp3");
+        event2sound.put("lw_badcookie1","sfx/lw_badcookie1.mp3");
+        event2sound.put("lw_badcookie2","sfx/lw_badcookie2.mp3");
+        event2sound.put("lw_goodcookie","sfx/lw_goodcookie.mp3");
+        event2sound.put("lw_hit","sfx/lw_hit.mp3");
+        event2sound.put("lw_laughter","sfx/lw_laughter.mp3");
+        event2sound.put("lw_maze","sfx/lw_maze.mp3");
+        event2sound.put("lw_start1","sfx/lw_start1.mp3");
+        event2sound.put("lw_start2","sfx/lw_start2.mp3");
+        event2sound.put("lw_start3","sfx/lw_start3.mp3");
+
+
+
 
         event2music = new HashMap<String, String>(1);
         event2music.put("bg1", "sfx/dub.mp3");
@@ -60,6 +73,13 @@ public class SoundManager {
         musicArray2.add(parentGame.getAssetManager().get("music/game-loop-3-1.mp3", Music.class));
         musicArray2.add(parentGame.getAssetManager().get("music/game-loop-3-2.mp3", Music.class));
         songs.add(new Song(musicArray2));
+
+        for (Music music : musicArray1) {
+            music.setVolume(0.02f);
+        }
+        for (Music music : musicArray2) {
+            music.setVolume(0.02f);
+        }
     }
 
     public void update(float delta){

@@ -38,6 +38,7 @@ public class ScreenManager {
             currentState = state;
             if (state == ScreenState.Menu) {
                 currentScreen = new MenuScreen(parentGame);
+                parentGame.getSoundManager().playEvent("lcr");
             } else if (state == ScreenState.Credits) {
                 currentScreen = new CreditsScreen(parentGame);
             } else if (state == ScreenState.Game) {

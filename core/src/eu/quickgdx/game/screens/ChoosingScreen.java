@@ -30,7 +30,7 @@ public class ChoosingScreen extends ScreenAdapter {
     ScreenViewport screenViewport;
     String[] playerStrings = {"2", "3", "4"};
     int currentMenuItem = 0;
-    float offsetLeft = Constanze.GAME_WIDTH / 8, offsetTop = Constanze.GAME_WIDTH / 8, offsetY = Constanze.GAME_HEIGHT / 8;
+    float offsetLeft = Constanze.GAME_WIDTH / 16, offsetTop = Constanze.GAME_HEIGHT / 16, offsetY = Constanze.GAME_HEIGHT / 16;
     int nrOfPlayers = 2;
 
     public ChoosingScreen(QuickGdx parentGame) {
@@ -60,12 +60,12 @@ public class ChoosingScreen extends ScreenAdapter {
         cam.update();
         batch.begin();
         batch.draw(backgroundImage, 0, 0, Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
-        choosingFont.draw(batch, "Choose number of players: ",offsetLeft,Constanze.GAME_HEIGHT - offsetTop);
-        choosingFont.draw(batch, "Press Enter to start the Game", Constanze.GAME_WIDTH / 4, Constanze.GAME_HEIGHT / 4);
+        choosingFont.draw(batch, "CHOOSE NUMBER OF PLAYERS: ",offsetLeft,Constanze.GAME_HEIGHT - offsetTop);
+        choosingFont.draw(batch, "PRESS ENTER TO START THE GAME", offsetLeft, Constanze.GAME_HEIGHT / 4);
         for (int i = 0; i < playerStrings.length; i++) {
             if (i == currentMenuItem) choosingFont.setColor(0.2f, 1f, 0.2f, 1f);
             else choosingFont.setColor(0.2f, 0.2f, 1f, 1f);
-            choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop * 2 - i * offsetY);
+            choosingFont.draw(batch, playerStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - 100 - i * offsetY);
         }
         batch.end();
     }

@@ -79,8 +79,8 @@ public enum Constanze {
     public final static float SCALE = 1.0f;
     public final static float SCALED_TILE = TILESIZE * SCALE;
 
-    public static final int GAME_WIDTH = 1920;
-    public static final int GAME_HEIGHT = 1080;
+    public static int GAME_WIDTH = 1920;
+    public static int GAME_HEIGHT = 1080;
 
 
     public final String path;

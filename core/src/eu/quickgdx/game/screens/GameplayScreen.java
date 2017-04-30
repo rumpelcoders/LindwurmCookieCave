@@ -27,6 +27,10 @@ public class GameplayScreen extends ScreenAdapter {
     public final Array<Viewport> viewports;
     public final OrthographicCamera hudCam;
     private final int nrPlayers;
+    int borderTop = Constanze.TILESIZE * 2;
+    int borderLeft = Constanze.TILESIZE * 2;
+    int borderRight = Constanze.TILESIZE * 2;
+    int borderBottom = Constanze.TILESIZE * 2;
     public QuickGdx parentGame;
 
     Texture backgroundImage;
@@ -44,55 +48,66 @@ public class GameplayScreen extends ScreenAdapter {
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         menuFont = parentGame.getAssetManager().get("menu/Ravie_72.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        float screenMultiplikator = 2f;
         this.gameCams = new Array<>();
         this.viewports = new Array<>();
-        int border = Constanze.TILESIZE * 2;
         for (int playNr = 0; playNr < nrPlayers; playNr++) {
 //            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
             CamObject gameCam = new CamObject(playNr);
             ScreenViewport screenViewport = new ScreenViewport(gameCam);
-            screenViewport.update(Constanze.GAME_WIDTH / 2, Constanze.GAME_HEIGHT / 2);
-            int xStart = 0;
-            int xEnd = (Constanze.GAME_WIDTH / 2) - border;
-            int yStart = 0;
-            int yEnd = (Constanze.GAME_HEIGHT / 2) - border;
-            switch (playNr) {
-                case 0:
-                    xStart = border;
-                    yStart = border;
-                    break;
-                case 1:
-                    xStart = (Constanze.GAME_WIDTH / 2) + border;
-                    yStart = border;
-                    break;
-                case 2:
-                    xStart = border;
-                    yStart = (Constanze.GAME_HEIGHT / 2) + border;
-                    break;
-                case 3:
-                    xStart = (Constanze.GAME_WIDTH / 2) + border;
-                    yStart = (Constanze.GAME_HEIGHT / 2) + border;
-                    break;
-            }
-            screenViewport.setScreenBounds(xStart, yStart, xEnd, yEnd);
             viewports.add(screenViewport);
-//            gameCam.zoom += 1.2f;
-            gameCam.position.set(0, 0, 0);
-            gameCam.update();
             gameCams.add(gameCam);
         }
-
         hudCam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         ScreenViewport screenViewport = new ScreenViewport(hudCam);
-        screenViewport.update(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         viewports.add(screenViewport);
 //        hudCam.position.set(hudCam.viewportWidth / screenMultiplikator, hudCam.viewportHeight / screenMultiplikator, 0);
         hudCam.update();
+        resize(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
         gameBatch = new SpriteBatch();
         hudBatch = new SpriteBatch();
         this.world = new World(this, nrPlayers);
         parentGame.getSoundManager().startBgMusic();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        Constanze.GAME_HEIGHT = height;
+        Constanze.GAME_WIDTH = width;
+        for (int playNr = 0; playNr < nrPlayers; playNr++) {
+//            OrthographicCamera gameCam = new OrthographicCamera((Constanze.GAME_WIDTH / 2), (Constanze.GAME_HEIGHT / 2));
+            CamObject gameCam = this.gameCams.get(playNr);
+            Viewport screenViewport = this.viewports.get(playNr);
+            screenViewport.update(width / 2, height / 2);
+            int xStart = 0;
+            int withView = (width - borderLeft - borderRight) / 2;
+            int yStart = 0;
+            int heightView = (height - borderTop - borderBottom) / 2;
+            switch (playNr) {
+                case 0:
+                    xStart = borderLeft;
+                    yStart = borderBottom + heightView;
+                    break;
+                case 1:
+                    xStart = width - borderRight - withView;
+                    yStart = borderBottom + heightView;
+                    break;
+                case 2:
+                    xStart = borderLeft;
+                    yStart = borderBottom;
+                    break;
+                case 3:
+                    xStart = width - borderRight - withView;
+                    yStart = borderBottom;
+                    break;
+            }
+            screenViewport.setScreenBounds(xStart, yStart, withView, heightView);
+//            gameCam.zoom += 1.2f;
+            gameCam.position.set(0, 0, 0);
+            gameCam.update();
+
+        }
+        this.viewports.get(this.viewports.size - 1).update(width, height);
+
     }
 
     @Override

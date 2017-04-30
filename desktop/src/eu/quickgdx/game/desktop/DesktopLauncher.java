@@ -12,6 +12,7 @@ public class DesktopLauncher {
         config.width = Constanze.GAME_WIDTH;
         config.height = Constanze.GAME_HEIGHT;
 		config.fullscreen = false;
+//		config.resizable = true;
 		new LwjglApplication(new QuickGdx(), config);
 
 	}

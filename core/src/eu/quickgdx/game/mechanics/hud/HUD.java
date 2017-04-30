@@ -73,8 +73,8 @@ public class HUD {
         float yBottom = (-1) * Constanze.GAME_HEIGHT / 2 + Constanze.borderBottom;
         hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_NW), xStart, yTop);
         hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_NE), xEnd, yTop);
-        hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_SW), xStart, yBottom);
-        hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_SE), xEnd, yBottom);
+        hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_W), xStart, yBottom);
+        hudBatch.draw(assetManager.getTexture(Constanze.ASSET_ARENA_E), xEnd, yBottom);
         float x = xStart;
         Texture arenaN = assetManager.getTexture(Constanze.ASSET_ARENA_N);
         Texture arenaS = assetManager.getTexture(Constanze.ASSET_ARENA_S);
@@ -82,7 +82,7 @@ public class HUD {
             x += Constanze.TILESIZE;
 
             hudBatch.draw(arenaN, x, yTop);
-            hudBatch.draw(arenaS, x, yBottom);
+//            hudBatch.draw(arenaS, x, yBottom);
         }
         float y = yBottom;
         Texture arenaW = assetManager.getTexture(Constanze.ASSET_ARENA_W);
@@ -94,9 +94,9 @@ public class HUD {
         }
 
         hudBatch.draw(lindwurm, lindwurmStart, (Constanze.GAME_HEIGHT / 2) - lindwurm.getHeight());
-        if (debugText != null && debugText.length() > 0) {
-            layout.setText(textFont, debugText);
-        }
+//        if (debugText != null && debugText.length() > 0) {
+//            layout.setText(textFont, debugText);
+//        }
         textFont.draw(hudBatch, layout, Constanze.GAME_WIDTH / 2 - layout.width / 2, Constanze.GAME_HEIGHT - layout.height - 650);
     }
 }

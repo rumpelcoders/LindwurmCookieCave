@@ -54,6 +54,7 @@ public class GameplayScreen extends ScreenAdapter {
             Viewport viewport;
             if(nrPlayers < 3) {
                 viewport = new FitViewport(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT * 2, gameCam);
+                gameCam.zoom = 0.5f;
             } else {
                 viewport = new ScreenViewport(gameCam);
             }

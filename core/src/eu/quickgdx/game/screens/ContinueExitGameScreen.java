@@ -31,6 +31,8 @@ public class ContinueExitGameScreen extends ScreenAdapter {
 
     public ContinueExitGameScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
+        this.parentGame.playerStats.incrPlayer(this.parentGame.getLastWinner().getPlaynr());
+
         backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
         gameOverFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         gameOverFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

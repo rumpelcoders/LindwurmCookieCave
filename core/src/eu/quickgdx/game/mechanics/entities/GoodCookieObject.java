@@ -19,7 +19,7 @@ public class GoodCookieObject extends AbstractCookieObject {
     @Override
     public void hit(PlayerCharacterObject player) {
         world.gameplayScreen.parentGame.setLastWinner(new LastWinner(player.getPlaynr()));
-        world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.GameOver);
+        world.gameplayScreen.parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.ContinueExitGame);
 
         int rand = 1 + (int)(Math.random() * ((4 - 1) + 1));
         switch (rand){

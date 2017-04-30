@@ -3,6 +3,7 @@ package eu.quickgdx.game;
 import com.badlogic.gdx.Screen;
 
 import eu.quickgdx.game.screens.ChoosingScreen;
+import eu.quickgdx.game.screens.ContinueExitGameScreen;
 import eu.quickgdx.game.screens.CreditsScreen;
 import eu.quickgdx.game.screens.GameOverScreen;
 import eu.quickgdx.game.screens.GameplayScreen;
@@ -13,7 +14,7 @@ import eu.quickgdx.game.screens.MenuScreen;
  * Created by Mathias Lux, mathias@juggle.at, on 04.02.2016.
  */
 public class ScreenManager {
-    public enum ScreenState {Loading, Menu, Game, Credits, Help, GameOver,ChooseGame};
+    public enum ScreenState {Loading, Menu, Game, Credits, Help, GameOver,ChooseGame,ContinueExitGame};
     private Screen currentScreen;
     private ScreenState currentState;
     private QuickGdx parentGame;
@@ -45,6 +46,8 @@ public class ScreenManager {
                 currentScreen = new GameOverScreen(parentGame);
             } else if (state == ScreenState.ChooseGame) {
                 currentScreen = new ChoosingScreen(parentGame);
+            } else if (state == ScreenState.ContinueExitGame) {
+                currentScreen = new ContinueExitGameScreen(parentGame);
             }
         }
     }

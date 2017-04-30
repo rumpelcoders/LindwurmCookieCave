@@ -3,6 +3,7 @@ package eu.quickgdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,6 +38,7 @@ public class MenuScreen extends ScreenAdapter {
         backgroundImage = parentGame.getAssetManager().getTexture(Constanze.ASSET_MENU_SCREEN);
         menuFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         menuFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        menuFont.setColor(Color.SKY);
         // Create camera that projects the game onto the actual screen size.
         cam = new OrthographicCamera(Constanze.GAME_WIDTH, Constanze.GAME_HEIGHT);
 
@@ -62,7 +64,7 @@ public class MenuScreen extends ScreenAdapter {
         // draw Strings ...
         for (int i = 0; i < menuStrings.length; i++) {
             if (i == currentMenuItem) menuFont.setColor(0.2f, 1f, 0.2f, 1f);
-            else menuFont.setColor(0.2f, 0.2f, 1f, 1f);
+            else menuFont.setColor(Color.SKY);
             menuFont.draw(batch, menuStrings[i], offsetLeft, Constanze.GAME_HEIGHT - offsetTop - i * offsetY);
         }
         batch.end();

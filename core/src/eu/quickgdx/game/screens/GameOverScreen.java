@@ -3,6 +3,7 @@ package eu.quickgdx.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,9 +34,10 @@ public class GameOverScreen extends ScreenAdapter {
 
     public GameOverScreen(QuickGdx parentGame) {
         this.parentGame = parentGame;
-        backgroundImage = parentGame.getAssetManager().get("menu/menu_background.jpg");
+        backgroundImage = parentGame.getAssetManager().getTexture(Constanze.ASSET_MENU_EMPTY);
         gameOverFont = parentGame.getAssetManager().get("fonts/retro.fnt");
         gameOverFont.getRegion().getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        gameOverFont.setColor(Color.SKY);
 
         // Create camera that projects the game onto the actual screen size.
         cam = new CamObject(0);

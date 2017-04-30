@@ -72,7 +72,6 @@ public class ChoosingScreen extends ScreenAdapter {
 
     private void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
             parentGame.setNumberOfPlayers(nrOfPlayers);
             parentGame.getScreenManager().setCurrentState(ScreenManager.ScreenState.Game);
         } else
@@ -81,10 +80,11 @@ public class ChoosingScreen extends ScreenAdapter {
             // find the menu item ..
             for (int i = 0; i < playerStrings.length; i++) {
                 if (touchWorldCoords.x > offsetLeft) {
-                    float pos = Constanze.GAME_HEIGHT - offsetTop - i * offsetY;
+                    float pos = Constanze.GAME_HEIGHT - offsetTop * 2 - i * offsetY;
                     if (touchWorldCoords.y < pos && touchWorldCoords.y > pos - choosingFont.getLineHeight()) {
                         currentMenuItem = i;
                         nrOfPlayers = i+2;
+                        System.out.println(nrOfPlayers);
                     }
                 }
             }

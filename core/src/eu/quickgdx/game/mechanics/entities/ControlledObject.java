@@ -46,7 +46,7 @@ public class ControlledObject extends MoveableObject {
         boundsSize = Constanze.TILESIZE - Constanze.TILESIZE / 2;
         this.bounds = new Rectangle(position.x, position.y, boundsSize, boundsSize);
         this.controls = controls;
-        this.speed = 12f;
+        this.speed = 8f;
         this.hitpoints = 5;
 
     }
@@ -149,16 +149,16 @@ public class ControlledObject extends MoveableObject {
             shoottimer+=Constanze.SHOOTCOOLDWON;
             switch (heading) {
                 case 1:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, 1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, 1f), this, heading));
                     break;
                 case 2:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(1f, 0f), this, heading));
                     break;
                 case 3:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(0f, -1f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(0f, -1f), this, heading));
                     break;
                 case 4:
-                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 20, new Vector2(-1f, 0f), this, heading));
+                    world.gameObjects.add(new Projectile(new Vector2(this.position), world, 500f, new Vector2(-1f, 0f), this, heading));
                     break;
             }
 
